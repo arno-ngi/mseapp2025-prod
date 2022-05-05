@@ -26,6 +26,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}" data-bs-toggle="tab" href="#items" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                    <span class="d-none d-sm-block">Items</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#files" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                     <span class="d-none d-sm-block">Files</span>
@@ -38,9 +44,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}" data-bs-toggle="tab" href="#items" role="tab">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}" data-bs-toggle="tab" href="#allowance" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Items</span>
+                                    <span class="d-none d-sm-block">Allowance</span>
                                 </a>
                             </li>
                         </ul>
@@ -167,6 +173,133 @@
                             </div>
                             </p>
                         </div>
+                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}" id="allowance" role="tabpanel">
+                            <p class="mb-0">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Visit to</th>
+                                                <th>Days</th>
+                                                <th>Entertainment</th>
+                                                <th>Leave home after 13.00</th>
+                                                <th>Arrive home before 14.00</th>
+                                                <th>Allowance total</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @php
+                                                $total = 0;
+                                            @endphp
+                                            @foreach($invoiceRequest->allowances as $dailyAllowanceItem)
+                                                <tr>
+                                                    <td>{{!is_null($dailyAllowanceItem->from_date) ? $dailyAllowanceItem->from_date->format('Y-m-d H:i') : ''}}</td>
+                                                    <td>{{!is_null($dailyAllowanceItem->to_date) ? $dailyAllowanceItem->to_date->format('Y-m-d H:i') : ''}}</td>
+                                                    <td>{{$dailyAllowanceItem->visit_to}}</td>
+                                                    <td>{{$dailyAllowanceItem->days}}</td>
+                                                    <td>{{$dailyAllowanceItem->entertainment}}</td>
+                                                    <td>{{$dailyAllowanceItem->leave_after_noon ? 'yes' : 'no'}}</td>
+                                                    <td>{{$dailyAllowanceItem->arrive_before_noon ? 'yes' : 'no'}}</td>
+                                                    <td>{!! showEUR2($dailyAllowanceItem->allowance_total, $invoiceRequest->currency) !!}</td>
+
+                                                    <td class="text-right">
+                                                        <a class="btn btn-soft-info waves-effect waves-light btn-sm float-end" href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances&edit='.$dailyAllowanceItem->id}}"><i
+                                                                class="bx bx-wrench font-size-12 align-middle"></i></a>
+                                                    </td>
+                                                </tr>
+
+                                            @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    @if(Request::has('edit'))
+                                        @php
+                                            $dailyAllowance = \App\Models\DailyAllowance::find(Request::query('edit'))
+                                        @endphp
+                                        {{ Form::model($dailyAllowance, ['route' => ['dailyallowance.update', $dailyAllowance], 'method' => 'patch']) }}
+                                    @else
+                                        {!! Form::open(['url' => route('dailyallowance.store'), 'method' => 'post', 'files' => true, 'enctype' => 'multipart/form-data']) !!}
+                                    @endif
+                                    {{Form::hidden('modeltype', 'invoicerequest')}}
+                                    {{Form::hidden('modelid', $invoiceRequest->id)}}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                {{ Form::label('from_date', __('law.from') , ['class' => 'form-label']) }}
+                                                {{ Form::text('from_date', isset($dailyAllowance) ? $dailyAllowance->from_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
+                                                @if ($errors->has('from_date'))
+                                                    <div class="invalid-feedback">{{ $errors->first('from_date') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                {{ Form::label('to_date', __('law.till') , ['class' => 'form-label']) }}
+                                                {{ Form::text('to_date', isset($dailyAllowance) ? $dailyAllowance->to_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
+                                                @if ($errors->has('to_date'))
+                                                    <div class="invalid-feedback">{{ $errors->first('to_date') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                {{ Form::label('visit_to', 'Visit to', ['class' => 'form-label']) }}
+                                                {{ Form::text('visit_to', isset($dailyAllowance) ? $dailyAllowance->visit_to : '', ['class' => $errors->has('visit_to') ? 'form-control is-invalid' : 'form-control']) }}
+                                                @if ($errors->has('visit_to'))
+                                                    <div
+                                                        class="invalid-feedback">{{ $errors->first('visit_to') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                {{ Form::label('entertainment', 'Days entertainment (empty if none)', ['class' => 'form-label']) }}
+                                                {{ Form::text('entertainment', isset($dailyAllowance) ? $dailyAllowance->entertainment : '', ['class' => $errors->has('entertainment') ? 'form-control is-invalid' : 'form-control']) }}
+                                                @if ($errors->has('entertainment'))
+                                                    <div
+                                                        class="invalid-feedback">{{ $errors->first('entertainment') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                {{ Form::label('tme_inhouse', 'TME Inhouse', ['class' => 'form-label']) }}
+                                                {{ Form::select('tme_inhouse', ['0' => 'No', '1' => 'Yes'], null, ['class' => 'form-select']) }}
+                                                @if ($errors->has('tme_inhouse'))
+                                                    <div
+                                                        class="invalid-feedback">{{ $errors->first('tme_inhouse') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <a href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances'}}"
+                                       class="btn btn-danger">{{__('law.cancel')}}</a>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    {{Form::close()}}
+                                </div>
+                            </div>
+                            </p>
+                        </div>
                         <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}" id="items" role="tabpanel">
 
                             <p class="mb-0">
@@ -267,6 +400,9 @@
                 <div class="card-footer">
                     <a href="{{route('rfa.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
+                    <a href="{{route('expenserequest.create').'?rfa='.$invoiceRequest->uuid}}"
+                       class="btn btn-soft-secondary waves-effect waves-light">Create
+                        Expense request</a>
                 </div>
             </div>
 
@@ -280,6 +416,14 @@
 
     <script>
         flatpickr("#invoice_date", {dateFormat: "Y-m-d", defaultDate: new Date});
+        flatpickr("#from_date", {
+            enableTime: !0,
+            dateFormat: "Y-m-d H:i"
+        });
+        flatpickr("#to_date", {
+            enableTime: !0,
+            dateFormat: "Y-m-d H:i"
+        });
 
         Dropzone.autoDiscover = false;
 

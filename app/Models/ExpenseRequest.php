@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class InvoiceRequest extends Model
+class ExpenseRequest extends Model
 {
     use HasFactory;
 
-    protected $dates = ['invoice_date'];
+    protected $dates = ['expense_date'];
 
     public static function boot()
     {
@@ -26,11 +26,11 @@ class InvoiceRequest extends Model
             $format = "%{$char}{$length}{$type}"; // or "$010d";
 
 
-            $slug = 'RFA/' . $model->tenant->shortname . '/';
+            $slug = 'ER/' . $model->tenant->shortname . '/';
             $slug .= !is_null($model->category_id) ? $model->category->shortname : 'IR';
             $slug .= '/' . Carbon::now()->format('y');
 
-            $count = $model->category->invoicerequests()->where('uniqueid', '<>', null)->count();
+            $count = $model->category->expenserequests()->where('uniqueid', '<>', null)->count();
             $slug .= '/';
             $sequence = $count + 1;
             $slug .= sprintf($format, $sequence);;
@@ -44,19 +44,29 @@ class InvoiceRequest extends Model
         return 'uuid';
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function requester()
     {
         return $this->belongsTo(User::class, 'requester_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function invoicerequest()
+    {
+        return $this->belongsTo(InvoiceRequest::class, 'invoice_request_id');
     }
 
     public function approvers()
@@ -69,14 +79,13 @@ class InvoiceRequest extends Model
         return $this->morphMany(Extrafiles::class, 'extrafiles');
     }
 
-    public function allowances()
-    {
-        return $this->hasMany(DailyAllowance::class);
-    }
-
     public function requestitems()
     {
         return $this->morphMany(RequestItem::class, 'requestitemable');
     }
 
+    public function getSlugAttribute()
+    {
+        return $this->uniqueid;
+    }
 }

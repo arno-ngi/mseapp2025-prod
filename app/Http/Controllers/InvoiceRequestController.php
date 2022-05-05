@@ -84,8 +84,11 @@ class InvoiceRequestController extends Controller
             $savepath = 'uploads/' . $fileprefix . '_' . $file->getClientOriginalName();
             $originalname = $file->getClientOriginalName();
             Storage::put('public/' . $savepath, $file->get());
-
+        if ($request->is_invoice === 'yes') {
+            $invoiceRequest->extrafiles()->create(['filepath' => $savepath, 'filename' => $originalname, 'is_invoice' => true]);
+        } else {
             $invoiceRequest->extrafiles()->create(['filepath' => $savepath, 'filename' => $originalname]);
+        }
 
         return response()->json([
             'status' => 'ok'

@@ -24,7 +24,7 @@ class RequestItemController extends Controller
         if($modeltype === 'invoicerequest') {
             return redirect(route('rfa.edit', $model).'?tab=requestitems');
         } else {
-
+            return redirect(route('expenserequest.edit', $model).'?tab=requestitems');
         }
     }
 

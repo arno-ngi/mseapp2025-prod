@@ -9,18 +9,18 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">RFA - {{__('law.create_new')}}</h4>
+                    <h4 class="card-title">Expense request - {{__('law.create_new')}}</h4>
                 </div>
 
-                {!! Form::open(['url' => route('rfa.store'), 'method' => 'post']) !!}
+                {!! Form::open(['url' => route('expenserequest.store'), 'method' => 'post']) !!}
 
                 <div class="card-body p-4">
-                   @include('invoicerequests.partials.form')
+                   @include('expenserequests.partials.form')
                 </div>
 
 
                 <div class="card-footer">
-                    <a href="{{route('rfa.index')}}"
+                    <a href="{{route('expenserequest.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
                     <button type="submit"
                             class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
@@ -36,6 +36,6 @@
 @section('extrajs')
     <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
     <script>
-        flatpickr("#invoice_date", {dateFormat: "Y-m-d",defaultDate: new Date});
+        flatpickr("#expense_date", {dateFormat: "Y-m-d",defaultDate: new Date});
     </script>
 @endsection

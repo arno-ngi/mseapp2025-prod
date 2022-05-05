@@ -101,36 +101,3 @@
         </div>
     </div>
 </div>
-@if(isset($invoiceRequest) && !is_null($invoiceRequest->final_amount))
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="mb-3">
-                {{ Form::label('extra_info', __('law.extra_info') , ['class' => 'form-label']) }}
-                {{ Form::text('extra_info', isset($invoiceRequest) ? $invoiceRequest->extra_info : '', ['class' => $errors->has('extra_info') ? 'form-control is-invalid' : 'form-control']) }}
-                @if ($errors->has('extra_info'))
-                    <div class="invalid-feedback">{{ $errors->first('extra_info') }}</div>
-                @endif
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="mb-3">
-                {{ Form::label('extra_info', __('law.extra_info') , ['class' => 'form-label']) }}
-                {{ Form::text('extra_info', isset($invoiceRequest) ? $invoiceRequest->extra_info : '', ['class' => $errors->has('extra_info') ? 'form-control is-invalid' : 'form-control']) }}
-                @if ($errors->has('extra_info'))
-                    <div class="invalid-feedback">{{ $errors->first('extra_info') }}</div>
-                @endif
-            </div>
-        </div>
-    </div>
-@endif
-
-@if(isset($invoiceRequest) && !is_null($invoiceRequest->safety_description))
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                {{ Form::label('final_amount_reason', 'Safety description', ['class' => 'form-label']) }}
-                {{ Form::text('final_amount_reason', isset($invoiceRequest) ? $invoiceRequest->safety_description : '', ['readonly' => 'true', 'class' => $errors->has('safety_description') ? 'form-control is-invalid' : 'form-control']) }}
-            </div>
-        </div>
-    </div>
-@endif

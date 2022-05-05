@@ -53,7 +53,19 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::patch('/rfa/{invoiceRequest}', [\App\Http\Controllers\InvoiceRequestController::class, 'update'])->name('rfa.update');
     });
 
+    Route::group(['middleware' => ['permission:module.rfa']], function () {
+        Route::get('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'index'])->name('expenserequest.index');
+        Route::post('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'store'])->name('expenserequest.store');
+        Route::get('/expenserequest/create', [\App\Http\Controllers\ExpenseRequestController::class, 'create'])->name('expenserequest.create');
+        Route::post('/expenserequest/{expenseRequest}/files', [\App\Http\Controllers\ExpenseRequestController::class, 'store_files'])->name('expenserequest.store.files');
+        Route::get('/expenserequest/{expenseRequest}', [\App\Http\Controllers\ExpenseRequestController::class, 'edit'])->name('expenserequest.edit');
+        Route::patch('/expenserequest/{expenseRequest}', [\App\Http\Controllers\ExpenseRequestController::class, 'update'])->name('expenserequest.update');
+    });
+
     Route::post('/requestitem', [\App\Http\Controllers\RequestItemController::class, 'store'])->name('requestitem.store');
     Route::patch('/requestitem/{requestItem}', [\App\Http\Controllers\RequestItemController::class, 'update'])->name('requestitem.update');
+
+    Route::post('/dailyallowance', [\App\Http\Controllers\DailyAllowanceController::class, 'store'])->name('dailyallowance.store');
+    Route::patch('/dailyallowance/{dailyAllowance}', [\App\Http\Controllers\DailyAllowanceController::class, 'update'])->name('dailyallowance.update');
 
 });

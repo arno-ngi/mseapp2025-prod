@@ -14,6 +14,11 @@ class Category extends Model
         return $this->hasMany(InvoiceRequest::class);
     }
 
+    public function expenserequests()
+    {
+        return $this->hasMany(ExpenseRequest::class);
+    }
+
     public function categoryusers()
     {
         return $this->hasMany(CategoryUser::class);

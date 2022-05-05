@@ -89,6 +89,8 @@ function getModelFromType($modeltype, $modelid)
 {
     if ($modeltype === "invoicerequest") {
         $model = \App\Models\InvoiceRequest::find($modelid);
+    } else {
+        $model = \App\Models\ExpenseRequest::find($modelid);
     }
 
     return $model;

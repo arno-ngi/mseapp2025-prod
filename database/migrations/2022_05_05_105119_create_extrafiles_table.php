@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('extrafiles_type');
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean('is_invoice')->default(false);
             $table->string('filepath')->nullable();
             $table->string('filename')->nullable();
             $table->timestamps();

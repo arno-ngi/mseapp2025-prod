@@ -40,4 +40,9 @@ class Tenant extends Model
         return $this->hasMany(InvoiceRequest::class);
     }
 
+    public function expenserequests()
+    {
+        return $this->hasMany(ExpenseRequest::class);
+    }
+
 }
