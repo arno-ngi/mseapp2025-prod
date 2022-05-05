@@ -85,7 +85,14 @@ function getHttpChecks()
 
     return array('ip' => $ip, 'useragent' => $useragent);
 }
+function getModelFromType($modeltype, $modelid)
+{
+    if ($modeltype === "invoicerequest") {
+        $model = \App\Models\InvoiceRequest::find($modelid);
+    }
 
+    return $model;
+}
 function getExtensionIcon($file)
 {
     switch (strtolower(\File::extension($file))) {

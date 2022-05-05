@@ -40,7 +40,7 @@
                         <tbody>
                         @foreach($invoiceRequests as $invoiceRequest)
                             <tr>
-                                <td> <a href="{{route('rfa.edit', $invoiceRequest)}}">{{$invoiceRequest->slug }}</a></td>
+                                <td> <a href="{{route('rfa.edit', $invoiceRequest)}}">{{$invoiceRequest->uniqueid }}</a></td>
                                 <td>{{ $invoiceRequest->requester->fullname }}</td>
                                 <td>{{ $invoiceRequest->invoice_date->format('Y-m-d') }}</td>
                                 <td>{{ $invoiceRequest->internal_information }}</td>

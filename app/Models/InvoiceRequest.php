@@ -64,9 +64,15 @@ class InvoiceRequest extends Model
         return $this->morphMany(Approver::class, 'approvers');
     }
 
-    public function getSlugAttribute()
+    public function extrafiles()
     {
-        return $this->uniqueid;
+        return $this->morphMany(Extrafiles::class, 'extrafiles');
+    }
+
+
+    public function requestitems()
+    {
+        return $this->morphMany(RequestItem::class, 'requestitemable');
     }
 
 }

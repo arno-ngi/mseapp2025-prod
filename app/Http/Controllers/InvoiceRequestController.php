@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\InvoiceRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class InvoiceRequestController extends Controller
 {
@@ -73,5 +75,20 @@ class InvoiceRequestController extends Controller
         $invoiceRequest->save();
 
         return back();
+    }
+
+    public function store_files(InvoiceRequest $invoiceRequest, Request $request)
+    {
+            $file = $request->file('rfafile');
+            $fileprefix = Str::slug('upload-' . Str::random(10));
+            $savepath = 'uploads/' . $fileprefix . '_' . $file->getClientOriginalName();
+            $originalname = $file->getClientOriginalName();
+            Storage::put('public/' . $savepath, $file->get());
+
+            $invoiceRequest->extrafiles()->create(['filepath' => $savepath, 'filename' => $originalname]);
+
+        return response()->json([
+            'status' => 'ok'
+        ]);
     }
 }
