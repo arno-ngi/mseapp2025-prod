@@ -27,8 +27,9 @@ function getAppSetting($key)
 }
 function getCategoryArray()
 {
-    return \Illuminate\Support\Facades\Cache::remember('categoriesarray', 10080, function () {
-        return \App\Models\Category::pluck('name', 'id');;
+    $tenant_id = auth()->user()->tenant_id;
+    return \Illuminate\Support\Facades\Cache::remember('categoriesarray:'.$tenant_id, 10080, function () use ($tenant_id) {
+        return \App\Models\Category::whereTenantId($tenant_id)->pluck('name', 'id');;
     });
 }
 
@@ -106,4 +107,40 @@ function getExtensionIcon($file)
         default:
             return 'bx bx-file-blank';
     }
+}
+
+function fixDouble($value)
+{
+    $output = str_replace('.', '', $value);
+    $output = str_replace(',', '.', $output);
+
+    return $output;
+}
+
+function showEUR($amount)
+{
+    if (is_null($amount) || $amount === 0) {
+        return '-';
+    }
+    return '&euro;' . number_format($amount, 2, ',', '.');
+}
+
+function showEUR2($amount, $currency = "EUR")
+{
+    if (is_null($amount) || $amount === 0) {
+        return '-';
+    }
+    return number_format($amount, 2, ',', '.') . ' ' . $currency;
+}
+
+function getStatus($statusid)
+{
+    $statuses = [
+        1 => 'new',
+        2 => 'pending',
+        3 => 'approved',
+        4 => 'rejected',
+        5 => 'closed',
+    ];
+    return $statuses[$statusid];
 }

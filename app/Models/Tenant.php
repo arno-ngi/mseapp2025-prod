@@ -30,6 +30,11 @@ class Tenant extends Model
         return $this->hasMany(User::class);
     }
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
+
     public function invoicerequests()
     {
         return $this->hasMany(InvoiceRequest::class);

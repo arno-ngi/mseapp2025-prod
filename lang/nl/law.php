@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'categories' => 'Categorieën',
     'invoice_date' => 'Factuur datum',
     'currency' => 'Munteenheid',
     'internal_information' => 'Interne informatie',

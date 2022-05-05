@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -17,6 +18,8 @@ class InvoiceRequest extends Model
         parent::boot();
 
         self::creating(function ($model) {
+            $model->uuid = Str::uuid()->toString();
+
             $length = 3;
             $char = 0;
             $type = 'd';
@@ -25,7 +28,7 @@ class InvoiceRequest extends Model
 
             $slug = $model->tenant->shortname . '/';
             $slug .= !is_null($model->category_id) ? $model->category->shortname : 'IR';
-            $slug .= '/' . $model->created_at->format('y');
+            $slug .= '/' . Carbon::now()->format('y');
 
             $count = $model->category->invoicerequests()->where('uniqueid', '<>', null)->count();
             $slug .= '/';
@@ -36,14 +39,29 @@ class InvoiceRequest extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
     public function requester()
     {
         return $this->belongsTo(User::class, 'requester_id');
+    }
+
+    public function approvers()
+    {
+        return $this->morphMany(Approver::class, 'approvers');
     }
 
     public function getSlugAttribute()

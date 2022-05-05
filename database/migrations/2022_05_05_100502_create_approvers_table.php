@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('approvers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tenant_id')->unsigned()->nullable();
-            $table->foreign('tenant_id')->references('id')->on('tenants');
-            $table->string('name');
-            $table->string('shortname')->nullable();
+            $table->integer('approvers_id');
+            $table->string('approvers_type');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('approvers');
     }
 };

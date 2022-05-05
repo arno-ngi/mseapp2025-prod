@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('category_users', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tenant_id')->unsigned()->nullable();
-            $table->foreign('tenant_id')->references('id')->on('tenants');
-            $table->string('name');
-            $table->string('shortname')->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_users');
     }
 };

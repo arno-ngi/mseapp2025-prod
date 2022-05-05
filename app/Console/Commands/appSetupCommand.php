@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\AppSetting;
+use App\Models\Category;
 use App\Models\Identity;
 use App\Models\Tenant;
 use App\Models\User;
@@ -103,6 +104,18 @@ class appSetupCommand extends Command
         $tenant->name = 'MSE TR';
         $tenant->shortname = 'TR';
         $tenant->save();
+
+        $category = new Category();
+        $category->tenant_id = 1;
+        $category->name = "IT";
+        $category->shortname = "IT";
+        $category->save();
+
+        $category = new Category();
+        $category->tenant_id = 1;
+        $category->name = "Travel";
+        $category->shortname = "TR";
+        $category->save();
 
         return Command::SUCCESS;
     }

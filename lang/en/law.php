@@ -1,5 +1,6 @@
 <?php
 return array(
+    'categories' => 'Categories',
     'resent_code' => 'Didn\'t receive a code? Resent code',
     'linked_to' => 'Linked to',
     'not_linked' => 'Not linked',

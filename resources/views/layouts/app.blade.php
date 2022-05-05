@@ -79,7 +79,22 @@
                         </form>
                     </div>
                 </div>
-
+                @if(auth()->user()->is_superadmin)
+                    <div class="dropdown d-none d-sm-inline-block">
+                        <button type="button" class="btn header-item"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{auth()->user()->tenant->name}}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            @foreach(\App\Models\Tenant::all() as $tenant)
+                                <a href="{{route('tenants.switch', $tenant)}}"
+                                   class="dropdown-item notify-item language">
+                                    {{$tenant->name}}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
                 <div class="dropdown d-none d-sm-inline-block">
                     <button type="button" class="btn header-item"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -121,7 +136,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"><i
+                                                    document.getElementById('logout-form').submit();"><i
                                 class="mdi mdi-logout font-size-16 align-middle me-1"></i> {{__('law.logout')}}</a>
                         <form method="POST" id="logout-form" action="{{ route('logout') }}">
                             @csrf
@@ -168,23 +183,30 @@
                                 </a>
                             </li>
                         @endif
+                        <li>
+                            <a href="{{route('categories.index')}}"
+                               class="{{ Request::is('categories*') ? 'active' : '' }}">
+                                <i data-feather="list"></i>
+                                <span>{{__('law.categories')}}</span>
+                            </a>
+                        </li>
                     @endif
                     @if(auth()->user()->is_superadmin)
                         <li class="menu-title">Super admin</li>
-                            <li>
-                                <a href="{{route('tenants.index')}}"
-                                   class="{{ Request::is('tenants*') ? 'active' : '' }}">
-                                    <i data-feather="user-plus"></i>
-                                    <span>Tenants</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('appsettings.index')}}"
-                                   class="{{ Request::is('appsettings*') ? 'active' : '' }}">
-                                    <i data-feather="settings"></i>
-                                    <span>{{__('law.settings')}}</span>
-                                </a>
-                            </li>
+                        <li>
+                            <a href="{{route('tenants.index')}}"
+                               class="{{ Request::is('tenants*') ? 'active' : '' }}">
+                                <i data-feather="user-plus"></i>
+                                <span>Tenants</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('appsettings.index')}}"
+                               class="{{ Request::is('appsettings*') ? 'active' : '' }}">
+                                <i data-feather="settings"></i>
+                                <span>{{__('law.settings')}}</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
 

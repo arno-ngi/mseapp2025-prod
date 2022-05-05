@@ -32,7 +32,11 @@ class importUsersFromServerCommand extends Command
     public function handle()
     {
         try {
-            $ssh = new SSH2('remote.mse-europe.net', '2222', 360);
+            if(!app()->isLocal()) {
+                $ssh = new SSH2('remote.mse-europe.net', '2222', 360);
+            } else {
+                $ssh = new SSH2('10.32.1.19', '22', 360);
+            }
             $ssh->login('mse.local\ngiadmin', 'bLDH*.5Pp');
         } catch (\ErrorException $e) {
             $this->info('Connection failed - aborting');
@@ -95,7 +99,7 @@ class importUsersFromServerCommand extends Command
                 }
 
                 if (!is_null($username) && $username !== '' && $username !== 'Guest' && $givenname !== '' && $useremail !== '' && !is_null($useremail) && !Str::contains($username, 'Health')) {
-                    echo 'create user: ' . $useremail . '<br/>';
+                    $this->info('create user: ' . $useremail);
 
                     $user = User::whereEmail($useremail)->first();
                     if (is_null($user)) {
@@ -103,13 +107,19 @@ class importUsersFromServerCommand extends Command
                     }
                     $user->username = $username;
                     $user->tenant_id = 1;
-                    $user->firstname = $givenname;
-                    $user->name = $surname;
+                    $user->firstname = utf8_encode($givenname);
+                    $user->name = utf8_encode($surname);
                     //$user->lastseen = $lastlogin === '' ? null : date_create_from_format('d/m/Y H:i:s', str_replace('"', '', $lastlogin));
                     $user->is_onserver = true;
                     $user->is_deleted = false;
                     $user->is_active = $user_enabled === 'False' ? 0 : 1;
                     $user->is_clientvisible = $user_enabled === 'False' ? 0 : 1;
+                    if($givenname === "" || is_null($givenname)){
+                        $user->is_clientvisible = 0;
+                    }
+                     if($surname === "" || is_null($surname)){
+                        $user->is_clientvisible = 0;
+                    }
                     $user->email = $useremail;
                     $user->ad_email = $useremail;
                     $user->password = Hash::make('1234');

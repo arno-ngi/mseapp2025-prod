@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoice_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid');
             $table->bigInteger('tenant_id')->unsigned()->nullable();
             $table->foreign('tenant_id')->references('id')->on('tenants');
             $table->bigInteger('category_id')->unsigned()->nullable();

@@ -12,42 +12,30 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">RFA</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">{{__('law.categories')}}</h4>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap gap-2 mb-0 my-n1">
-                            <a href="{{route('rfa.create')}}" class="btn btn-primary waves-effect btn-label waves-light btn-sm">
+                            <a href="{{route('categories.create')}}" class="btn btn-primary waves-effect btn-label waves-light btn-sm">
                                 <i
                                     class="bx bx-plus label-icon"></i>{{__('law.create_new')}}</a>
                         </div>
                     </div>
                 </div>
 
-
                 <div class="card-body">
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Requested By</th>
-                            <th>Requested</th>
-                            <th>Info</th>
-                            <th>Amount</th>
-                            <th>Final Amount</th>
-                            <th>Status</th>
+                            <th>{{__('law.name')}}</th>
+                            <th>{{__('law.created_at')}}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($invoiceRequests as $invoiceRequest)
+                        @foreach($categories as $category)
                             <tr>
-                                <td> <a href="{{route('rfa.edit', $invoiceRequest)}}">{{$invoiceRequest->slug }}</a></td>
-                                <td>{{ $invoiceRequest->requester->fullname }}</td>
-                                <td>{{ $invoiceRequest->invoice_date->format('Y-m-d') }}</td>
-                                <td>{{ $invoiceRequest->internal_information }}</td>
-                                <td>{!! showEUR2($invoiceRequest->total_invoice_amount, $invoiceRequest->currency) !!}</td>
-                                <td>{!! showEUR2($invoiceRequest->final_amount, $invoiceRequest->currency) !!}</td>
-                                <td>{!! getStatus($invoiceRequest->status) !!}</td>
-
+                                <td><a href="{{route('categories.edit', $category)}}">{{$category->name}}</a></td>
+                                <td>{{$category->created_at->format('Y-m-d')}}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -75,9 +63,8 @@
     <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function () {
-            console.log
-
-            var oTable = $("#datatable").DataTable({
+            $("#datatable").DataTable({
+                    pageLength: {{auth()->user()->rows_per_table}},
                     @if(app()->getLocale() === 'nl')
                     language: {
                         "sProcessing": "{{ __('law.busy') }}...",
@@ -97,17 +84,14 @@
                             "sNext": "{{__('law.next')}}",
                             "sPrevious": "{{__('law.previous')}}"
                         }
-                    },
+                    }
                     @endif
-                    pageLength: {{auth()->user()->rows_per_table}},
                 }
             );
-
             $("#datatable-buttons").DataTable({
                 lengthChange: !1,
                 buttons: ["copy", "excel", "pdf", "colvis"]
-            }).buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm");
-
+            }).buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm")
         });
     </script>
 @endsection

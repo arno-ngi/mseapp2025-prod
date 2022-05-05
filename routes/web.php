@@ -35,13 +35,20 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
     });
+Route::group(['middleware' => ['permission:module.settings']], function () {
+        Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
+        Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
+        Route::get('/categories/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('categories.create');
+        Route::get('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'edit'])->name('categories.edit');
+        Route::patch('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
+    });
 
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'index'])->name('rfa.index');
         Route::post('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'store'])->name('rfa.store');
         Route::get('/rfa/create', [\App\Http\Controllers\InvoiceRequestController::class, 'create'])->name('rfa.create');
-        Route::get('/rfa/{user}', [\App\Http\Controllers\InvoiceRequestController::class, 'edit'])->name('rfa.edit');
-        Route::patch('/rfa/{user}', [\App\Http\Controllers\InvoiceRequestController::class, 'update'])->name('rfa.update');
+        Route::get('/rfa/{invoiceRequest}', [\App\Http\Controllers\InvoiceRequestController::class, 'edit'])->name('rfa.edit');
+        Route::patch('/rfa/{invoiceRequest}', [\App\Http\Controllers\InvoiceRequestController::class, 'update'])->name('rfa.update');
     });
 
 
