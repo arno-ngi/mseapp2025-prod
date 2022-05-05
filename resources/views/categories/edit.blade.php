@@ -11,29 +11,11 @@
             <div class="card">
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">{{ $category->name }}</h4>
-                    <div class="flex-shrink-0">
-                        <ul class="nav justify-content-end nav-pills card-header-pills" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-bs-toggle="tab" href="#general" role="tab">
-                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                                    <span class="d-none d-sm-block">{{__('law.general')}}</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#permissions" role="tab">
-                                    <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
-                                    <span class="d-none d-sm-block">Approvers</span>
-                                </a>
-                            </li>
 
-                        </ul>
-                    </div>
                 </div>
 
                 {{ Form::model($category, ['route' => ['categories.update', $category], 'method' => 'patch']) }}
                 <div class="card-body p-4">
-                    <div class="tab-content text-muted">
-                        <div class="tab-pane active" id="general" role="tabpanel">
                             <p class="mb-0">
                             <div class="row">
 
@@ -56,11 +38,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            </p>
-                        </div>
-                        <div class="tab-pane" id="permissions" role="tabpanel">
-                            <p class="mb-0">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
@@ -78,8 +55,6 @@
                                 </div>
                             </div>
                             </p>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card-footer">

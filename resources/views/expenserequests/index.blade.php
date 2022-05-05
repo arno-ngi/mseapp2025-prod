@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">RFA</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Expense Requests</h4>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap gap-2 mb-0 my-n1">
                             <a href="{{route('expenserequest.create')}}" class="btn btn-primary waves-effect btn-label waves-light btn-sm">

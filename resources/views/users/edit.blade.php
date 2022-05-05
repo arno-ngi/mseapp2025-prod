@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('extracss')
-
+    <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
+    <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -19,9 +20,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
+                                    <span class="d-none d-sm-block">Profile</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#permissions" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
                                     <span class="d-none d-sm-block">{{__('law.permissions')}}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#files" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
+                                    <span class="d-none d-sm-block">{{__('law.files')}}</span>
                                 </a>
                             </li>
 
@@ -29,11 +42,12 @@
                     </div>
                 </div>
 
-                {{ Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
                 <div class="card-body p-4">
                     <div class="tab-content text-muted">
                         <div class="tab-pane active" id="general" role="tabpanel">
                             <p class="mb-0">
+                            {{ Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
+
                             <div class="row">
 
                                 <div class="col-lg-6">
@@ -117,10 +131,139 @@
                                 </div>
 
                             </div>
+                            <button type="submit"
+                                    class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
+                            {{Form::close()}}
                             </p>
                         </div>
+                        <div class="tab-pane" id="profile" role="tabpanel">
+                            <p class="mb-0">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('birthplace', 'Geboorteplaats', ['class' => 'form-label']) }}
+                                        {{ Form::text('birthplace', isset($user) ? $user->birthplace : '', ['class' => $errors->has('birthplace') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('birthplace'))
+                                            <div class="invalid-feedback">{{ $errors->first('birthplace') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('birthdate', __('law.birthdate'), ['class' => 'form-label']) }}
+                                        {{ Form::text('birthdate', isset($user) ? $user->birthdate : '', ['class' => $errors->has('birthdate') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('birthdate'))
+                                            <div class="invalid-feedback">{{ $errors->first('birthdate') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('birth_country', 'Geboorteland', ['class' => 'form-label']) }}
+                                        {{ Form::text('birth_country', isset($user) ? $user->birth_country : '', ['class' => $errors->has('birth_country') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('birth_country'))
+                                            <div class="invalid-feedback">{{ $errors->first('birth_country') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('national_register_no', 'Rijksregisternr', ['class' => 'form-label']) }}
+                                        {{ Form::text('national_register_no', isset($user) ? $user->national_register_no : '', ['class' => $errors->has('national_register_no') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('national_register_no'))
+                                            <div class="invalid-feedback">{{ $errors->first('national_register_no') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('nationality', 'Nationality', ['class' => 'form-label']) }}
+                                        {{ Form::text('nationality', isset($user) ? $user->nationality : '', ['class' => $errors->has('nationality') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('nationality'))
+                                            <div class="invalid-feedback">{{ $errors->first('nationality') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('bankaccountno', 'Bankaccount no', ['class' => 'form-label']) }}
+                                        {{ Form::text('bankaccountno', isset($user) ? $user->bankaccountno : '', ['class' => $errors->has('bankaccountno') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('bankaccountno'))
+                                            <div class="invalid-feedback">{{ $errors->first('bankaccountno') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('street', 'Street', ['class' => 'form-label']) }}
+                                        {{ Form::text('street', isset($user) ? $user->street : '', ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('street'))
+                                            <div class="invalid-feedback">{{ $errors->first('street') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('number', 'Housenumber', ['class' => 'form-label']) }}
+                                        {{ Form::text('number', isset($user) ? $user->number : '', ['class' => $errors->has('number') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('number'))
+                                            <div class="invalid-feedback">{{ $errors->first('number') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('zip', 'Zipcode', ['class' => 'form-label']) }}
+                                        {{ Form::text('zip', isset($user) ? $user->zip : '', ['class' => $errors->has('zip') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('zip'))
+                                            <div class="invalid-feedback">{{ $errors->first('zip') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('city', 'City', ['class' => 'form-label']) }}
+                                        {{ Form::text('city', isset($user) ? $user->city : '', ['class' => $errors->has('city') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('city'))
+                                            <div class="invalid-feedback">{{ $errors->first('city') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('hospital_previous_eployer', 'Hospital insurance Previous Employer', ['class' => 'form-label']) }}
+                                        {{ Form::text('hospital_previous_eployer', isset($user) ? $user->hospital_previous_eployer : '', ['class' => $errors->has('hospital_previous_eployer') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('hospital_previous_eployer'))
+                                            <div class="invalid-feedback">{{ $errors->first('hospital_previous_eployer') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        {{ Form::label('contract_no', 'Contract no', ['class' => 'form-label']) }}
+                                        {{ Form::text('contract_no', isset($user) ? $user->contract_no : '', ['class' => $errors->has('contract_no') ? 'form-control is-invalid' : 'form-control']) }}
+                                        @if ($errors->has('contract_no'))
+                                            <div class="invalid-feedback">{{ $errors->first('contract_no') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+
                         <div class="tab-pane" id="permissions" role="tabpanel">
                             <p class="mb-0">
+                            {{ Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
                             <div class="row">
                                 @foreach ($permissions as $permission)
                                     <div class="col-lg-2">
@@ -139,18 +282,63 @@
 
                                 @endforeach
                             </div>
+                            <button type="submit"
+                                    class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
+                            {{Form::close()}}
                             </p>
                         </div>
+
+                        <div class="tab-pane" id="files" role="tabpanel">
+                            <p class="mb-0">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>{{__('law.name')}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($user->extrafiles as $extrafile)
+                                                <tr>
+                                                    <td>
+                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    {{ Form::open(['route' => ['users.store.files',$user], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'form_user_files']) }}
+                                    <div class="fallback">
+                                        <input name="rfafile" type="file" multiple="multiple">
+                                    </div>
+                                    <div class="dz-message needsclick">
+                                        <div class="mb-3">
+                                            <i class="display-4 text-muted bx bx-cloud-upload"></i>
+                                        </div>
+
+                                        <h5>{{__('law.add_files')}}</h5>
+                                    </div>
+
+                                    {{ Form::close() }}
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="card-footer">
                     <a href="{{route('users.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
-                    <button type="submit"
-                            class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
+
                 </div>
-                {{Form::close()}}
+
             </div>
 
         </div>
@@ -158,5 +346,22 @@
 @endsection
 
 @section('extrajs')
+    <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
+    <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
 
+    <script>
+        flatpickr("#birthdate", {dateFormat: "Y-m-d"});
+
+        Dropzone.autoDiscover = false;
+
+        $("#form_user_files").dropzone({
+            paramName: "rfafile",
+            maxFilesize: 250,
+            init: function () {
+                this.on("queuecomplete", function (file, response) {
+                    location.reload();
+                });
+            }
+        });
+    </script>
 @endsection

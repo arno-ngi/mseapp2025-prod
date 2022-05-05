@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->belongsTo(UserMultifactor::class);
     }
 
+    public function extrafiles()
+    {
+        return $this->morphMany(Extrafiles::class, 'extrafiles');
+    }
+
     public function checkMFA()
     {
        $getHttpChecks = getHttpChecks();

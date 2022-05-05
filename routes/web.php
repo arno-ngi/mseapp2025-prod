@@ -31,6 +31,7 @@ Route::middleware(['auth', 'mfa'])->group(function () {
     Route::group(['middleware' => ['permission:module.users']], function () {
         Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
         Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+        Route::post('/users/{user}/files', [\App\Http\Controllers\UserController::class, 'store_files'])->name('users.store.files');
         Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');

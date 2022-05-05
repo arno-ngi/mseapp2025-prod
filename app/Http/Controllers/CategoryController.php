@@ -30,6 +30,22 @@ class CategoryController extends Controller
         return view('categories.create');
     }
 
+    public function store(Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $category = new Category();
+        $category->tenant_id = auth()->user()->tenant_id;
+        $category->name = $request->name;
+        $category->shortname = $request->shortname;
+        $category->save();
+
+        return to_route('categories.index');
+
+    }
     public function update(Category $category, Request $request)
     {
 
