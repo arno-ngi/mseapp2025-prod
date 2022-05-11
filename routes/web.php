@@ -63,6 +63,15 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::patch('/expenserequest/{expenseRequest}', [\App\Http\Controllers\ExpenseRequestController::class, 'update'])->name('expenserequest.update');
     });
 
+    Route::group(['middleware' => ['permission:module.tasks']], function () {
+        Route::get('/tasks', [\App\Http\Controllers\TaskController::class, 'index'])->name('tasks.index');
+        Route::post('/tasks', [\App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
+        Route::get('/tasks/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('tasks.create');
+        Route::post('/tasks/{task}/files', [\App\Http\Controllers\TaskController::class, 'store_files'])->name('tasks.store.files');
+        Route::get('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'edit'])->name('tasks.edit');
+        Route::patch('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'update'])->name('tasks.update');
+    });
+
     Route::post('/requestitem', [\App\Http\Controllers\RequestItemController::class, 'store'])->name('requestitem.store');
     Route::patch('/requestitem/{requestItem}', [\App\Http\Controllers\RequestItemController::class, 'update'])->name('requestitem.update');
 

@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->belongsTo(Identity::class);
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
     public function usermultifactors()
     {
         return $this->belongsTo(UserMultifactor::class);

@@ -43,8 +43,13 @@
                                     <div class="mb-3">
                                         <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">
                                             {{ __('law.login') }}</button>
-                                        <a href="{{route('login')}}" class="btn btn-light w-100 waves-effect waves-light mt-4 ">{{__('law.back_to')}} {{str(__('law.login'))->lower()}}</a>
                                     </div>
+                                </form>
+                                <a class="btn btn-light w-100 waves-effect waves-light mt-4" href="{{route('logout')}}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"> {{__('law.back_to')}} {{str(__('law.login'))->lower()}}</a>
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                                    @csrf
                                 </form>
                                 <a href="{{route('mfa.resent')}}" class="btn btn-primary w-100 waves-effect waves-light mt-4 ">{{__('law.resent_code')}}</a>
                             </div>
@@ -88,7 +93,6 @@
 <script src="/assets/libs/feather-icons/feather.min.js"></script>
 <script src="/assets/libs/pace-js/pace.min.js"></script>
 <script src="/assets/js/pages/pass-addon.init.js"></script>
-@include('layouts.partials.flash')
 </body>
 
 </html>

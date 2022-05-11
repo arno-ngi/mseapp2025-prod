@@ -32,11 +32,11 @@ class importUsersFromServerCommand extends Command
     public function handle()
     {
         try {
-            if(!app()->isLocal()) {
+            //if(!app()->isLocal()) {
                 $ssh = new SSH2('remote.mse-europe.net', '2222', 360);
-            } else {
-                $ssh = new SSH2('10.32.1.19', '22', 360);
-            }
+            //} else {
+            //    $ssh = new SSH2('10.32.1.19', '22', 360);
+            //}
             $ssh->login('mse.local\ngiadmin', 'bLDH*.5Pp');
         } catch (\ErrorException $e) {
             $this->info('Connection failed - aborting');
