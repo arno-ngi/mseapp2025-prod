@@ -41,7 +41,7 @@
                                 <td> <a href="{{route('tasks.edit', $task)}}">{{$task->user->fullname }}</a></td>
                                 <td>{{$task->creator->fullname }}</td>
                                 <td>{{$task->title }}</td>
-                                <td>{{$task->is_finished }}</td>
+                                <td>{{$task->is_completed ? 'yes' : 'no' }}</td>
                                 <td>{{$task->created_at->format('Y-m-d H:i') }}</td>
                             </tr>
                         @endforeach

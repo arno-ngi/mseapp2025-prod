@@ -21,4 +21,9 @@ class Task extends Model
         return $this->belongsTo(User::class, 'creator_id');
     }
 
+    public function extrafiles()
+    {
+        return $this->morphMany(Extrafiles::class, 'extrafiles');
+    }
+
 }
