@@ -31,6 +31,7 @@
                             <th>User</th>
                             <th>Creator</th>
                             <th>Title</th>
+                            <th>Time</th>
                             <th>Is finished</th>
                             <th>Created</th>
                         </tr>
@@ -40,7 +41,8 @@
                             <tr>
                                 <td> <a href="{{route('tasks.edit', $task)}}">{{$task->user->fullname }}</a></td>
                                 <td>{{$task->creator->fullname }}</td>
-                                <td>{{$task->title }}</td>
+                                <td> <a href="{{route('tasks.edit', $task)}}">{{$task->title }}</a></td>
+                                <td>{{$task->task_start->format('Y-m-d H:i') }} - {{$task->task_start->format('Y-m-d') === $task->task_end->format('Y-m-d') ? $task->task_end->format('H:i') : $task->task_end->format('Y-m-d H:i') }}</td>
                                 <td>{{$task->is_completed ? 'yes' : 'no' }}</td>
                                 <td>{{$task->created_at->format('Y-m-d H:i') }}</td>
                             </tr>

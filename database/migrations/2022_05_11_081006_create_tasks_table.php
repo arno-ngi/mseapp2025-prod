@@ -20,8 +20,12 @@ return new class extends Migration
             $table->bigInteger('creator_id')->unsigned()->nullable();
             $table->foreign('creator_id')->references('id')->on('users');
             $table->string('title')->nullable();
+            $table->dateTime('task_start')->nullable();
+            $table->dateTime('task_end')->nullable();
             $table->text('description')->nullable();
             $table->boolean('is_completed')->default(false);
+            $table->string('task_type')->nullable();
+            $table->string('o365_id')->nullable();
             $table->timestamps();
         });
     }

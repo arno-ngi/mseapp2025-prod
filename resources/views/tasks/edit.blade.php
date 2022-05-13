@@ -2,6 +2,7 @@
 
 @section('extracss')
     <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
 @endsection
 
 @section('content')
@@ -31,6 +32,26 @@
                                 {{ Form::text('description', isset($task) ? $task->description : '', ['class' => $errors->has('description') ? 'form-control is-invalid' : 'form-control', 'readonly' => 'readonly']) }}
                                 @if ($errors->has('description'))
                                     <div class="invalid-feedback">{{ $errors->first('description') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                {{ Form::label('task_start', 'Start time' , ['class' => 'form-label']) }}
+                                {{ Form::text('task_start', isset($task) ? $task->task_start : '', ['class' => $errors->has('task_start') ? 'form-control is-invalid' : 'form-control']) }}
+                                @if ($errors->has('task_start'))
+                                    <div class="invalid-feedback">{{ $errors->first('task_start') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                {{ Form::label('task_end', 'End time' , ['class' => 'form-label']) }}
+                                {{ Form::text('task_end', isset($task) ? $task->task_end : '', ['class' => $errors->has('task_end') ? 'form-control is-invalid' : 'form-control']) }}
+                                @if ($errors->has('task_end'))
+                                    <div class="invalid-feedback">{{ $errors->first('task_end') }}</div>
                                 @endif
                             </div>
                         </div>
@@ -123,7 +144,7 @@
 
 @section('extrajs')
     <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
-
+    <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
     <script>
         Dropzone.autoDiscover = false;
         $("#form_rfa_files").dropzone({
@@ -135,5 +156,7 @@
                 });
             }
         });
+        flatpickr("#task_start", {enableTime: true, dateFormat: "Y-m-d H:i"});
+        flatpickr("#task_end", {enableTime: true, dateFormat: "Y-m-d H:i"});
     </script>
 @endsection

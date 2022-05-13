@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -30,6 +31,8 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             'title' => ['required', 'string', 'max:255'],
+            'task_start' => ['required'],
+            'task_end' => ['required'],
         ]);
 
         $task = new Task();
@@ -37,6 +40,8 @@ class TaskController extends Controller
         $task->user_id = $request->user_id;
         $task->title = $request->title;
         $task->description = $request->description;
+        $task->task_start = Carbon::createFromFormat("Y-m-d H:i", $request->task_start);
+        $task->task_end = Carbon::createFromFormat("Y-m-d H:i", $request->task_end);
         $task->save();
 
         return to_route('tasks.index');
@@ -46,12 +51,16 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             'title' => ['required', 'string', 'max:255'],
+            'task_start' => ['required'],
+            'task_end' => ['required'],
         ]);
 
         $task->user_id = $request->user_id;
         $task->title = $request->title;
         $task->description = $request->description;
         $task->is_completed = $request->has('is_completed') ? true : false;
+        $task->task_start = Carbon::createFromFormat("Y-m-d H:i", $request->task_start);
+        $task->task_end = Carbon::createFromFormat("Y-m-d H:i", $request->task_end);
         $task->save();
 
         return to_route('tasks.index');
