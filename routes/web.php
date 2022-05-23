@@ -45,6 +45,14 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::patch('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
     });
 
+    Route::group(['middleware' => ['permission:module.barcodes']], function () {
+        Route::get('/barcodes', [\App\Http\Controllers\BarcodeController::class, 'index'])->name('barcodes.index');
+        Route::post('/barcodes', [\App\Http\Controllers\BarcodeController::class, 'store'])->name('barcodes.store');
+        Route::get('/barcodes/create', [\App\Http\Controllers\BarcodeController::class, 'create'])->name('barcodes.create');
+        Route::get('/barcodes/{barcode}', [\App\Http\Controllers\BarcodeController::class, 'edit'])->name('barcodes.edit');
+        Route::patch('/barcodes/{barcode}', [\App\Http\Controllers\BarcodeController::class, 'update'])->name('barcodes.update');
+    });
+
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'index'])->name('rfa.index');
         Route::post('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'store'])->name('rfa.store');

@@ -190,6 +190,15 @@
                             </a>
                         </li>
                     @endif
+                    @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.barcodes']))
+                        <li>
+                            <a href="{{route('barcodes.index')}}"
+                               class="{{ Request::is('barcodes*') ? 'active' : '' }}">
+                                <i data-feather="list"></i>
+                                <span>Barcodes</span>
+                            </a>
+                        </li>
+                    @endif
                     @if(auth()->user()->hasAnyPermission(['module.settings']))
                         <li class="menu-title">{{__('law.settings')}}</li>
                         @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.users']))

@@ -35,6 +35,11 @@ class Tenant extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function barcodes()
+    {
+        return $this->hasMany(Barcode::class);
+    }
+
     public function invoicerequests()
     {
         return $this->hasMany(InvoiceRequest::class);

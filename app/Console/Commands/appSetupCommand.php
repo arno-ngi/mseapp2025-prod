@@ -78,6 +78,10 @@ class appSetupCommand extends Command
         if (!is_null($user) && !$user->hasPermissionTo($permission->id)) {
             $user->givePermissionTo($permission);
         }
+        $permission = Permission::firstOrCreate(['name' => 'module.barcodes']);
+        if (!is_null($user) && !$user->hasPermissionTo($permission->id)) {
+            $user->givePermissionTo($permission);
+        }
 
         $this->info('making settings...');
         $app_settings = array(
