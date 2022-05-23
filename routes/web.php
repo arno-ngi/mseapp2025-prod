@@ -50,6 +50,7 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::post('/barcodes', [\App\Http\Controllers\BarcodeController::class, 'store'])->name('barcodes.store');
         Route::get('/barcodes/create', [\App\Http\Controllers\BarcodeController::class, 'create'])->name('barcodes.create');
         Route::get('/barcodes/{barcode}', [\App\Http\Controllers\BarcodeController::class, 'edit'])->name('barcodes.edit');
+        Route::get('/barcodes/{barcode}/pdf', [\App\Http\Controllers\BarcodeController::class, 'pdf'])->name('barcodes.pdf');
         Route::patch('/barcodes/{barcode}', [\App\Http\Controllers\BarcodeController::class, 'update'])->name('barcodes.update');
     });
 

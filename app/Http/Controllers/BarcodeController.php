@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Barcode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BarcodeController extends Controller
 {
@@ -18,6 +20,14 @@ class BarcodeController extends Controller
     {
 
         return view('barcodes.edit', compact('barcode'));
+    }
+
+    public function pdf(Barcode $barcode)
+    {
+        $data = array('barcode' => $barcode);
+        $pdf = PDF::loadView('barcodes.pdf', $data);
+
+        return $pdf->download('barcodes_'.Str::slug($barcode->name).'.pdf');
     }
 
     public function create()

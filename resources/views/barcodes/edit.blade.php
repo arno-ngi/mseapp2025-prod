@@ -57,6 +57,8 @@
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
                     <button type="submit"
                             class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
+                    <a href="{{route('barcodes.pdf', $barcode)}}"
+                       class="btn btn-soft-info waves-effect waves-light">PDF</a>
                 </div>
                 {{Form::close()}}
             </div>
