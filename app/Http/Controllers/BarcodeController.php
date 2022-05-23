@@ -48,6 +48,7 @@ class BarcodeController extends Controller
         $barcode->name = $request->name;
         $barcode->startnumber = $request->startnumber;
         $barcode->quantity = $request->quantity;
+        $barcode->barcodetype = $request->barcodetype;
         $barcode->save();
 
         return to_route('barcodes.index');
@@ -62,6 +63,7 @@ class BarcodeController extends Controller
         $barcode->name = $request->name;
         $barcode->startnumber = $request->startnumber;
         $barcode->quantity = $request->quantity;
+        $barcode->barcodetype = $request->barcodetype;
         $barcode->save();
 
         return back();

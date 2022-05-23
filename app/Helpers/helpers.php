@@ -38,6 +38,11 @@ function getCurrencyArray()
     return array('EUR'=>'EUR', 'USD'=>'USD', 'GBP'=>'GBP', 'CZK'=>'CZK', 'YTL'=>'YTL');
 }
 
+function getBarcodetypesArray()
+{
+    return array('C39'=>'C39', 'C39+'=>'C39+', 'C39E'=>'C39E', 'EAN2'=>'EAN2', 'EAN5'=>'EAN5', 'EAN8'=>'EAN8', 'EAN13'=>'EAN13', 'PHARMA'=>'PHARMA');
+}
+
 function getStatusSafety()
 {
     $statuses = [

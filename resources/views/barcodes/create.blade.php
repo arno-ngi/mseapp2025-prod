@@ -46,7 +46,18 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="col-lg-6">
+                            <div class="mt-3 mt-lg-0">
+                                <div class="mb-3">
+                                    {{ Form::label('barcodetype', 'Barcode Type', ['class' => 'form-label']) }}
+                                    {{ Form::select('barcodetype', getBarcodetypesArray(), null, ['class' => 'form-select']) }}
+                                    @if ($errors->has('barcodetype'))
+                                        <div
+                                            class="invalid-feedback">{{ $errors->first('barcodetype') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

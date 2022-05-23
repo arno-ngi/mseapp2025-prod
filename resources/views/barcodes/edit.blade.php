@@ -48,7 +48,18 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="col-lg-6">
+                            <div class="mt-3 mt-lg-0">
+                                <div class="mb-3">
+                                    {{ Form::label('barcodetype', 'Barcode Type', ['class' => 'form-label']) }}
+                                    {{ Form::select('barcodetype', getBarcodetypesArray(), null, ['class' => 'form-select']) }}
+                                    @if ($errors->has('barcodetype'))
+                                        <div
+                                            class="invalid-feedback">{{ $errors->first('barcodetype') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -64,9 +75,18 @@
             </div>
         </div>
         <div class="col-6">
-            @for ($i = $barcode->startnumber; $i < ($barcode->startnumber + $barcode->quantity); $i++)
-                <img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, 'C39',1,33,array(1,1,1), true)}}" alt="barcode" /><br><br>
-            @endfor
+            <table class="table">
+                <tr>
+                    @for ($i = $barcode->startnumber; $i < ($barcode->startnumber + $barcode->quantity); $i++)
+                        <td style="text-align: center">{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), true)}}"
+                                 alt="barcode"/></td>
+                        @if($i % 2 === 0)
+                </tr>
+                <tr>
+                    @endif
+                    @endfor
+                </tr>
+            </table>
         </div>
     </div>
 @endsection
