@@ -40,6 +40,8 @@ class BarcodeController extends Controller
 
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
+            'startnumber' => ['required', 'gt:1000'],
+            'quantity' => ['required', 'gt:0'],
         ]);
 
         $barcode = new Barcode();
@@ -58,6 +60,8 @@ class BarcodeController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
+            'startnumber' => ['required', 'gt:1000'],
+            'quantity' => ['required', 'gt:0'],
         ]);
 
         $barcode->name = $request->name;
