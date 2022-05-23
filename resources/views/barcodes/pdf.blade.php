@@ -7,7 +7,7 @@
         }
 
         #design td {
-            height: 120px;
+            height: 130px;
             text-align: center;
         }
 
