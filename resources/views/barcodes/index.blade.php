@@ -28,6 +28,7 @@
                         <thead>
                         <tr>
                             <th>{{__('law.name')}}</th>
+                            <th>{{__('law.created_by')}}</th>
                             <th>{{__('law.created_at')}}</th>
                         </tr>
                         </thead>
@@ -35,6 +36,7 @@
                         @foreach($barcodes as $barcode)
                             <tr>
                                 <td><a href="{{route('barcodes.edit', $barcode)}}">{{$barcode->name}}</a></td>
+                                <td>{{$barcode->creator->fullname}}</td>
                                 <td>{{$barcode->created_at->format('Y-m-d')}}</td>
                             </tr>
                         @endforeach

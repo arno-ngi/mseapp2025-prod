@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Barcode extends Model
 {
     use HasFactory;
+
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
+    }
+
 }
