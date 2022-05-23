@@ -77,13 +77,19 @@
         <div class="col-6">
             <table class="table">
                 <tr>
+                    @php
+                    $counter = 1;
+                    @endphp
                     @for ($i = $barcode->startnumber; $i < ($barcode->startnumber + $barcode->quantity); $i++)
                         <td style="text-align: center">{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), true)}}"
                                  alt="barcode"/></td>
-                        @if($i % 2 === 0)
+                        @if($counter % 2 === 0)
                 </tr>
                 <tr>
                     @endif
+                    @php
+                        $counter++;
+                    @endphp
                     @endfor
                 </tr>
             </table>
