@@ -35,6 +35,7 @@ Route::middleware(['auth', 'mfa'])->group(function () {
         Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
         Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+        Route::patch('/users/profile/{user}', [\App\Http\Controllers\UserController::class, 'update_profile'])->name('users.profile.update');
     });
 
     Route::group(['middleware' => ['permission:module.settings']], function () {

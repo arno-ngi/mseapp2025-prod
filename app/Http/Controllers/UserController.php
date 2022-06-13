@@ -89,6 +89,40 @@ class UserController extends Controller
 
     }
 
+    public function update_profile(Request $request, User $user)
+    {
+        if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id) {
+
+
+
+                $user->birthplace = $request->birthplace;
+                $user->birthdate = $request->birthdate;
+                $user->birth_country = $request->birth_country;
+                $user->national_register_no = $request->national_register_no;
+                $user->nationality = $request->nationality;
+                $user->bankaccountno = $request->bankaccountno;
+                $user->street = $request->street;
+                $user->number = $request->number;
+                $user->zip = $request->zip;
+                $user->city = $request->city;
+                $user->hospital_previous_eployer = $request->hospital_previous_eployer;
+                $user->contract_no = $request->contract_no;
+                $user->hospital_previous_eployer = $request->hospital_previous_eployer;
+
+                $user->save();
+
+
+            flash()->success(__('law.updated_succesfully'));
+
+            return to_route('users.index');
+        }
+
+        flash()->error(__('law.not_allowed'));
+
+        return to_route('users.index');
+
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

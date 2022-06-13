@@ -138,6 +138,7 @@
                         </div>
                         <div class="tab-pane" id="profile" role="tabpanel">
                             <p class="mb-0">
+                            {{ Form::model($user, ['route' => ['users.profile.update', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
@@ -258,6 +259,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <button type="submit"
+                                    class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
+                            {{Form::close()}}
                             </p>
                         </div>
 
