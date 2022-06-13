@@ -261,7 +261,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">
-                            Design & Develop by Next Gen ICT
+                            Version 2.0.3
                         </div>
                     </div>
                 </div>
