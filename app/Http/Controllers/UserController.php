@@ -90,6 +90,36 @@ class UserController extends Controller
 
     }
 
+    public function update2(Request $request, User $user)
+    {
+        if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id || auth()->user()->id === $user->id) {
+            if ($request->has('name')) {
+                $validated = $request->validate([
+                    'name' => 'required',
+                    'firstname' => 'required',
+                    'email' => 'email:rfc,dns'
+                ]);
+
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->firstname = $request->firstname;
+                $user->initials = $request->initials;
+
+                $user->save();
+            }
+
+
+            flash()->success(__('law.updated_succesfully'));
+
+            return back();
+        }
+
+        flash()->error(__('law.not_allowed'));
+
+        return back();
+
+    }
+
     public function update_profile(Request $request, User $user)
     {
         if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id) {

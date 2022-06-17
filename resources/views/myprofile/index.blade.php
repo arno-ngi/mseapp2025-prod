@@ -40,7 +40,7 @@
                     <div class="tab-content text-muted">
                         <div class="tab-pane active" id="general" role="tabpanel">
                             <p class="mb-0">
-                            {{ Form::model($user, ['route' => ['users.update', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
+                            {{ Form::model($user, ['route' => ['users.update2', $user], 'method' => 'patch', 'files' => true, 'enctype' => 'multipart/form-data']) }}
 
                             <div class="row">
 
@@ -85,60 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        {{ Form::label('password', __('law.new_password') , ['class' => 'form-label']) }}
-                                        {{ Form::password('password', ['class' => $errors->has('password') ? 'form-control is-invalid' : 'form-control']) }}
-                                        @if ($errors->has('password'))
-                                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-
-                                    <div class="mb-3">
-                                        {{ Form::label('notifier_position', __('law.notifier_position'), ['class' => 'form-label']) }}
-                                        {{ Form::select('notifier_position', ['top-center' => 'top-center','top-right' => 'top-right', 'bottom-center' => 'bottom-center', 'bottom-right' => 'bottom-right'], null, ['class' => 'form-select']) }}
-                                        @if ($errors->has('notifier_position'))
-                                            <div
-                                                class="invalid-feedback">{{ $errors->first('notifier_position') }}</div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr/>
-
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="mt-3 mt-lg-0">
-                                        <div class="mb-3">
-                                            <div class="form-check form-switch mb-3" dir="ltr">
-                                                <input type="checkbox" class="form-check-input" id="is_active"
-                                                       name="is_active"{{ isset($user) && $user->is_active ? ' checked=""' : '' }}>
-                                                <label class="form-check-label"
-                                                       for="is_active">{{__('law.active')}}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mt-3 mt-lg-0">
-                                        <div class="mb-3">
-                                            <div class="form-check form-switch mb-3" dir="ltr">
-                                                <input type="checkbox" class="form-check-input" id="is_onserver"
-                                                       name="is_onserver"{{ isset($user) && $user->is_onserver ? ' checked=""' : '' }}>
-                                                <label class="form-check-label"
-                                                       for="is_onserver">{{__('law.is_onserver')}}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <button type="submit"
+<button type="submit"
                                     class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
                             {{Form::close()}}
                             </p>

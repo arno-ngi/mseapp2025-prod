@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/users/{user}/files', [\App\Http\Controllers\UserController::class, 'store_files'])->name('users.store.files');
     Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::patch('/myprofile/{user}', [\App\Http\Controllers\UserController::class, 'update2'])->name('users.update2');
     Route::patch('/users/profile/{user}', [\App\Http\Controllers\UserController::class, 'update_profile'])->name('users.profile.update');
 
     Route::group(['middleware' => ['permission:module.settings']], function () {
