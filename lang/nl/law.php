@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'myprofile' => 'Mijn profiel',
+    'birthland' => 'Geboorteland',
+    'birthplace' => 'Geboorteplaats',
     'is_onserver' => 'Inloggen met servercredentials',
     'categories' => 'Categorieën',
     'invoice_date' => 'Factuur datum',

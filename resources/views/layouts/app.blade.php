@@ -235,12 +235,12 @@
                             </a>
                         </li>
                     @endif
-                    <li class="menu-title">Gebruiker</li>
+                    <li class="menu-title">{{__('law.user')}}</li>
                     <li>
                         <a href="{{route('myprofile')}}"
                            class="{{ Request::is('myprofile') ? 'active' : '' }}">
                             <i data-feather="user"></i>
-                            <span>My profile</span>
+                            <span>{{__('law.myprofile')}}</span>
                         </a>
                     </li>
                 </ul>

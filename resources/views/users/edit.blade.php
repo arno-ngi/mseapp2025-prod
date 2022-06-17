@@ -155,7 +155,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('birthplace', 'Geboorteplaats', ['class' => 'form-label']) }}
+                                        {{ Form::label('birthplace', __('law.birthplace'), ['class' => 'form-label']) }}
                                         {{ Form::text('birthplace', isset($user) ? $user->birthplace : '', ['class' => $errors->has('birthplace') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('birthplace'))
                                             <div class="invalid-feedback">{{ $errors->first('birthplace') }}</div>
@@ -175,7 +175,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('birth_country', 'Geboorteland', ['class' => 'form-label']) }}
+                                        {{ Form::label('birth_country', __('law.birthland'), ['class' => 'form-label']) }}
                                         {{ Form::text('birth_country', isset($user) ? $user->birth_country : '', ['class' => $errors->has('birth_country') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('birth_country'))
                                             <div class="invalid-feedback">{{ $errors->first('birth_country') }}</div>
@@ -216,7 +216,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('street', 'Street', ['class' => 'form-label']) }}
+                                        {{ Form::label('street', __('law.street'), ['class' => 'form-label']) }}
                                         {{ Form::text('street', isset($user) ? $user->street : '', ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('street'))
                                             <div class="invalid-feedback">{{ $errors->first('street') }}</div>
@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('number', 'Housenumber', ['class' => 'form-label']) }}
+                                        {{ Form::label('number', __('law.housenumber'), ['class' => 'form-label']) }}
                                         {{ Form::text('number', isset($user) ? $user->number : '', ['class' => $errors->has('number') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('number'))
                                             <div class="invalid-feedback">{{ $errors->first('number') }}</div>
@@ -236,7 +236,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('zip', 'Zipcode', ['class' => 'form-label']) }}
+                                        {{ Form::label('zip', __('law.zipcode'), ['class' => 'form-label']) }}
                                         {{ Form::text('zip', isset($user) ? $user->zip : '', ['class' => $errors->has('zip') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('zip'))
                                             <div class="invalid-feedback">{{ $errors->first('zip') }}</div>
@@ -245,7 +245,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('city', 'City', ['class' => 'form-label']) }}
+                                        {{ Form::label('city', __('law.city'), ['class' => 'form-label']) }}
                                         {{ Form::text('city', isset($user) ? $user->city : '', ['class' => $errors->has('city') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('city'))
                                             <div class="invalid-feedback">{{ $errors->first('city') }}</div>
