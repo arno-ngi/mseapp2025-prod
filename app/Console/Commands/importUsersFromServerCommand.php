@@ -105,9 +105,10 @@ class importUsersFromServerCommand extends Command
                     if (is_null($user)) {
                         $user = new User();
                         $user->is_clientvisible = $user_enabled === 'False' ? 0 : 1;
+                        $user->tenant_id = 1;
+
                     }
                     $user->username = $username;
-                    $user->tenant_id = 1;
                     $user->firstname = utf8_encode($givenname);
                     $user->name = utf8_encode($surname);
                     //$user->lastseen = $lastlogin === '' ? null : date_create_from_format('d/m/Y H:i:s', str_replace('"', '', $lastlogin));
