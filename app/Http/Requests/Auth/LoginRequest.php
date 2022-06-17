@@ -50,12 +50,27 @@ class LoginRequest extends FormRequest
         $finduser = User::whereEmail($credentials['email'])->first();
         if (!is_null($finduser)) {
             if ($finduser->is_onserver) {
-                if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-                    RateLimiter::hit($this->throttleKey());
+                $loginvalues = $this->only('password');
+                $ldapconn = ldap_connect("remote.mse-europe.net");
+                if ($ldapconn) {
 
-                    throw ValidationException::withMessages([
-                        'email' => trans('auth.failed'),
-                    ]);
+                    try {
+                        $ldapbind = ldap_bind($ldapconn, $finduser->username."@mse.local", $loginvalues['password']);
+                        if ($ldapbind) {
+                            Auth::login($finduser);
+                        } else {
+                            throw ValidationException::withMessages([
+                                'email' => trans('auth.failed'),
+                            ]);
+                        }
+                    } catch (\Exception $e)
+                    {
+                        throw ValidationException::withMessages([
+                            'email' => trans('auth.failed'),
+                        ]);
+                    }
+
+
                 }
             } else {
                 if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {

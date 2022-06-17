@@ -57,6 +57,7 @@ class UserController extends Controller
                 $user->initials = $request->initials;
                 $user->notifier_position = $request->notifier_position;
                 $user->is_active = $request->has('is_active') ? true : false;
+                $user->is_onserver = $request->has('is_onserver') ? true : false;
 
                 if ($request->has('password') && !is_null($request->password)) {
                     $this->validate($request, [
@@ -92,8 +93,6 @@ class UserController extends Controller
     public function update_profile(Request $request, User $user)
     {
         if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id) {
-
-
 
                 $user->birthplace = $request->birthplace;
                 $user->birthdate = $request->birthdate;

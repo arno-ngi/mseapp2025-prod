@@ -104,6 +104,7 @@ class importUsersFromServerCommand extends Command
                     $user = User::whereEmail($useremail)->first();
                     if (is_null($user)) {
                         $user = new User();
+                        $user->is_clientvisible = $user_enabled === 'False' ? 0 : 1;
                     }
                     $user->username = $username;
                     $user->tenant_id = 1;
@@ -113,7 +114,6 @@ class importUsersFromServerCommand extends Command
                     $user->is_onserver = true;
                     $user->is_deleted = false;
                     $user->is_active = $user_enabled === 'False' ? 0 : 1;
-                    $user->is_clientvisible = $user_enabled === 'False' ? 0 : 1;
                     if($givenname === "" || is_null($givenname)){
                         $user->is_clientvisible = 0;
                     }

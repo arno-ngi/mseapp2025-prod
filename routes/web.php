@@ -11,7 +11,7 @@ Route::get('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 'in
 Route::get('/mfa/resent', [\App\Http\Controllers\Auth\MultiFactorController::class, 'resent'])->name('mfa.resent');
 Route::post('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 'store'])->name('mfa.store');
 
-Route::middleware(['auth', 'mfa'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
     Route::get('/test1', [\App\Http\Controllers\TestController::class, 'test1'])->name('test1');
 

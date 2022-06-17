@@ -2,11 +2,11 @@
 
 @section('extracss')
     <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
-    <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
-   <div class="row">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
 
-                             <div class="row">
+                            <div class="row">
 
                                 <div class="col-lg-6">
                                     <div class="mb-3">
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
 
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('password', __('law.new_password') , ['class' => 'form-label']) }}
@@ -108,7 +108,8 @@
                                         {{ Form::label('notifier_position', __('law.notifier_position'), ['class' => 'form-label']) }}
                                         {{ Form::select('notifier_position', ['top-center' => 'top-center','top-right' => 'top-right', 'bottom-center' => 'bottom-center', 'bottom-right' => 'bottom-right'], null, ['class' => 'form-select']) }}
                                         @if ($errors->has('notifier_position'))
-                                            <div class="invalid-feedback">{{ $errors->first('notifier_position') }}</div>
+                                            <div
+                                                class="invalid-feedback">{{ $errors->first('notifier_position') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -125,6 +126,18 @@
                                                        name="is_active"{{ isset($user) && $user->is_active ? ' checked=""' : '' }}>
                                                 <label class="form-check-label"
                                                        for="is_active">{{__('law.active')}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mt-3 mt-lg-0">
+                                        <div class="mb-3">
+                                            <div class="form-check form-switch mb-3" dir="ltr">
+                                                <input type="checkbox" class="form-check-input" id="is_onserver"
+                                                       name="is_onserver"{{ isset($user) && $user->is_onserver ? ' checked=""' : '' }}>
+                                                <label class="form-check-label"
+                                                       for="is_onserver">{{__('law.is_onserver')}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('birth_country', 'Geboorteland', ['class' => 'form-label']) }}
@@ -174,12 +187,13 @@
                                         {{ Form::label('national_register_no', 'Rijksregisternr', ['class' => 'form-label']) }}
                                         {{ Form::text('national_register_no', isset($user) ? $user->national_register_no : '', ['class' => $errors->has('national_register_no') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('national_register_no'))
-                                            <div class="invalid-feedback">{{ $errors->first('national_register_no') }}</div>
+                                            <div
+                                                class="invalid-feedback">{{ $errors->first('national_register_no') }}</div>
                                         @endif
                                     </div>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('nationality', 'Nationality', ['class' => 'form-label']) }}
@@ -199,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('street', 'Street', ['class' => 'form-label']) }}
@@ -219,7 +233,7 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('zip', 'Zipcode', ['class' => 'form-label']) }}
@@ -239,13 +253,14 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('hospital_previous_eployer', 'Hospital insurance Previous Employer', ['class' => 'form-label']) }}
                                         {{ Form::text('hospital_previous_eployer', isset($user) ? $user->hospital_previous_eployer : '', ['class' => $errors->has('hospital_previous_eployer') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('hospital_previous_eployer'))
-                                            <div class="invalid-feedback">{{ $errors->first('hospital_previous_eployer') }}</div>
+                                            <div
+                                                class="invalid-feedback">{{ $errors->first('hospital_previous_eployer') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -274,8 +289,10 @@
                                         <div class="mt-3 mt-lg-0">
                                             <div class="mb-3">
                                                 <div class="form-check form-switch mb-3" dir="ltr">
-                                                    <input type="checkbox" class="form-check-input" id="permissions[{{$permission->id}}]"
-                                                           name="permissions[{{$permission->id}}]" value="{{$permission->id}}"{{ $user->hasPermissionTo($permission->id) ? ' checked=""' : '' }}>
+                                                    <input type="checkbox" class="form-check-input"
+                                                           id="permissions[{{$permission->id}}]"
+                                                           name="permissions[{{$permission->id}}]"
+                                                           value="{{$permission->id}}"{{ $user->hasPermissionTo($permission->id) ? ' checked=""' : '' }}>
                                                     <label class="form-check-label"
                                                            for="permissions[{{$permission->id}}]">{{$permission->name}}</label>
 
@@ -307,7 +324,8 @@
                                             @foreach($user->extrafiles as $extrafile)
                                                 <tr>
                                                     <td>
-                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
+                                                            href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'is_onserver' => 'Inloggen met servercredentials',
     'categories' => 'Categorieën',
     'invoice_date' => 'Factuur datum',
     'currency' => 'Munteenheid',
