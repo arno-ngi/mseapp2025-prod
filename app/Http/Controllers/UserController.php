@@ -104,7 +104,6 @@ class UserController extends Controller
                 $user->number = $request->number;
                 $user->zip = $request->zip;
                 $user->city = $request->city;
-                $user->hospital_previous_eployer = $request->hospital_previous_eployer;
                 $user->contract_no = $request->contract_no;
                 $user->hospital_previous_eployer = $request->hospital_previous_eployer;
 
