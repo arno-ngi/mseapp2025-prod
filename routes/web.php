@@ -35,10 +35,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users/{user}/files', [\App\Http\Controllers\UserController::class, 'store_files'])->name('users.store.files');
         Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
-        Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
-        Route::patch('/users/profile/{user}', [\App\Http\Controllers\UserController::class, 'update_profile'])->name('users.profile.update');
+
     });
 
+    Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::patch('/users/profile/{user}', [\App\Http\Controllers\UserController::class, 'update_profile'])->name('users.profile.update');
+    
     Route::group(['middleware' => ['permission:module.settings']], function () {
         Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
         Route::post('/categories', [\App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
