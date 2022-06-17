@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Activitylog\LogOptions;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
 
     public static function boot()
     {
@@ -27,6 +28,11 @@ class User extends Authenticatable
             $model->uuid = Str::uuid()->toString();
         });
 
+    }
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*']);
     }
 
     protected $fillable = [
