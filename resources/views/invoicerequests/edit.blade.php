@@ -49,6 +49,13 @@
                                     <span class="d-none d-sm-block">Allowance</span>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#logs" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
+                                    <span class="d-none d-sm-block">Logs</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -392,6 +399,30 @@
                                     {{Form::close()}}
                                 </div>
                             </div>
+                            </p>
+                        </div>
+                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'logs' ? ' active' : '' }}" id="logs" role="tabpanel">
+                            <p class="mb-0">
+                            <table class="table table-bordered table-striped table-sm">
+                                <tbody>
+                                @foreach($activitylogs as $activitylog)
+                                    <tr>
+                                        <td>{{ $activitylog->created_at->diffForHumans() }}</td>
+                                        <td>
+                                            @if(is_null($activitylog->causer_id))
+                                                -
+                                            @else
+                                                {{ $activitylog->causer->fullname }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $activitylog->description }}
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                             </p>
                         </div>
                     </div>

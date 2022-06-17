@@ -6,6 +6,7 @@ use App\Models\InvoiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\Models\Activity;
 
 class InvoiceRequestController extends Controller
 {
@@ -23,7 +24,9 @@ class InvoiceRequestController extends Controller
 
     public function edit(InvoiceRequest $invoiceRequest)
     {
-        return view('invoicerequests.edit', compact('invoiceRequest'));
+        $activitylogs = Activity::whereSubjectId($invoiceRequest->id)->whereSubjectType(get_class($invoiceRequest))->with('causer')->orderBy('id', 'desc')->get();
+
+        return view('invoicerequests.edit', compact('invoiceRequest', 'activitylogs'));
     }
 
     public function store(Request $request)
@@ -65,14 +68,60 @@ class InvoiceRequestController extends Controller
 
         $invoiceRequest->category_id = $request->category_id;
         $invoiceRequest->invoice_date = $request->invoice_date;
+
+        if ($invoiceRequest->supplier !== $request->supplier) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed supplier from ' . $invoiceRequest->supplier . ' to ' . $request->supplier);
+        }
         $invoiceRequest->supplier = $request->supplier;
+
+        if ($invoiceRequest->internal_information != $request->internal_information) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed internal_information from ' . $invoiceRequest->internal_information . ' to ' . $request->internal_information);
+        }
         $invoiceRequest->internal_information = $request->internal_information;
+
+        if ($invoiceRequest->extra_info !== $request->extra_info) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed extra_info from ' . $invoiceRequest->extra_info . ' to ' . $request->extra_info);
+        }
         $invoiceRequest->extra_info = $request->extra_info;
+
+        if ($invoiceRequest->environment_assesment !== $request->environment_assesment) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed environment_assesment from ' . $invoiceRequest->environment_assesment . ' to ' . $request->environment_assesment);
+        }
         $invoiceRequest->environment_assesment = $request->environment_assesment;
+
+        if ($invoiceRequest->safety_assesment !== $request->safety_assesment) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed safety_assesment from ' . $invoiceRequest->safety_assesment . ' to ' . $request->safety_assesment);
+        }
         $invoiceRequest->safety_assesment = $request->safety_assesment;
+
+        if ($invoiceRequest->total_invoice_amount !== $request->total_invoice_amount) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed total_invoice_amount from ' . $invoiceRequest->total_invoice_amount . ' to ' . $request->total_invoice_amount);
+        }
         $invoiceRequest->total_invoice_amount = fixDouble($request->total_invoice_amount);
+
+        if ($invoiceRequest->currency !== $request->currency) {
+            activity()
+                ->performedOn($invoiceRequest)
+                ->log('Item updated ' . $invoiceRequest->slug . ': Changed currency from ' . $invoiceRequest->currency . ' to ' . $request->currency);
+        }
         $invoiceRequest->currency = $request->currency;
         $invoiceRequest->save();
+
+        activity()
+            ->performedOn($invoiceRequest)
+            ->log('Item updated ' . $invoiceRequest->slug);
 
         return back();
     }
