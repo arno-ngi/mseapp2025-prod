@@ -17,7 +17,6 @@
             font-size: 12px;
         }
 
-
         * {
             margin: 2px;
             padding: 2px;

@@ -235,6 +235,14 @@
                             </a>
                         </li>
                     @endif
+                    <li class="menu-title">Gebruiker</li>
+                    <li>
+                        <a href="{{route('myprofile')}}"
+                           class="{{ Request::is('myprofile') ? 'active' : '' }}">
+                            <i data-feather="user"></i>
+                            <span>My profile</span>
+                        </a>
+                    </li>
                 </ul>
 
             </div>

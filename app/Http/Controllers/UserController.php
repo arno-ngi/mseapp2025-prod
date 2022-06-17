@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id) {
+        if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id || auth()->user()->id === $user->id) {
             if ($request->has('name')) {
                 $validated = $request->validate([
                     'name' => 'required',
@@ -81,12 +81,12 @@ class UserController extends Controller
             }
             flash()->success(__('law.updated_succesfully'));
 
-            return to_route('users.index');
+            return back();
         }
 
         flash()->error(__('law.not_allowed'));
 
-        return to_route('users.index');
+        return back();
 
     }
 
@@ -113,12 +113,12 @@ class UserController extends Controller
 
             flash()->success(__('law.updated_succesfully'));
 
-            return to_route('users.index');
+            return back();
         }
 
         flash()->error(__('law.not_allowed'));
 
-        return to_route('users.index');
+        return back();
 
     }
 

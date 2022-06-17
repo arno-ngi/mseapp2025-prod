@@ -13,6 +13,7 @@ Route::post('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 's
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
+    Route::get('/myprofile', [\App\Http\Controllers\DashboardController::class, 'myprofile'])->name('myprofile');
     Route::get('/test1', [\App\Http\Controllers\TestController::class, 'test1'])->name('test1');
 
     Route::group(['middleware' => ['is_superadmin']], function () {

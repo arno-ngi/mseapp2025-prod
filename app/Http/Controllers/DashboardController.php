@@ -10,4 +10,11 @@ class DashboardController extends Controller
     {
         return view('index');
     }
+
+    public function myprofile()
+    {
+        $user = auth()->user();
+
+        return view('myprofile.index', compact('user'));
+    }
 }
