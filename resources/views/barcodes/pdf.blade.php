@@ -30,10 +30,12 @@
             $counter = 1;
         @endphp
         @for ($i = $barcode->startnumber; $i < ($barcode->startnumber + $barcode->quantity); $i++)
-            <td>{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), true)}}"
-                     alt="barcode"/></td>
-            <td>{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), true)}}"
-                     alt="barcode"/></td>
+            <td>{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), false)}}"
+                     alt="barcode"/><br/>
+            <span style="font-size:28px;">{{$i}}</span></td>
+            <td>{{$barcode->name}}<br/><img src="data:image/png;base64,{{DNS1D::getBarcodePNG($i, $barcode->barcodetype,1,33,array(1,1,1), false)}}"
+                     alt="barcode"/><br/>
+                <span style="font-size:28px;">{{$i}}</span></td>
     </tr>
     <tr>
         @endfor
