@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'index'])->name('rfa.index');
+        Route::get('/rfa/{invoiceRequest}/changestatus/{status}', [\App\Http\Controllers\InvoiceRequestController::class, 'changestatus'])->name('rfa.changestatus');
         Route::post('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'store'])->name('rfa.store');
         Route::get('/rfa/create', [\App\Http\Controllers\InvoiceRequestController::class, 'create'])->name('rfa.create');
         Route::post('/rfa/{invoiceRequest}/files', [\App\Http\Controllers\InvoiceRequestController::class, 'store_files'])->name('rfa.store.files');
@@ -69,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'index'])->name('expenserequest.index');
+        Route::get('/expenserequest/{expenseRequest}/changestatus/{status}', [\App\Http\Controllers\ExpenseRequestController::class, 'changestatus'])->name('expenserequests.changestatus');
         Route::post('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'store'])->name('expenserequest.store');
         Route::get('/expenserequest/create', [\App\Http\Controllers\ExpenseRequestController::class, 'create'])->name('expenserequest.create');
         Route::post('/expenserequest/{expenseRequest}/files', [\App\Http\Controllers\ExpenseRequestController::class, 'store_files'])->name('expenserequest.store.files');

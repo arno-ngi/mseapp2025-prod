@@ -29,7 +29,44 @@ class ExpenseRequestController extends Controller
 
         return view('expenserequests.edit', compact('expenseRequest', 'activitylogs'));
     }
+    public function changestatus(ExpenseRequest $expenseRequest, $status)
+    {
 
+        $approver = $expenseRequest->approvers()->where('user_id', '=', auth()->user()->id)->first();
+        $approver->status = $status;
+        $approver->save();
+
+        $accepted = false;
+        $allaccepted = true;
+        if ($status != 4) {
+            $status = 2;
+
+            foreach ($expenseRequest->approvers()->get() as $approver) {
+
+                if (!is_null($approver) && $approver->status == '3') {
+                    $accepted = true;
+                } else {
+                    $allaccepted = false;
+                    $accepted = false;
+                }
+            }
+            if ($allaccepted) {
+                $status = 3;
+            } else {
+                $status = 2;
+            }
+        } else {
+            $status = 4;
+        }
+        $expenseRequest->status = $status;
+        $expenseRequest->save();
+
+        activity()
+            ->performedOn($expenseRequest)
+            ->log('Status changed');
+
+        return back();
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([

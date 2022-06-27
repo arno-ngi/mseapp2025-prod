@@ -28,6 +28,44 @@ class InvoiceRequestController extends Controller
 
         return view('invoicerequests.edit', compact('invoiceRequest', 'activitylogs'));
     }
+    public function changestatus(InvoiceRequest $invoiceRequest, $status)
+    {
+
+        $approver = $invoiceRequest->approvers()->where('user_id', '=', auth()->user()->id)->first();
+        $approver->status = $status;
+        $approver->save();
+
+        $accepted = false;
+        $allaccepted = true;
+        if ($status != 4) {
+            $status = 2;
+
+            foreach ($invoiceRequest->approvers()->get() as $approver) {
+
+                if (!is_null($approver) && $approver->status == '3') {
+                    $accepted = true;
+                } else {
+                    $allaccepted = false;
+                    $accepted = false;
+                }
+            }
+            if ($allaccepted) {
+                $status = 3;
+            } else {
+                $status = 2;
+            }
+        } else {
+            $status = 4;
+        }
+        $invoiceRequest->status = $status;
+        $invoiceRequest->save();
+
+        activity()
+            ->performedOn($invoiceRequest)
+            ->log('Status changed');
+
+        return back();
+    }
 
     public function store(Request $request)
     {

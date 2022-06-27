@@ -158,3 +158,43 @@ function getStatus($statusid)
     ];
     return $statuses[$statusid];
 }
+
+
+function getStatus2()
+{
+    $statuses = [
+        1 => 'new',
+        2 => 'pending',
+        3 => 'approved',
+        4 => 'rejected',
+        5 => 'closed',
+    ];
+    return $statuses;
+}
+
+function getStatusColors()
+{
+    $statuses = [
+        1 => 'btn-info',
+        2 => 'btn-warning',
+        3 => 'btn-success',
+        4 => 'btn-danger',
+        5 => 'btn-info',
+    ];
+    return $statuses;
+}
+
+function getStatusDetails($statusid)
+{
+    $statuses = getStatus();
+
+    return $statuses[$statusid];
+}
+
+function getStatusColor($statusid)
+{
+    $statuscolors = getStatusColors();
+
+    return $statuscolors[$statusid];
+}
+

@@ -26,7 +26,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#approvers" role="tab">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" data-bs-toggle="tab" href="#approvers" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                     <span class="d-none d-sm-block">Approvers</span>
                                 </a>
@@ -68,7 +68,7 @@
 
                             </p>
                         </div>
-                        <div class="tab-pane" id="approvers" role="tabpanel">
+                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" id="approvers" role="tabpanel">
                             <p class="mb-0">
                             <div class="table-responsive">
                                 <table class="table mb-0">
@@ -82,7 +82,17 @@
                                     @foreach($expenseRequest->approvers as $approver)
                                         <tr>
                                             <td>{{$approver->user->fullname}}</td>
-                                            <td>{!! getStatus($approver->status) !!}</td>
+                                            <td>{!! getStatus($approver->status) !!}
+                                                @if($approver->user_id === auth()->user()->id)
+                                                    @foreach(getStatus2() as $key => $value)
+                                                        @if($key !== 1)
+                                                            <a href="{{route('expenserequests.changestatus', ['expenseRequest' => $expenseRequest, 'status' => $key])}}"
+                                                               class="btn {{getStatusColor($key)}}">{{ $value }}</a>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
