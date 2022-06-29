@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('invoice_date', __('law.invoice_date') , ['class' => 'form-label']) }}
+            {{ Form::label('invoice_date', 'Request datum' , ['class' => 'form-label']) }}
             {{ Form::text('invoice_date', isset($invoiceRequest) ? $invoiceRequest->invoice_date->format('Y-m-d') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('invoice_date'))
                 <div class="invalid-feedback">{{ $errors->first('invoice_date') }}</div>
