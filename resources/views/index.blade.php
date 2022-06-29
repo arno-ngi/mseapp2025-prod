@@ -15,22 +15,24 @@
                         </thead>
                         <tbody>
                         @foreach($approvers as $approver)
-                            <tr>
-                                <td>
-                                    @if(get_class($approver->approvers) === 'App\Models\ExpenseRequest')
-                                        <a href="{{route('expenserequest.edit', $approver->approvers).'?tab=approvers'}}">{{$approver->approvers->uniqueid}}</a>
-                                    @else
-                                        <a href="{{route('rfa.edit', $approver->approvers).'?tab=approvers'}}">{{$approver->approvers->uniqueid}}</a>
-                                    @endif
-
-                                </td>
-                                <td>{!! getStatus($approver->status) !!}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+        @if(!is_null($approver->approvers))
+        <tr>
+            <td>
+                @if(get_class($approver->approvers) === 'App\Models\ExpenseRequest')
+                    <a href="{{route('expenserequest.edit', $approver->approvers).'?tab=approvers'}}">{{$approver->approvers->uniqueid}}</a>
+                @else
+                    <a href="{{route('rfa.edit', $approver->approvers).'?tab=approvers'}}">{{$approver->approvers->uniqueid}}</a>
                 @endif
-            </div>
-        </div>
-    </div>
+
+            </td>
+            <td>{!! getStatus($approver->status) !!}</td>
+        </tr>
+        @endif
+    @endforeach
+    </tbody>
+</table>
+@endif
+</div>
+</div>
+</div>
 @endsection
