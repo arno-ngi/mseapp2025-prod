@@ -56,8 +56,14 @@
     </div>
 
     <div class="col-lg-6">
+        @php
+        $number = '';
+        if(isset($invoiceRequest) && !is_null($invoiceRequest->total_invoice_amount)) {
+                        $number = ': ' . number_format($invoiceRequest->total_invoice_amount, 2, ',', '.');
+        }
+        @endphp
         <div class="mb-3">
-            {{ Form::label('total_invoice_amount', __('law.total_invoice_amount') , ['class' => 'form-label']) }}
+            {{ Form::label('total_invoice_amount', 'Budget' . $number , ['class' => 'form-label']) }}
             {{ Form::text('total_invoice_amount', isset($invoiceRequest) ? $invoiceRequest->total_invoice_amount : '', ['class' => $errors->has('total_invoice_amount') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('total_invoice_amount'))
                 <div class="invalid-feedback">{{ $errors->first('total_invoice_amount') }}</div>
