@@ -456,7 +456,6 @@
     <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
 
     <script>
-        flatpickr("#invoice_date", {dateFormat: "Y-m-d", defaultDate: new Date});
         flatpickr("#from_date", {
             enableTime: !0,
             dateFormat: "Y-m-d H:i"
