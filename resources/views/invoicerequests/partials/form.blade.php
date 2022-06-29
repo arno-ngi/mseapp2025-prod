@@ -54,6 +54,7 @@
             @endif
         </div>
     </div>
+
     <div class="col-lg-6">
         <div class="mb-3">
             {{ Form::label('total_invoice_amount', __('law.total_invoice_amount') , ['class' => 'form-label']) }}
@@ -101,3 +102,20 @@
         </div>
     </div>
 </div>
+@if(isset($invoiceRequest) && $invoiceRequest->safety_description == "1")
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="mt-3 mt-lg-0">
+                <div class="mb-3">
+                    {{ Form::label('safety_description', 'Safety Description', ['class' => 'form-label']) }}
+                    {{ Form::select('safety_description', getStatusSafety(), null, ['class' => 'form-select']) }}
+                    @if ($errors->has('safety_description'))
+                        <div
+                            class="invalid-feedback">{{ $errors->first('safety_description') }}</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+    </div>
+@endif

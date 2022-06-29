@@ -155,6 +155,7 @@ class InvoiceRequestController extends Controller
                 ->log('Item updated ' . $invoiceRequest->slug . ': Changed currency from ' . $invoiceRequest->currency . ' to ' . $request->currency);
         }
         $invoiceRequest->currency = $request->currency;
+        $invoiceRequest->safety_description = $request->safety_description;
         $invoiceRequest->save();
 
         activity()
