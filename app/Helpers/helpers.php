@@ -125,8 +125,7 @@ function getExtensionIcon($file)
 
 function fixDouble($value)
 {
-    $output = str_replace('.', '', $value);
-    $output = str_replace(',', '.', $output);
+    $output = str_replace(',', '.', $value);
 
     return $output;
 }
