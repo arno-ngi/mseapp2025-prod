@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        Auth::login(User::find(9));
+        //Auth::login(User::find(9));
         $approvers = Approver::whereUserId(auth()->user()->id)->whereIn('status', [1,2])->get();
 
         return view('index', compact('approvers'));
