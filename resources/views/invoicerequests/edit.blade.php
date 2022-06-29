@@ -237,7 +237,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    @if(Request::has('edit'))
+                                    @if(Request::has('tab') && Request::query('tab') == 'allowances' && Request::has('edit'))
                                         @php
                                             $dailyAllowance = \App\Models\DailyAllowance::find(Request::query('edit'))
                                         @endphp
@@ -355,7 +355,7 @@
                             </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    @if(Request::has('edit'))
+                                    @if(Request::has('tab') && Request::query('tab') == 'requestitems' && Request::has('edit'))
                                         @php
                                             $requestitem = \App\Models\RequestItem::find(Request::query('edit'))
                                         @endphp
