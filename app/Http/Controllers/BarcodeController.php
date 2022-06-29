@@ -32,7 +32,10 @@ class BarcodeController extends Controller
 
     public function create()
     {
-        return view('barcodes.create');
+        $latestnumber = Barcode::orderBy('startnumber', 'DESC')->first();
+        $newstartnumber = $latestnumber->startnumber + $latestnumber->quantity;
+        
+        return view('barcodes.create', compact('newstartnumber'));
     }
 
     public function store(Request $request)
