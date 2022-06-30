@@ -41,9 +41,10 @@ class dailyNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('MSE APP - Action needed')
+            ->line('You have items waiting to be approved')
+            ->line('Please login to the MSE app and take action')
+            ->action('MSE APP', env('APP_URL'));
     }
 
     /**
