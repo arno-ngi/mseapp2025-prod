@@ -247,7 +247,7 @@
                                 <tbody>
                                 @foreach($activitylogs as $activitylog)
                                     <tr>
-                                        <td>{{ $activitylog->created_at->diffForHumans() }}</td>
+                                        <td>{{ $activitylog->created_at->format('Y-m-d H:i') }}</td>
                                         <td>
                                             @if(is_null($activitylog->causer_id))
                                                 -

@@ -38,6 +38,20 @@
                                     </div>
                                 </div>
                             </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="mt-3 mt-lg-0">
+                                <div class="mb-3">
+                                    <div class="form-check form-switch mb-3" dir="ltr">
+                                        <input type="checkbox" class="form-check-input" id="has_allowance"
+                                               name="has_allowance"{{ isset($category) && $category->has_allowance ? ' checked=""' : '' }}>
+                                        <label class="form-check-label"
+                                               for="has_allowance">Has allowance</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">

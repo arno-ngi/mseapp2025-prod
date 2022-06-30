@@ -41,6 +41,7 @@ class CategoryController extends Controller
         $category->tenant_id = auth()->user()->tenant_id;
         $category->name = $request->name;
         $category->shortname = $request->shortname;
+        $category->has_allowance = $request->has('has_allowance') ? true : false;
         $category->save();
 
         return to_route('categories.index');
@@ -55,6 +56,7 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
         $category->shortname = $request->shortname;
+        $category->has_allowance = $request->has('has_allowance') ? true : false;
         $category->save();
 
         $approvers = $request['approvers'];

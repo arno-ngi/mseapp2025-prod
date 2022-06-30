@@ -2,7 +2,7 @@
 
 @section('extracss')
     <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
-    <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -14,19 +14,22 @@
                     <div class="flex-shrink-0">
                         <ul class="nav justify-content-end nav-pills card-header-pills" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') ? '' : ' active' }}" data-bs-toggle="tab" href="#general" role="tab">
+                                <a class="nav-link{{ Request::has('tab') ? '' : ' active' }}" data-bs-toggle="tab"
+                                   href="#general" role="tab">
                                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                                     <span class="d-none d-sm-block">{{__('law.general')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" data-bs-toggle="tab" href="#approvers" role="tab">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
+                                   data-bs-toggle="tab" href="#approvers" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                     <span class="d-none d-sm-block">Approvers</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}" data-bs-toggle="tab" href="#items" role="tab">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}"
+                                   data-bs-toggle="tab" href="#items" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                     <span class="d-none d-sm-block">Items</span>
                                 </a>
@@ -43,13 +46,15 @@
                                     <span class="d-none d-sm-block">Invoice Files</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}" data-bs-toggle="tab" href="#allowance" role="tab">
-                                    <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Allowance</span>
-                                </a>
-                            </li>
-
+                            @if($invoiceRequest->category->has_allowance)
+                                <li class="nav-item">
+                                    <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}"
+                                       data-bs-toggle="tab" href="#allowance" role="tab">
+                                        <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
+                                        <span class="d-none d-sm-block">Allowance</span>
+                                    </a>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#logs" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
@@ -74,7 +79,9 @@
 
                             </p>
                         </div>
-                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" id="approvers" role="tabpanel">
+                        <div
+                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
+                            id="approvers" role="tabpanel">
                             <p class="mb-0">
                             <div class="table-responsive">
                                 <table class="table mb-0">
@@ -121,7 +128,8 @@
                                             @foreach($invoiceRequest->extrafiles->where('is_invoice', false) as $extrafile)
                                                 <tr>
                                                     <td>
-                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
+                                                            href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -163,7 +171,8 @@
                                             @foreach($invoiceRequest->extrafiles->where('is_invoice', true) as $extrafile)
                                                 <tr>
                                                     <td>
-                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                        <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
+                                                            href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -190,7 +199,10 @@
                             </div>
                             </p>
                         </div>
-                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}" id="allowance" role="tabpanel">
+                        @if($invoiceRequest->category->has_allowance)
+                        <div
+                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}"
+                            id="allowance" role="tabpanel">
                             <p class="mb-0">
                             <div class="row">
                                 <div class="col-lg-8">
@@ -225,7 +237,8 @@
                                                     <td>{!! showEUR2($dailyAllowanceItem->allowance_total, $invoiceRequest->currency) !!}</td>
 
                                                     <td class="text-right">
-                                                        <a class="btn btn-soft-info waves-effect waves-light btn-sm float-end" href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances&edit='.$dailyAllowanceItem->id}}"><i
+                                                        <a class="btn btn-soft-info waves-effect waves-light btn-sm float-end"
+                                                           href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances&edit='.$dailyAllowanceItem->id}}"><i
                                                                 class="bx bx-wrench font-size-12 align-middle"></i></a>
                                                     </td>
                                                 </tr>
@@ -253,7 +266,8 @@
                                                 {{ Form::label('from_date', __('law.from') , ['class' => 'form-label']) }}
                                                 {{ Form::text('from_date', isset($dailyAllowance) ? $dailyAllowance->from_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('from_date'))
-                                                    <div class="invalid-feedback">{{ $errors->first('from_date') }}</div>
+                                                    <div
+                                                        class="invalid-feedback">{{ $errors->first('from_date') }}</div>
                                                 @endif
                                             </div>
                                         </div>
@@ -317,42 +331,47 @@
                             </div>
                             </p>
                         </div>
-                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}" id="items" role="tabpanel">
+                        @endif
+                        <div
+                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}"
+                            id="items" role="tabpanel">
 
                             <p class="mb-0">
                             <div class="row">
                                 <div class="col-lg-8">
-                            <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th>Quantity</th>
-                                        <th>Descriptions</th>
-                                        <th>Price per unit</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @php
-                                        $total = 0;
-                                    @endphp
-                                    @foreach($invoiceRequest->requestitems as $request_item)
-                                        <tr>
-                                            <td>{{$request_item->quantity}}</td>
-                                            <td> <a href="{{route('rfa.edit', $invoiceRequest).'?tab=requestitems&edit='.$request_item->id}}">{{$request_item->description}}</a></td>
-                                            <td>{!! showEUR2($request_item->price, $invoiceRequest->currency) !!}</td>
-                                        </tr>
-                                        @php
-                                            $total += $request_item->quantity * $request_item->price ;
-                                        @endphp
-                                    @endforeach
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{!! showEUR2($total, $invoiceRequest->currency) !!} </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>Quantity</th>
+                                                <th>Descriptions</th>
+                                                <th>Price per unit</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @php
+                                                $total = 0;
+                                            @endphp
+                                            @foreach($invoiceRequest->requestitems as $request_item)
+                                                <tr>
+                                                    <td>{{$request_item->quantity}}</td>
+                                                    <td>
+                                                        <a href="{{route('rfa.edit', $invoiceRequest).'?tab=requestitems&edit='.$request_item->id}}">{{$request_item->description}}</a>
+                                                    </td>
+                                                    <td>{!! showEUR2($request_item->price, $invoiceRequest->currency) !!}</td>
+                                                </tr>
+                                                @php
+                                                    $total += $request_item->quantity * $request_item->price ;
+                                                @endphp
+                                            @endforeach
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>{!! showEUR2($total, $invoiceRequest->currency) !!} </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="col-lg-4">
                                     @if(Request::has('tab') && Request::query('tab') == 'requestitems' && Request::has('edit'))
@@ -411,13 +430,15 @@
                             </div>
                             </p>
                         </div>
-                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'logs' ? ' active' : '' }}" id="logs" role="tabpanel">
+                        <div
+                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'logs' ? ' active' : '' }}"
+                            id="logs" role="tabpanel">
                             <p class="mb-0">
                             <table class="table table-bordered table-striped table-sm">
                                 <tbody>
                                 @foreach($activitylogs as $activitylog)
                                     <tr>
-                                        <td>{{ $activitylog->created_at->diffForHumans() }}</td>
+                                        <td>{{ $activitylog->created_at->format('Y-m-d H:i') }}</td>
                                         <td>
                                             @if(is_null($activitylog->causer_id))
                                                 -

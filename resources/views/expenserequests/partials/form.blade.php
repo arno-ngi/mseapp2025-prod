@@ -109,10 +109,11 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('payment_type', 'Payment type' , ['class' => 'form-label']) }}
-            {{ Form::text('payment_type', isset($expenseRequest) ? $expenseRequest->payment_type : '', ['class' => $errors->has('total_cost') ? 'form-control is-invalid' : 'form-control']) }}
+            {{ Form::label('payment_type', 'Payment type', ['class' => 'form-label']) }}
+            {{ Form::select('payment_type', getPaymentTypeArray(), null, ['class' => 'form-select']) }}
             @if ($errors->has('payment_type'))
-                <div class="invalid-feedback">{{ $errors->first('payment_type') }}</div>
+                <div
+                    class="invalid-feedback">{{ $errors->first('payment_type') }}</div>
             @endif
         </div>
     </div>
