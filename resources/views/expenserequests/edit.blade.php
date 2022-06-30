@@ -10,10 +10,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Expense Request - {{ $expenseRequest->uniqueid }}
+                    <h4 class="card-title mb-0 flex-grow-1">Expense Request - {{ $expenseRequest->uniqueid }} - {!! getStatus($expenseRequest->status) !!}
 
                         @if(!is_null($expenseRequest->invoice_request_id))
- (<i class="bx bx-bx bx-link-alt"></i>{{$expenseRequest->invoicerequest->uniqueid}})
+                            (<i class="bx bx-bx bx-link-alt"></i>{{$expenseRequest->invoicerequest->uniqueid}})
                         @endif
                     </h4>
                     <div class="flex-shrink-0">
@@ -26,7 +26,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" data-bs-toggle="tab" href="#approvers" role="tab">
+                                <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
+                                   data-bs-toggle="tab" href="#approvers" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
                                     <span class="d-none d-sm-block">Approvers</span>
                                 </a>
@@ -68,7 +69,9 @@
 
                             </p>
                         </div>
-                        <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}" id="approvers" role="tabpanel">
+                        <div
+                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
+                            id="approvers" role="tabpanel">
                             <p class="mb-0">
                             <div class="table-responsive">
                                 <table class="table mb-0">
@@ -269,8 +272,12 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{route('rfa.index')}}"
+                    <a href="{{route('expenserequest.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
+                    @if($expenseRequest->status !== 5)
+                        <a href="{{route('expenserequests.makeclosed', $expenseRequest)}}"
+                           class="btn btn-soft-success waves-effect waves-light">Status aanpassen naar AFGESLOTEN</a>
+                    @endif
                 </div>
             </div>
 

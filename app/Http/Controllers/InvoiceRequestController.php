@@ -28,6 +28,19 @@ class InvoiceRequestController extends Controller
 
         return view('invoicerequests.edit', compact('invoiceRequest', 'activitylogs'));
     }
+
+    public function makeclosed(InvoiceRequest $invoiceRequest)
+    {
+        $invoiceRequest->status = 5;
+        $invoiceRequest->save();
+
+        activity()
+            ->performedOn($invoiceRequest)
+            ->log('Status changed - CLOSED');
+
+        return back();
+    }
+
     public function changestatus(InvoiceRequest $invoiceRequest, $status)
     {
         $approver = $invoiceRequest->approvers()->where('user_id', '=', auth()->user()->id)->first();

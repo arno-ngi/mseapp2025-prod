@@ -29,6 +29,20 @@ class ExpenseRequestController extends Controller
 
         return view('expenserequests.edit', compact('expenseRequest', 'activitylogs'));
     }
+
+
+    public function makeclosed(ExpenseRequest $expenseRequest)
+    {
+        $expenseRequest->status = 5;
+        $expenseRequest->save();
+
+        activity()
+            ->performedOn($expenseRequest)
+            ->log('Status changed - CLOSED');
+
+        return back();
+    }
+
     public function changestatus(ExpenseRequest $expenseRequest, $status)
     {
 

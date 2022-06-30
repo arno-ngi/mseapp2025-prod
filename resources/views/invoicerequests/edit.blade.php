@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">RFA - {{ $invoiceRequest->uniqueid }}</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">RFA - {{ $invoiceRequest->uniqueid }} - {!! getStatus($invoiceRequest->status) !!}</h4>
                     <div class="flex-shrink-0">
                         <ul class="nav justify-content-end nav-pills card-header-pills" role="tablist">
                             <li class="nav-item">
@@ -465,6 +465,10 @@
                     <a href="{{route('expenserequest.create').'?rfa='.$invoiceRequest->uuid}}"
                        class="btn btn-soft-secondary waves-effect waves-light">Create
                         Expense request</a>
+                    @if($invoiceRequest->status !== 5)
+                        <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
+                           class="btn btn-soft-success waves-effect waves-light">Status aanpassen naar AFGESLOTEN</a>
+                    @endif
                 </div>
             </div>
 
