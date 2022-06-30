@@ -30,7 +30,6 @@ class InvoiceRequestController extends Controller
     }
     public function changestatus(InvoiceRequest $invoiceRequest, $status)
     {
-
         $approver = $invoiceRequest->approvers()->where('user_id', '=', auth()->user()->id)->first();
         $approver->status = $status;
         $approver->save();
@@ -98,15 +97,14 @@ class InvoiceRequestController extends Controller
 
     public function update(InvoiceRequest $invoiceRequest, Request $request)
     {
+
         $validated = $request->validate([
-            'invoice_date' => 'required',
             'supplier' => 'required',
             'total_invoice_amount' => 'required',
         ]);
 
         $invoiceRequest->category_id = $request->category_id;
         $invoiceRequest->invoice_date = $request->invoice_date;
-
         if ($invoiceRequest->supplier !== $request->supplier) {
             activity()
                 ->performedOn($invoiceRequest)
@@ -156,6 +154,8 @@ class InvoiceRequestController extends Controller
         }
         $invoiceRequest->currency = $request->currency;
         $invoiceRequest->safety_description = $request->safety_description;
+        $invoiceRequest->final_amount = $request->final_amount;
+        $invoiceRequest->final_amount_reason = $request->final_amount_reason;
         $invoiceRequest->save();
 
         activity()

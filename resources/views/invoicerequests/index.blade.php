@@ -42,7 +42,7 @@
                             <tr>
                                 <td> <a href="{{route('rfa.edit', $invoiceRequest)}}">{{$invoiceRequest->uniqueid }}</a></td>
                                 <td>{{ $invoiceRequest->requester->fullname }}</td>
-                                <td>{{ $invoiceRequest->invoice_date->format('Y-m-d') }}</td>
+                                <td>{{ $invoiceRequest->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $invoiceRequest->internal_information }}</td>
                                 <td>{!! showEUR2($invoiceRequest->total_invoice_amount, $invoiceRequest->currency) !!}</td>
                                 <td>{!! showEUR2($invoiceRequest->final_amount, $invoiceRequest->currency) !!}</td>

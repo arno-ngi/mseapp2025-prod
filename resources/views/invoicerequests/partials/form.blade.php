@@ -80,6 +80,35 @@
             @endif
         </div>
     </div>
+    <div class="col-lg-6">
+        @php
+            $number2 = '';
+            if(isset($invoiceRequest) && !is_null($invoiceRequest->final_amount)) {
+                            $number2 = ': ' . number_format($invoiceRequest->final_amount, 2, ',', '.');
+            }
+        @endphp
+        <div class="mb-3">
+            {{ Form::label('final_amount', 'Factuurbedrag' . $number2 , ['class' => 'form-label']) }}
+            {{ Form::text('final_amount', isset($invoiceRequest) ? $invoiceRequest->final_amount : '', ['class' => $errors->has('final_amount') ? 'form-control is-invalid' : 'form-control']) }}
+            @if ($errors->has('final_amount'))
+                <div class="invalid-feedback">{{ $errors->first('final_amount') }}</div>
+            @endif
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+
+    </div>
+    <div class="col-lg-6">
+        <div class="mb-3">
+            {{ Form::label('final_amount_reason', 'Reden bij afwijkend factuurbedrag' , ['class' => 'form-label']) }}
+            {{ Form::text('final_amount_reason', isset($invoiceRequest) ? $invoiceRequest->final_amount_reason : '', ['class' => $errors->has('final_amount_reason') ? 'form-control is-invalid' : 'form-control']) }}
+            @if ($errors->has('final_amount_reason'))
+                <div class="invalid-feedback">{{ $errors->first('final_amount_reason') }}</div>
+            @endif
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-lg-6">

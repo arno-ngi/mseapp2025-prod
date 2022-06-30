@@ -7,10 +7,9 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('expense_date', __('law.date') , ['class' => 'form-label']) }}
-            {{ Form::text('expense_date', isset($expenseRequest) ? $expenseRequest->expense_date->format('Y-m-d') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
-            @if ($errors->has('expense_date'))
-                <div class="invalid-feedback">{{ $errors->first('expense_date') }}</div>
+            @if(isset($expenseRequest))
+                Request Datum<br/>
+                {{$expenseRequest->created_at->format('Y-m-d')}}
             @endif
         </div>
     </div>

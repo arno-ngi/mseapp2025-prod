@@ -41,7 +41,7 @@
                             <tr>
                                 <td><a href="{{route('expenserequest.edit', $expenseRequest)}}">{{$expenseRequest->slug }}</a></td>
                                 <td>{{ $expenseRequest->requester->fullname }}</td>
-                                <td>{{ $expenseRequest->expense_date->format('Y-m-d') }}</td>
+                                <td>{{ $expenseRequest->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $expenseRequest->internal_information }}</td>
                                 <td>{!! showEUR2($expenseRequest->total_cost, $expenseRequest->currency) !!}</td>
                                 <td>{!! getStatus($expenseRequest->status) !!}</td>

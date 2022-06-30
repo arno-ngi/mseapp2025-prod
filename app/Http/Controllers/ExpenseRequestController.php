@@ -70,7 +70,6 @@ class ExpenseRequestController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'expense_date' => 'required',
             'supplier' => 'required',
             'total_cost' => 'required',
         ]);
