@@ -82,7 +82,6 @@ class InvoiceRequestController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'invoice_date' => 'required',
             'supplier' => 'required',
             'total_invoice_amount' => 'required',
         ]);
