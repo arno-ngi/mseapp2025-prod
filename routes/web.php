@@ -11,6 +11,12 @@ Route::get('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 'in
 Route::get('/mfa/resent', [\App\Http\Controllers\Auth\MultiFactorController::class, 'resent'])->name('mfa.resent');
 Route::post('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 'store'])->name('mfa.store');
 
+Route::get('/eid', [\App\Http\Controllers\EidController::class, 'index'])->name('eid.index');
+Route::get('/eid/checkout/{VisitorCheckIn}', [\App\Http\Controllers\EidController::class, 'checkout'])->name('eid.checkout');
+Route::get('/eid/show', [\App\Http\Controllers\EidController::class, 'show'])->name('eid.show');
+Route::post('/eid/show', [\App\Http\Controllers\EidController::class, 'show']);
+Route::post('/eid', [\App\Http\Controllers\EidController::class, 'store'])->name('eid.store');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
     Route::get('/myprofile', [\App\Http\Controllers\DashboardController::class, 'myprofile'])->name('myprofile');
@@ -34,6 +40,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/users', [\App\Http\Controllers\UserController::class, 'store'])->name('users.store');
         Route::get('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
         Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+    });
+
+    Route::group(['middleware' => ['permission:module.visitors']], function () {
+        Route::get('/visitors', [\App\Http\Controllers\VisitorController::class, 'index'])->name('visitors.index');
+        Route::get('/visitors/{VisitorCheckIn}/docheckout', [\App\Http\Controllers\VisitorController::class, 'docheckout'])->name('visitors.docheckout');
     });
 
     Route::post('/users/{user}/files', [\App\Http\Controllers\UserController::class, 'store_files'])->name('users.store.files');

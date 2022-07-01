@@ -199,6 +199,15 @@
                             </a>
                         </li>
                     @endif
+                    @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.visitors']))
+                        <li>
+                            <a href="{{route('visitors.index')}}"
+                               class="{{ Request::is('visitors*') ? 'active' : '' }}">
+                                <i data-feather="list"></i>
+                                <span>Visitors</span>
+                            </a>
+                        </li>
+                    @endif
                     @if(auth()->user()->hasAnyPermission(['module.settings']))
                         <li class="menu-title">{{__('law.settings')}}</li>
                         @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.users']))

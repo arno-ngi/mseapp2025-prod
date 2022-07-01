@@ -70,6 +70,7 @@
                                     <div class="mb-3">
                                         <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">
                                             {{__('law.login')}}</button>
+                                        <a href="{{route('eid.index')}}" class="btn btn-primary w-100 waves-effect waves-light mt-4 ">Visitor Check-In</a>
                                     </div>
                                 </form>
 
