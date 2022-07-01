@@ -57,6 +57,7 @@
                    value="{{$attributeseid['namePerson/last']}}" required="">
         </div>
     </div>
+    <div class="row" style="visibility: hidden;">
     <div class="row">
         <div class="col-md-6 mb-3">
             <label for="nationalnumber">{{__('ngi.nationalnumber')}}</label>
@@ -104,6 +105,7 @@
             <input type="text" class="form-control" id="address_city" name="address_city"
                    value="{{$attributeseid['contact/city/home']}}" required="">
         </div>
+    </div>
     </div>
     <div class="row">
         <div class="col-md-6 mb-3">
