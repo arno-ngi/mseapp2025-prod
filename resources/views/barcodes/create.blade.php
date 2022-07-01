@@ -19,7 +19,7 @@
                         <div class="col-lg-6">
                             <div class="mb-3">
                                 {{ Form::label('name', __('law.name') , ['class' => 'form-label']) }}
-                                {{ Form::text('name', isset($barcode) ? $barcode->name : '', ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control']) }}
+                                {{ Form::text('name', isset($barcode) ? $barcode->name : 'Receiving Number', ['class' => $errors->has('name') ? 'form-control is-invalid' : 'form-control']) }}
                                 @if ($errors->has('name'))
                                     <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                                 @endif
