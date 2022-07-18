@@ -352,7 +352,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('burgerlijke_staat', 'Burgerlijke staat', ['class' => 'form-label']) }}
-                                        {{ Form::select('burgerlijke_staat', ['Aleenstaand'=>'Aleenstaand', 'Feitelijk samenwonend'=>'Feitelijk samenwonend', 'Wettelijk samenwonend'=>'Wettelijk samenwonend', 'Gehuwd'=>'Gehuwd', 'Gescheiden'=>'Gescheiden', 'Weduwe/Weduwnaar'=>'Weduwe/Weduwnaar', 'Feitelijk gescheiden'=>'Feitelijk gescheiden'], null, ['class' => $errors->has('burgerlijke_staat') ? 'form-select is-invalid' : 'form-select']) }}
+                                        {{ Form::select('burgerlijke_staat', ['-'=> '-', 'Alleenstaand'=>'Alleenstaand', 'Feitelijk samenwonend'=>'Feitelijk samenwonend', 'Wettelijk samenwonend'=>'Wettelijk samenwonend', 'Gehuwd'=>'Gehuwd', 'Gescheiden'=>'Gescheiden', 'Weduwe/Weduwnaar'=>'Weduwe/Weduwnaar', 'Feitelijk gescheiden'=>'Feitelijk gescheiden'], null, ['class' => $errors->has('burgerlijke_staat') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('burgerlijke_staat'))
                                             <div class="invalid-feedback">{{ $errors->first('burgerlijke_staat') }}</div>
                                         @endif
@@ -361,7 +361,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('opleidingsniveau', 'Opleidingsniveau', ['class' => 'form-label']) }}
-                                        {{ Form::select('opleidingsniveau', ['Lager onderwijs'=>'Lager onderwijs', 'Middelbaar onderwijs'=>'Middelbaar onderwijs', 'Bachelor'=>'Bachelor', 'Master'=>'Master'], null, ['class' => $errors->has('opleidingsniveau') ? 'form-select is-invalid' : 'form-select']) }}
+                                        {{ Form::select('opleidingsniveau', ['-'=> '-','Lager onderwijs'=>'Lager onderwijs', 'Middelbaar onderwijs'=>'Middelbaar onderwijs', 'Bachelor'=>'Bachelor', 'Master'=>'Master'], null, ['class' => $errors->has('opleidingsniveau') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('opleidingsniveau'))
                                             <div class="invalid-feedback">{{ $errors->first('opleidingsniveau') }}</div>
                                         @endif
