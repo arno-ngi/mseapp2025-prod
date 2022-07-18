@@ -21,6 +21,7 @@
     <div class="jumbotron mt-3">
         <h1>Register Check-in / Check-out | Eid</h1>
         <a class="btn btn-lg btn-primary" href="{{route('eid.show')}}" role="button">Read e-ID &raquo;</a>
+        <a class="btn btn-lg btn-primary" href="{{route('eid.create')}}" role="button">Manuele check-in</a>
     </div>
 
         <div class="row clearfix">

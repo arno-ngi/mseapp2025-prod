@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Activitylog\Models\Activity;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceRequestController extends Controller
 {
@@ -110,11 +111,18 @@ class InvoiceRequestController extends Controller
     public function update(InvoiceRequest $invoiceRequest, Request $request)
     {
 
-        $validated = $request->validate([
-            'supplier' => 'required',
-            'total_invoice_amount' => 'required',
-        ]);
-
+        if($request->final_amount != $request->total_invoice_amount) {
+            $validated = $request->validate([
+                'supplier' => 'required',
+                'total_invoice_amount' => 'required',
+                'final_amount_reason' => 'required',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'supplier' => 'required',
+                'total_invoice_amount' => 'required',
+            ]);
+        }
         $invoiceRequest->category_id = $request->category_id;
         $invoiceRequest->invoice_date = $request->invoice_date;
         if ($invoiceRequest->supplier !== $request->supplier) {
@@ -193,5 +201,14 @@ class InvoiceRequestController extends Controller
         return response()->json([
             'status' => 'ok'
         ]);
+    }
+
+    public function pdf(InvoiceRequest $invoiceRequest)
+    {
+
+
+        $pdf = Pdf::loadView('invoicerequests.pdf', compact('invoiceRequest'));
+
+        return $pdf->download('invoicerequest.pdf');
     }
 }

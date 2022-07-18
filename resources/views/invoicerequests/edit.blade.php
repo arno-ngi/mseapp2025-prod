@@ -346,6 +346,7 @@
                                                 <th>Quantity</th>
                                                 <th>Descriptions</th>
                                                 <th>Price per unit</th>
+                                                <th>Total price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -359,12 +360,14 @@
                                                         <a href="{{route('rfa.edit', $invoiceRequest).'?tab=requestitems&edit='.$request_item->id}}">{{$request_item->description}}</a>
                                                     </td>
                                                     <td>{!! showEUR2($request_item->price, $invoiceRequest->currency) !!}</td>
+                                                    <td>{!! showEUR2(($request_item->price * $request_item->quantity), $invoiceRequest->currency) !!}</td>
                                                 </tr>
                                                 @php
                                                     $total += $request_item->quantity * $request_item->price ;
                                                 @endphp
                                             @endforeach
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>{!! showEUR2($total, $invoiceRequest->currency) !!} </td>
@@ -463,11 +466,12 @@
                     <a href="{{route('rfa.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
                     <a href="{{route('expenserequest.create').'?rfa='.$invoiceRequest->uuid}}"
-                       class="btn btn-soft-secondary waves-effect waves-light">Create
-                        Expense request</a>
+                       class="btn btn-soft-secondary waves-effect waves-light">Expense request</a>
+                    <a href="{{route('rfa.pdf', $invoiceRequest)}}"
+                       class="btn btn-soft-secondary waves-effect waves-light ">PDF</a>
                     @if($invoiceRequest->status !== 5)
                         <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
-                           class="btn btn-soft-success waves-effect waves-light">Status aanpassen naar AFGESLOTEN</a>
+                           class="btn btn-soft-success waves-effect waves-light">Afgesloten</a>
                     @endif
                 </div>
             </div>

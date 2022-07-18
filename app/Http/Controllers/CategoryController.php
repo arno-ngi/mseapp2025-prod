@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = auth()->user()->tenant->categories()->get();
+        $categories = auth()->user()->tenant->categories()->with('invoicerequests', 'expenserequests', 'categoryusers')->get();
 
         return view('categories.index', compact('categories'));
     }
@@ -73,4 +73,12 @@ class CategoryController extends Controller
 
         return back();
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return back();
+    }
+
 }

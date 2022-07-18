@@ -160,6 +160,7 @@
                                                 <th>Quantity</th>
                                                 <th>Descriptions</th>
                                                 <th>Price per unit</th>
+                                                <th>Total price</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -173,12 +174,14 @@
                                                         <a href="{{route('expenserequest.edit', $expenseRequest).'?tab=requestitems&edit='.$request_item->id}}">{{$request_item->description}}</a>
                                                     </td>
                                                     <td>{!! showEUR2($request_item->price, $expenseRequest->currency) !!}</td>
+                                                    <td>{!! showEUR2(($request_item->price * $request_item->quantity), $expenseRequest->currency) !!}</td>
                                                 </tr>
                                                 @php
                                                     $total += $request_item->quantity * $request_item->price ;
                                                 @endphp
                                             @endforeach
                                             <tr>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td>{!! showEUR2($total, $expenseRequest->currency) !!} </td>
@@ -274,6 +277,8 @@
                 <div class="card-footer">
                     <a href="{{route('expenserequest.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
+                    <a href="{{route('expenserequest.pdf', $expenseRequest)}}"
+                       class="btn btn-soft-secondary waves-effect waves-light ">PDF</a>
                     @if($expenseRequest->status !== 5)
                         <a href="{{route('expenserequests.makeclosed', $expenseRequest)}}"
                            class="btn btn-soft-success waves-effect waves-light">Status aanpassen naar AFGESLOTEN</a>
@@ -303,5 +308,6 @@
                 });
             }
         });
+
     </script>
 @endsection

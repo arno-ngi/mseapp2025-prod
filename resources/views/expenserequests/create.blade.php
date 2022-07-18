@@ -37,5 +37,21 @@
     <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
     <script>
         flatpickr("#expense_date", {dateFormat: "Y-m-d",defaultDate: new Date});
+
+
+        $('#user_id').on('change', function() {
+
+            $.ajax({
+                url: '{{(route('users.getbank'))}}',
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "userid": this.value,
+                },
+                success: function (result) {
+                    $("#iban").val(result.banknumber);
+                }
+            });
+        });
     </script>
 @endsection

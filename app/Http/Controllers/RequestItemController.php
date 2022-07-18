@@ -30,11 +30,24 @@ class RequestItemController extends Controller
 
     public function update(RequestItem $requestItem, Request $request)
     {
+        $modeltype = $request->modeltype;
+        $modelid = $request->modelid;
+
+        $model = getModelFromType($modeltype, $modelid);
+
         $requestItem->quantity = $request->quantity;
         $requestItem->description = $request->description;
         $requestItem->price = fixDouble($request->price);
         $requestItem->save();
 
-        return back();
+        if($requestItem->quantity == 0) {
+            $requestItem->delete();
+        }
+
+        if($modeltype === 'invoicerequest') {
+            return redirect(route('rfa.edit', $model).'?tab=requestitems');
+        } else {
+            return redirect(route('expenserequest.edit', $model).'?tab=requestitems');
+        }
     }
 }

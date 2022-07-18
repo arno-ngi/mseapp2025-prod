@@ -32,11 +32,19 @@
         <div class="mt-3 mt-lg-0">
             <div class="mb-3">
                 {{ Form::label('category_id', __('law.category'), ['class' => 'form-label']) }}
-                {{ Form::select('category_id', getCategoryArray(), null, ['class' => 'form-select']) }}
-                @if ($errors->has('category_id'))
-                    <div
-                        class="invalid-feedback">{{ $errors->first('category_id') }}</div>
-                @endif
+
+                <select class="form-select" id="category_id" name="category_id">
+                    @if(isset($ir))
+                        @foreach(getCategoryArray() as $key => $value)
+                            <option value="{{$key}}"{{$ir->category_id == $key ? ' selected': ''}}>{{$value}}</option>
+                        @endforeach
+                    @else
+                        @foreach(getCategoryArray() as $key => $value)
+                            <option value="{{$key}}">{{$value}}</option>
+                        @endforeach
+
+                    @endif
+                </select>
             </div>
         </div>
     </div>
@@ -85,9 +93,26 @@
                 @php
                     $totalallowance = $ir->allowances()->sum('allowance_total');
                 @endphp
-                {{ Form::text('total_cost', $totalallowance, ['class' => $errors->has('supplier') ? 'form-control is-invalid' : 'form-control']) }}
+                @php
+                    $total = 0;
+                @endphp
+                @foreach($ir->requestitems as $request_item)
+                    @php
+                        $total += $request_item->quantity * $request_item->price ;
+$alltotal = $totalallowance + $total;
+                    @endphp
+                @endforeach
+                {{ Form::text('total_cost', $alltotal, ['class' => $errors->has('supplier') ? 'form-control is-invalid' : 'form-control']) }}
             @else
-                {{ Form::text('total_cost', isset($expenseRequest) ? $expenseRequest->total_cost : '', ['class' => $errors->has('total_cost') ? 'form-control is-invalid' : 'form-control']) }}
+                @php
+                    $total = 0;
+                @endphp
+                @foreach($expenseRequest->requestitems as $request_item)
+                    @php
+                        $total += $request_item->quantity * $request_item->price ;
+                    @endphp
+                @endforeach
+                {{ Form::text('total_cost', $total, ['class' => $errors->has('total_cost') ? 'form-control is-invalid' : 'form-control', 'readonly' => 'readonly']) }}
             @endif
             @if ($errors->has('total_cost'))
                 <div class="invalid-feedback">{{ $errors->first('total_cost') }}</div>

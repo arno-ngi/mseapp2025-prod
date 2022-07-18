@@ -13,6 +13,7 @@ Route::post('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 's
 
 Route::get('/eid', [\App\Http\Controllers\EidController::class, 'index'])->name('eid.index');
 Route::get('/eid/checkout/{VisitorCheckIn}', [\App\Http\Controllers\EidController::class, 'checkout'])->name('eid.checkout');
+Route::get('/eid/create', [\App\Http\Controllers\EidController::class, 'create'])->name('eid.create');
 Route::get('/eid/show', [\App\Http\Controllers\EidController::class, 'show'])->name('eid.show');
 Route::post('/eid/show', [\App\Http\Controllers\EidController::class, 'show']);
 Route::post('/eid', [\App\Http\Controllers\EidController::class, 'store'])->name('eid.store');
@@ -21,6 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
     Route::get('/myprofile', [\App\Http\Controllers\DashboardController::class, 'myprofile'])->name('myprofile');
     Route::get('/test1', [\App\Http\Controllers\TestController::class, 'test1'])->name('test1');
+
+    Route::post('/files', [\App\Http\Controllers\ExtrafilesController::class, 'destroy'])->name('files.destroy');
 
     Route::group(['middleware' => ['is_superadmin']], function () {
         Route::get('/tenants', [\App\Http\Controllers\TenantController::class, 'index'])->name('tenants.index');
@@ -45,9 +48,11 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['permission:module.visitors']], function () {
         Route::get('/visitors', [\App\Http\Controllers\VisitorController::class, 'index'])->name('visitors.index');
         Route::get('/visitors/{VisitorCheckIn}/docheckout', [\App\Http\Controllers\VisitorController::class, 'docheckout'])->name('visitors.docheckout');
+        Route::post('/visitors/{VisitorCheckIn}/docheckout', [\App\Http\Controllers\VisitorController::class, 'docheckoutpost'])->name('visitors.docheckoutpost');
     });
 
     Route::post('/users/{user}/files', [\App\Http\Controllers\UserController::class, 'store_files'])->name('users.store.files');
+    Route::post('/users/getbank', [\App\Http\Controllers\UserController::class, 'getbank'])->name('users.getbank');
     Route::patch('/users/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('users.update');
     Route::patch('/myprofile/{user}', [\App\Http\Controllers\UserController::class, 'update2'])->name('users.update2');
     Route::patch('/users/profile/{user}', [\App\Http\Controllers\UserController::class, 'update_profile'])->name('users.profile.update');
@@ -58,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/categories/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('categories.create');
         Route::get('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'edit'])->name('categories.edit');
         Route::patch('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/categories/{category}', [\App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.destroy');
     });
 
     Route::group(['middleware' => ['permission:module.barcodes']], function () {
@@ -71,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'index'])->name('rfa.index');
+        Route::get('/rfa/{invoiceRequest}/pdf', [\App\Http\Controllers\InvoiceRequestController::class, 'pdf'])->name('rfa.pdf');
         Route::get('/rfa/{invoiceRequest}/makeclosed', [\App\Http\Controllers\InvoiceRequestController::class, 'makeclosed'])->name('rfa.makeclosed');
         Route::get('/rfa/{invoiceRequest}/changestatus/{status}', [\App\Http\Controllers\InvoiceRequestController::class, 'changestatus'])->name('rfa.changestatus');
         Route::post('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'store'])->name('rfa.store');
@@ -83,6 +90,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['permission:module.rfa']], function () {
         Route::get('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'index'])->name('expenserequest.index');
         Route::get('/expenserequest/{expenseRequest}/changestatus/{status}', [\App\Http\Controllers\ExpenseRequestController::class, 'changestatus'])->name('expenserequests.changestatus');
+        Route::get('/expenserequest/{expenseRequest}/pdf', [\App\Http\Controllers\ExpenseRequestController::class, 'pdf'])->name('expenserequest.pdf');
         Route::get('/expenserequest/{expenseRequest}/makeclosed', [\App\Http\Controllers\ExpenseRequestController::class, 'makeclosed'])->name('expenserequests.makeclosed');
         Route::post('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'store'])->name('expenserequest.store');
         Route::get('/expenserequest/create', [\App\Http\Controllers\ExpenseRequestController::class, 'create'])->name('expenserequest.create');

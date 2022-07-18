@@ -25,6 +25,13 @@ class EidController extends Controller
 
     }
 
+    public function create()
+    {
+        $VisitorCheckIn = null;
+      return view('eid.create_manual');
+
+    }
+
     public function show()
     {
         $openid = new \App\Models\LightOpenID(route('eid.show'));

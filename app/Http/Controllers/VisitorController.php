@@ -26,4 +26,15 @@ class VisitorController extends Controller
 
         return back();
     }
+    public function docheckoutpost(VisitorCheckIn $VisitorCheckIn, Request $request)
+    {
+        $VisitorCheckIn->checkout = $request->checkoutdate . ' ' . $request->checkouttime;
+        $VisitorCheckIn->save();
+
+        activity()
+            ->performedOn($VisitorCheckIn)
+            ->log('Visitor Registration check out');
+
+        return back();
+    }
 }

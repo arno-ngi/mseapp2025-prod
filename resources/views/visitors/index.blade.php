@@ -38,8 +38,35 @@
                                 <td>{{ $VisitorCheckIn->reason }}</td>
                                 <td class="text-right">
                                     @if(is_null($VisitorCheckIn->checkout))
-                                        <a href="{{route('visitors.docheckout', $VisitorCheckIn)}}"
-                                           class="btn btn-primary">checkout</a>
+                                        {{ Form::model($VisitorCheckIn, ['route' => ['visitors.docheckoutpost', $VisitorCheckIn], 'method' => 'post', 'files' => true, 'enctype' => 'multipart/form-data']) }}
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                {{ Form::label('checkoutdate', 'Datum', ['class' => 'form-label']) }}
+                                                <input class="form-control" type="date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" name="checkoutdate" id="checkoutdate">
+                                                @if ($errors->has('checkoutdate'))
+                                                    <div class="invalid-feedback">{{ $errors->first('checkoutdate') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                {{ Form::label('checkouttime', 'Tijdstip', ['class' => 'form-label']) }}
+                                                <input class="form-control " type="time" value="" name="checkouttime" id="checkouttime">
+                                                @if ($errors->has('checkouttime'))
+                                                    <div class="invalid-feedback">{{ $errors->first('checkouttime') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mt-4 ">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-primary btn-xs">Checkout</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        {!! Form::close() !!}
                                     @else
                                         -
                                     @endif

@@ -28,14 +28,30 @@
                         <thead>
                         <tr>
                             <th>{{__('law.name')}}</th>
+                            <th>ER</th>
+                            <th>RFA</th>
+                            <th>Approvers</th>
                             <th>{{__('law.created_at')}}</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($categories as $category)
                             <tr>
                                 <td><a href="{{route('categories.edit', $category)}}">{{$category->name}}</a></td>
+                                <td>{{count($category->expenserequests)}}</td>
+                                <td>{{count($category->invoicerequests)}}</td>
+                                <td>{{count($category->categoryusers)}}</td>
                                 <td>{{$category->created_at->format('Y-m-d')}}</td>
+                                <td>
+                                    @if(count($category->expenserequests) === 0 && count($category->invoicerequests) === 0 && count($category->categoryusers) === 0)
+                                        {!! Form::open(['url' => route('categories.destroy', $category), 'method' => 'DELETE', 'class' => 'deletecategory']) !!}
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                        {!! Form::close() !!}
+                                        @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -61,6 +77,7 @@
     <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
             $("#datatable").DataTable({
@@ -91,7 +108,23 @@
             $("#datatable-buttons").DataTable({
                 lengthChange: !1,
                 buttons: ["copy", "excel", "pdf", "colvis"]
-            }).buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm")
+            }).buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"), $(".dataTables_length select").addClass("form-select form-select-sm");
+
+            $(".deletecategory").submit(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: '{{__('law.confirm_delete')}}',
+                    showCancelButton: true,
+                    confirmButtonColor: '#32CD32',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Nee',
+                    confirmButtonText: 'Ja'
+                }).then((result) => {
+                    if (result.value) {
+                        this.submit();
+                    }
+                });
+            });
         });
     </script>
 @endsection

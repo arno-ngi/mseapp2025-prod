@@ -46,6 +46,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $dates = [
+        'birthdate', 'date_identitycard', 'date_goedgedragenzeden', 'partner_birthdate'
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',

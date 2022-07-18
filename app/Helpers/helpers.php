@@ -45,7 +45,8 @@ function getPaymentTypeArray()
 
 function getBarcodetypesArray()
 {
-    return array('C39'=>'C39', 'C39+'=>'C39+', 'C39E'=>'C39E', 'EAN2'=>'EAN2', 'EAN5'=>'EAN5', 'EAN8'=>'EAN8', 'EAN13'=>'EAN13', 'PHARMA'=>'PHARMA', 'C93'=>'C93', 'S25'=>'S25', 'I25'=>'I25', 'C128'=>'C128');
+    return array('C128'=>'C128');
+    //return array('C39'=>'C39', 'C39+'=>'C39+', 'C39E'=>'C39E', 'EAN2'=>'EAN2', 'EAN5'=>'EAN5', 'EAN8'=>'EAN8', 'EAN13'=>'EAN13', 'PHARMA'=>'PHARMA', 'C93'=>'C93', 'S25'=>'S25', 'I25'=>'I25', 'C128'=>'C128');
 }
 
 function getStatusSafety()

@@ -25,6 +25,15 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
+    public function getbank(Request $request)
+    {
+    $user = User::whereId($request->userid)->first();
+
+        return response()->json([
+            'banknumber' => $user->bankaccountno,
+        ]);
+    }
+
     public function create()
     {
         return view('users.create');
@@ -129,95 +138,106 @@ class UserController extends Controller
     {
         if (auth()->user()->is_superadmin || $user->tenant_id === auth()->user()->tenant_id) {
 
-            if($user->birthplace !== $request->birthplace)
-            {
+            if ($user->birthplace !== $request->birthplace) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed birthplace from ' . $user->birthplace . ' to ' . $request->birthplace);
             }
-                $user->birthplace = $request->birthplace;
+            $user->birthplace = $request->birthplace;
 
-            if($user->birthdate !== $request->birthdate)
-            {
-                activity()
-                    ->performedOn($user)
-                    ->log('Item updated ' . $user->name . ': Changed birthdate from ' . $user->birthdate . ' to ' . $request->birthdate);
-            }
-                $user->birthdate = $request->birthdate;
+            $user->birthdate = $request->birthdate;
 
-            if($user->birth_country !== $request->birth_country)
-            {
+            if ($user->birth_country !== $request->birth_country) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed birth_country from ' . $user->birth_country . ' to ' . $request->birth_country);
             }
-                $user->birth_country = $request->birth_country;
+            $user->birth_country = $request->birth_country;
 
-            if($user->national_register_no !== $request->national_register_no)
-            {
+            if ($user->national_register_no !== $request->national_register_no) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed national_register_no from ' . $user->national_register_no . ' to ' . $request->national_register_no);
             }
-                $user->national_register_no = $request->national_register_no;
+            $user->national_register_no = $request->national_register_no;
 
-            if($user->nationality !== $request->nationality)
-            {
+            if ($user->nationality !== $request->nationality) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed nationality from ' . $user->nationality . ' to ' . $request->nationality);
             }
-                $user->nationality = $request->nationality;
+            $user->nationality = $request->nationality;
 
-            if($user->bankaccountno !== $request->bankaccountno)
-            {
+            if ($user->bankaccountno !== $request->bankaccountno) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed bankaccountno from ' . $user->bankaccountno . ' to ' . $request->bankaccountno);
             }
-                $user->bankaccountno = $request->bankaccountno;
+            $user->bankaccountno = $request->bankaccountno;
 
-            if($user->street !== $request->street)
-            {
+            if ($user->street !== $request->street) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed street from ' . $user->street . ' to ' . $request->street);
             }
-                $user->street = $request->street;
+            $user->street = $request->street;
 
-            if($user->number !== $request->number)
-            {
+            if ($user->number !== $request->number) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed number from ' . $user->number . ' to ' . $request->number);
             }
-                $user->number = $request->number;
+            $user->number = $request->number;
 
-            if($user->zip !== $request->zip)
-            {
+            if ($user->zip !== $request->zip) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed zip from ' . $user->zip . ' to ' . $request->zip);
             }
-                $user->zip = $request->zip;
+            $user->zip = $request->zip;
 
-            if($user->city !== $request->city)
-            {
+            if ($user->city !== $request->city) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed city from ' . $user->city . ' to ' . $request->city);
             }
-                $user->city = $request->city;
-            if($user->contract_no !== $request->contract_no)
-            {
+            $user->city = $request->city;
+            if ($user->contract_no !== $request->contract_no) {
                 activity()
                     ->performedOn($user)
                     ->log('Item updated ' . $user->name . ': Changed contract_no from ' . $user->contract_no . ' to ' . $request->contract_no);
             }
-                $user->contract_no = $request->contract_no;
-                $user->hospital_previous_eployer = $request->hospital_previous_eployer;
 
-                $user->save();
+            $user->contract_no = $request->contract_no;
+            $user->hospital_previous_eployer = $request->hospital_previous_eployer;
+            $user->date_identitycard = $request->date_identitycard;
+            $user->date_goedgedragenzeden = $request->date_goedgedragenzeden;
+            $user->partner_name = $request->partner_name;
+            $user->partner_firstname = $request->partner_firstname;
+            $user->partner_birthdate = $request->partner_birthdate;
+            $user->partner_tenlaste = $request->has('partner_tenlaste') ? true : false;
+            $user->partner_mindervalide = $request->has('partner_mindervalide') ? true : false;
+
+            $user->beroepsinkomsten = $request->beroepsinkomsten;
+            $user->personentenlaste_kind_valide = $request->personentenlaste_kind_valide;
+            $user->personentenlaste_kind_invalide = $request->personentenlaste_kind_invalide;
+            $user->personentenlaste_65mantel_valide = $request->personentenlaste_65mantel_valide;
+            $user->personentenlaste_65mantel_invalide = $request->personentenlaste_65mantel_invalide;
+            $user->personentenlaste_65overgang_valide = $request->personentenlaste_65overgang_valide;
+            $user->personentenlaste_65overgang_invalide = $request->personentenlaste_65overgang_invalide;
+            $user->personentenlaste_andere_valide = $request->personentenlaste_andere_valide;
+            $user->personentenlaste_andere_invalide = $request->personentenlaste_andere_invalide;
+            $user->prive_email = $request->prive_email;
+            $user->telefoon = $request->telefoon;
+            $user->ice_name = $request->ice_name;
+            $user->ice_number = $request->ice_number;
+            $user->clothing_shirt = $request->clothing_shirt;
+            $user->clothing_shoes = $request->clothing_shoes;
+            $user->clothing_pants = $request->clothing_pants;
+            $user->burgerlijke_staat = $request->burgerlijke_staat;
+            $user->opleidingsniveau = $request->opleidingsniveau;
+
+            $user->save();
 
 
             flash()->success(__('law.updated_succesfully'));
@@ -225,12 +245,12 @@ class UserController extends Controller
             $useradmin = User::find(9);
             $useradmin->notify(new UserProfileChangeNotification($user->email));
 
-            return back();
+            return redirect('/users/' . $user->uuid . '?tab=profile');
         }
 
         flash()->error(__('law.not_allowed'));
 
-        return back();
+        return redirect('/users/' . $user->uuid . '?tab=profile');
 
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ExpenseRequest;
 use App\Models\InvoiceRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -117,6 +118,10 @@ class ExpenseRequestController extends Controller
             foreach ($invoiceRequest->requestitems as $requestitem) {
                 $expenseRequest->requestitems()->create(['quantity' => $requestitem->quantity, 'description' => $requestitem->description, 'price' => $requestitem->price]);
             }
+            foreach($invoiceRequest->allowances as $dailyAllowanceItem) {
+
+                     $expenseRequest->requestitems()->create(['quantity' => 1, 'description' => 'Allowance', 'price' => $dailyAllowanceItem->allowance_total]);
+            }
         }
 
         return redirect(route('expenserequest.edit', $expenseRequest));
@@ -211,7 +216,7 @@ class ExpenseRequestController extends Controller
             ->performedOn($expenseRequest)
             ->log('Item updated ' . $expenseRequest->slug);
 
-        return back();
+        return redirect(route('expenserequest.edit', $expenseRequest));
     }
 
     public function store_files(ExpenseRequest $expenseRequest, Request $request)
@@ -226,5 +231,13 @@ class ExpenseRequestController extends Controller
         return response()->json([
             'status' => 'ok'
         ]);
+    }
+
+
+    public function pdf(ExpenseRequest $expenseRequest)
+    {
+        $pdf = Pdf::loadView('expenserequests.pdf', compact('expenseRequest'));
+
+        return $pdf->download('expenserequest.pdf');
     }
 }
