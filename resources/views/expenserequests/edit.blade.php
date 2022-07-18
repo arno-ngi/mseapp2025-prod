@@ -121,6 +121,17 @@
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
                                                             href="{{url('storage/'.$extrafile->filepath)}}" target="_blank">{{$extrafile->filename}}</a>
                                                     </td>
+                                                    <td>
+                                                        {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
+                                                        {{ Form::hidden('fileid', $extrafile->id) }}
+                                                        {{ Form::hidden('type', 'er') }}
+                                                        {{ Form::hidden('modelid', $expenseRequest->uuid) }}
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                                        {!! Form::close() !!}
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -333,5 +344,25 @@
                 }
             });
         });
+
+        delfiles();
+
+        function delfiles() {
+            $(".deletefile").submit(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: '{{__('law.confirm_delete')}}',
+                    showCancelButton: true,
+                    confirmButtonColor: '#32CD32',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Nee',
+                    confirmButtonText: 'Ja'
+                }).then((result) => {
+                    if (result.value) {
+                        this.submit();
+                    }
+                });
+            });
+        }
     </script>
 @endsection

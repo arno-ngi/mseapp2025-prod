@@ -131,6 +131,17 @@
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
                                                             href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
                                                     </td>
+                                                    <td>
+                                                        {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
+                                                        {{ Form::hidden('fileid', $extrafile->id) }}
+                                                        {{ Form::hidden('type', 'ir') }}
+                                                        {{ Form::hidden('modelid', $invoiceRequest->uuid) }}
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                                        {!! Form::close() !!}
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -483,7 +494,7 @@
 @section('extrajs')
     <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
     <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         flatpickr("#from_date", {
             enableTime: !0,
@@ -517,5 +528,25 @@
                 });
             }
         });
+
+        delfiles();
+
+        function delfiles() {
+            $(".deletefile").submit(function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: '{{__('law.confirm_delete')}}',
+                    showCancelButton: true,
+                    confirmButtonColor: '#32CD32',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Nee',
+                    confirmButtonText: 'Ja'
+                }).then((result) => {
+                    if (result.value) {
+                        this.submit();
+                    }
+                });
+            });
+        }
     </script>
 @endsection
