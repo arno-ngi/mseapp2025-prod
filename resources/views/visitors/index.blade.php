@@ -52,7 +52,7 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 {{ Form::label('checkouttime', 'Tijdstip', ['class' => 'form-label']) }}
-                                                <input class="form-control " type="time" value="" name="checkouttime" id="checkouttime">
+                                                <input class="form-control " type="time" value="{{\Carbon\Carbon::now()->format('H:i')}}" name="checkouttime" id="checkouttime">
                                                 @if ($errors->has('checkouttime'))
                                                     <div class="invalid-feedback">{{ $errors->first('checkouttime') }}</div>
                                                 @endif
