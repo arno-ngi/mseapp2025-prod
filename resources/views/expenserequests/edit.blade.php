@@ -293,7 +293,7 @@
 @section('extrajs')
     <script src="/assets/libs/flatpickr/flatpickr.min.js"></script>
     <script src="/assets/libs/dropzone/min/dropzone.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         flatpickr("#expense_date", {dateFormat: "Y-m-d", defaultDate: new Date});
 
@@ -308,6 +308,30 @@
                 });
             }
         });
+        $('#user_id').on('change', function() {
 
+            $.ajax({
+                url: '{{(route('users.getbank'))}}',
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "userid": this.value,
+                },
+                success: function (result2) {
+                    Swal.fire({
+                        title: 'Bankrekening nummer van gebruiker overnemen uit profiel?',
+                        showCancelButton: true,
+                        confirmButtonColor: '#32CD32',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Nee',
+                        confirmButtonText: 'Ja'
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#iban").val(result2.banknumber);
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endsection
