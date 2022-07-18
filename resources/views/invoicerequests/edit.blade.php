@@ -172,7 +172,7 @@
                                                 <tr>
                                                     <td>
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
-                                                            href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                            href="{{url('storage/'.$extrafile->filepath)}}" target="_blank">{{$extrafile->filename}}</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
