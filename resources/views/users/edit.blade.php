@@ -471,7 +471,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         {{ Form::label('beroepsinkomsten', 'Beroepsinkomsten', ['class' => 'form-label']) }}
-                                        {{ Form::select('beroepsinkomsten', ['Elk ander inkomen' => 'Elk ander inkomen', 'Geen inkomen' => 'Geen inkomen', 'Beroepsinkomen < 240 EUR/maand'=> 'Beroepsinkomen < 240 EUR/maand'], null, ['class' => $errors->has('contract_no') ? 'form-select is-invalid' : 'form-select']) }}
+                                        {{ Form::select('beroepsinkomsten', ['-'=> '-','Elk ander inkomen' => 'Elk ander inkomen', 'Geen inkomen' => 'Geen inkomen', 'Beroepsinkomen < 240 EUR/maand'=> 'Beroepsinkomen < 240 EUR/maand'], null, ['class' => $errors->has('contract_no') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('beroepsinkomsten'))
                                             <div class="invalid-feedback">{{ $errors->first('beroepsinkomsten') }}</div>
                                         @endif
