@@ -60,7 +60,7 @@
             <td>
                 {{$request_item->description}}
             </td>
-            <td>{!! showEUR2($request_item->price, $invoiceRequest->currency) !!}</td>
+            <td>{!! showEUR2($request_item->price, $expenseRequest->currency) !!}</td>
         </tr>
         @php
             $total += $request_item->quantity * $request_item->price ;
