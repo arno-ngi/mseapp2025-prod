@@ -107,11 +107,13 @@ $alltotal = $totalallowance + $total;
                 @php
                     $total = 0;
                 @endphp
+                @if(isset($expenseRequest))
                 @foreach($expenseRequest->requestitems as $request_item)
                     @php
                         $total += $request_item->quantity * $request_item->price ;
                     @endphp
                 @endforeach
+                @endif
                 {{ Form::text('total_cost', $total, ['class' => $errors->has('total_cost') ? 'form-control is-invalid' : 'form-control', 'readonly' => 'readonly']) }}
             @endif
             @if ($errors->has('total_cost'))
