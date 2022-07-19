@@ -110,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/requestitem', [\App\Http\Controllers\RequestItemController::class, 'store'])->name('requestitem.store');
     Route::patch('/requestitem/{requestItem}', [\App\Http\Controllers\RequestItemController::class, 'update'])->name('requestitem.update');
+    Route::delete('/requestitem/{requestItem}', [\App\Http\Controllers\RequestItemController::class, 'delete'])->name('requestitem.delete');
 
     Route::post('/dailyallowance', [\App\Http\Controllers\DailyAllowanceController::class, 'store'])->name('dailyallowance.store');
     Route::patch('/dailyallowance/{dailyAllowance}', [\App\Http\Controllers\DailyAllowanceController::class, 'update'])->name('dailyallowance.update');

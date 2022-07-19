@@ -50,4 +50,22 @@ class RequestItemController extends Controller
             return redirect(route('expenserequest.edit', $model).'?tab=requestitems');
         }
     }
+
+    public function delete(RequestItem $requestItem, Request $request)
+    {
+
+        $requestItem->delete();
+
+        if(isset($request->type)) {
+            if($request->type === 'ir')
+            {
+                return redirect(url('/rfa/'.$request->modelid.'?tab=requestitems'));
+            }
+            if($request->type === 'er')
+            {
+                return redirect(url('/expenserequest/'.$request->modelid.'?tab=requestitems'));
+            }
+        }
+        return back();
+    }
 }

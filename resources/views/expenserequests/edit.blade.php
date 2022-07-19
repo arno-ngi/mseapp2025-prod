@@ -82,6 +82,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr>
+                                        <td>{{$expenseRequest->requester->fullname}}</td>
+                                        <td>Requester</td>
+                                    </tr>
                                     @foreach($expenseRequest->approvers as $approver)
                                         <tr>
                                             <td>{{$approver->user->fullname}}</td>
@@ -172,6 +176,7 @@
                                                 <th>Descriptions</th>
                                                 <th>Price per unit</th>
                                                 <th>Total price</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -186,6 +191,16 @@
                                                     </td>
                                                     <td>{!! showEUR2($request_item->price, $expenseRequest->currency) !!}</td>
                                                     <td>{!! showEUR2(($request_item->price * $request_item->quantity), $expenseRequest->currency) !!}</td>
+                                                    <td>
+                                                        {!! Form::open(['url' => route('requestitem.delete', $request_item), 'method' => 'DELETE', 'class' => 'deletefile']) !!}
+                                                        {{ Form::hidden('type', 'er') }}
+                                                        {{ Form::hidden('modelid', $expenseRequest->uuid) }}
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                                        {!! Form::close() !!}
+
+                                                    </td>
                                                 </tr>
                                                 @php
                                                     $total += $request_item->quantity * $request_item->price ;
@@ -196,6 +211,8 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>{!! showEUR2($total, $expenseRequest->currency) !!} </td>
+                                                <td></td>
+
                                             </tr>
                                             </tbody>
                                         </table>
@@ -363,6 +380,7 @@
                     }
                 });
             });
+
         }
     </script>
 @endsection

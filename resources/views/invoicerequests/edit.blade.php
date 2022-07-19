@@ -10,7 +10,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">RFA - {{ $invoiceRequest->uniqueid }} - {!! getStatus($invoiceRequest->status) !!}</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">RFA - {{ $invoiceRequest->uniqueid }}
+                        - {!! getStatus($invoiceRequest->status) !!}</h4>
                     <div class="flex-shrink-0">
                         <ul class="nav justify-content-end nav-pills card-header-pills" role="tablist">
                             <li class="nav-item">
@@ -92,6 +93,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr>
+                                        <td>{{$invoiceRequest->requester->fullname}}</td>
+                                        <td>Requester</td>
+                                    </tr>
                                     @foreach($invoiceRequest->approvers as $approver)
                                         <tr>
                                             <td>{{$approver->user->fullname}}</td>
@@ -183,7 +188,8 @@
                                                 <tr>
                                                     <td>
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
-                                                            href="{{url('storage/'.$extrafile->filepath)}}" target="_blank">{{$extrafile->filename}}</a>
+                                                            href="{{url('storage/'.$extrafile->filepath)}}"
+                                                            target="_blank">{{$extrafile->filename}}</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -211,137 +217,155 @@
                             </p>
                         </div>
                         @if($invoiceRequest->category->has_allowance)
-                        <div
-                            class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}"
-                            id="allowance" role="tabpanel">
-                            <p class="mb-0">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead>
-                                            <tr>
-                                                <th>From</th>
-                                                <th>To</th>
-                                                <th>Visit to</th>
-                                                <th>Days</th>
-                                                <th>Entertainment</th>
-                                                <th>Leave home after 13.00</th>
-                                                <th>Arrive home before 14.00</th>
-                                                <th>Allowance total</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @php
-                                                $total = 0;
-                                            @endphp
-                                            @foreach($invoiceRequest->allowances as $dailyAllowanceItem)
+                            <div
+                                class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}"
+                                id="allowance" role="tabpanel">
+                                <p class="mb-0">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
                                                 <tr>
-                                                    <td>{{!is_null($dailyAllowanceItem->from_date) ? $dailyAllowanceItem->from_date->format('Y-m-d H:i') : ''}}</td>
-                                                    <td>{{!is_null($dailyAllowanceItem->to_date) ? $dailyAllowanceItem->to_date->format('Y-m-d H:i') : ''}}</td>
-                                                    <td>{{$dailyAllowanceItem->visit_to}}</td>
-                                                    <td>{{$dailyAllowanceItem->days}}</td>
-                                                    <td>{{$dailyAllowanceItem->entertainment}}</td>
-                                                    <td>{{$dailyAllowanceItem->leave_after_noon ? 'yes' : 'no'}}</td>
-                                                    <td>{{$dailyAllowanceItem->arrive_before_noon ? 'yes' : 'no'}}</td>
-                                                    <td>{!! showEUR2($dailyAllowanceItem->allowance_total, $invoiceRequest->currency) !!}</td>
-
-                                                    <td class="text-right">
-                                                        <a class="btn btn-soft-info waves-effect waves-light btn-sm float-end"
-                                                           href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances&edit='.$dailyAllowanceItem->id}}"><i
-                                                                class="bx bx-wrench font-size-12 align-middle"></i></a>
-                                                    </td>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                    <th>Visit to</th>
+                                                    <th>Days</th>
+                                                    <th>Entertainment</th>
+                                                    <th>Leave home after 13.00</th>
+                                                    <th>Arrive home before 14.00</th>
+                                                    <th>Allowance total</th>
+                                                    <th>User</th>
+                                                    <th>Actions</th>
                                                 </tr>
+                                                </thead>
+                                                <tbody>
+                                                @php
+                                                    $total = 0;
+                                                @endphp
+                                                @foreach($invoiceRequest->allowances as $dailyAllowanceItem)
+                                                    <tr>
+                                                        <td>{{!is_null($dailyAllowanceItem->from_date) ? $dailyAllowanceItem->from_date->format('Y-m-d H:i') : ''}}</td>
+                                                        <td>{{!is_null($dailyAllowanceItem->to_date) ? $dailyAllowanceItem->to_date->format('Y-m-d H:i') : ''}}</td>
+                                                        <td>{{$dailyAllowanceItem->visit_to}}</td>
+                                                        <td>{{$dailyAllowanceItem->days}}</td>
+                                                        <td>{{$dailyAllowanceItem->entertainment}}</td>
+                                                        <td>{{$dailyAllowanceItem->leave_after_noon ? 'yes' : 'no'}}</td>
+                                                        <td>{{$dailyAllowanceItem->arrive_before_noon ? 'yes' : 'no'}}</td>
+                                                        <td>{!! showEUR2($dailyAllowanceItem->allowance_total, $invoiceRequest->currency) !!}</td>
+                                                        <td>{{!is_null($dailyAllowanceItem->user_id) ? $dailyAllowanceItem->user->fullname : ''}}</td>
+                                                        <td class="text-right">
+                                                            <a class="btn btn-soft-info waves-effect waves-light btn-sm float-end"
+                                                               href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances&edit='.$dailyAllowanceItem->id}}"><i
+                                                                    class="bx bx-wrench font-size-12 align-middle"></i></a>
+                                                        </td>
+                                                    </tr>
 
-                                            @endforeach
+                                                @endforeach
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        @if(Request::has('tab') && Request::query('tab') == 'allowances' && Request::has('edit'))
+                                            @php
+                                                $dailyAllowance = \App\Models\DailyAllowance::find(Request::query('edit'))
+                                            @endphp
+                                            {{ Form::model($dailyAllowance, ['route' => ['dailyallowance.update', $dailyAllowance], 'method' => 'patch']) }}
+                                        @else
+                                            {!! Form::open(['url' => route('dailyallowance.store'), 'method' => 'post', 'files' => true, 'enctype' => 'multipart/form-data']) !!}
+                                        @endif
+                                        {{Form::hidden('modeltype', 'invoicerequest')}}
+                                        {{Form::hidden('modelid', $invoiceRequest->id)}}
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('from_date', __('law.from') , ['class' => 'form-label']) }}
+                                                    {{ Form::text('from_date', isset($dailyAllowance) ? $dailyAllowance->from_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
+                                                    @if ($errors->has('from_date'))
+                                                        <div
+                                                            class="invalid-feedback">{{ $errors->first('from_date') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('to_date', __('law.till') , ['class' => 'form-label']) }}
+                                                    {{ Form::text('to_date', isset($dailyAllowance) ? $dailyAllowance->to_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
+                                                    @if ($errors->has('to_date'))
+                                                        <div
+                                                            class="invalid-feedback">{{ $errors->first('to_date') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('visit_to', 'Visit to', ['class' => 'form-label']) }}
+                                                    {{ Form::text('visit_to', isset($dailyAllowance) ? $dailyAllowance->visit_to : '', ['class' => $errors->has('visit_to') ? 'form-control is-invalid' : 'form-control']) }}
+                                                    @if ($errors->has('visit_to'))
+                                                        <div
+                                                            class="invalid-feedback">{{ $errors->first('visit_to') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('entertainment', 'Days entertainment (empty if none)', ['class' => 'form-label']) }}
+                                                    {{ Form::text('entertainment', isset($dailyAllowance) ? $dailyAllowance->entertainment : '', ['class' => $errors->has('entertainment') ? 'form-control is-invalid' : 'form-control']) }}
+                                                    @if ($errors->has('entertainment'))
+                                                        <div
+                                                            class="invalid-feedback">{{ $errors->first('entertainment') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('tme_inhouse', 'TME Inhouse', ['class' => 'form-label']) }}
+                                                    {{ Form::select('tme_inhouse', ['0' => 'No', '1' => 'Yes'], null, ['class' => 'form-select']) }}
+                                                    @if ($errors->has('tme_inhouse'))
+                                                        <div
+                                                            class="invalid-feedback">{{ $errors->first('tme_inhouse') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    {{ Form::label('user_id', __('law.user'), ['class' => 'form-label']) }}
+                                                    <select class="form-select" name="user_id" id="user_id">
+                                                        <option value="0">---</option>
+
+                                                        @foreach(auth()->user()->tenant->users()->whereIsActive(true)->whereIsClientvisible(true)->get() as $user)
+                                                            <option
+                                                                value="{{$user->id}}"{{ Request::has('edit') && $dailyAllowance->user_id == $user->id ? ' selected' : '' }}>{{ $user->fullname }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <a href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances'}}"
+                                           class="btn btn-danger">{{__('law.cancel')}}</a>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        {{Form::close()}}
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    @if(Request::has('tab') && Request::query('tab') == 'allowances' && Request::has('edit'))
-                                        @php
-                                            $dailyAllowance = \App\Models\DailyAllowance::find(Request::query('edit'))
-                                        @endphp
-                                        {{ Form::model($dailyAllowance, ['route' => ['dailyallowance.update', $dailyAllowance], 'method' => 'patch']) }}
-                                    @else
-                                        {!! Form::open(['url' => route('dailyallowance.store'), 'method' => 'post', 'files' => true, 'enctype' => 'multipart/form-data']) !!}
-                                    @endif
-                                    {{Form::hidden('modeltype', 'invoicerequest')}}
-                                    {{Form::hidden('modelid', $invoiceRequest->id)}}
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                {{ Form::label('from_date', __('law.from') , ['class' => 'form-label']) }}
-                                                {{ Form::text('from_date', isset($dailyAllowance) ? $dailyAllowance->from_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
-                                                @if ($errors->has('from_date'))
-                                                    <div
-                                                        class="invalid-feedback">{{ $errors->first('from_date') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                {{ Form::label('to_date', __('law.till') , ['class' => 'form-label']) }}
-                                                {{ Form::text('to_date', isset($dailyAllowance) ? $dailyAllowance->to_date->format('Y-m-d H:i') : '', ['class' => $errors->has('invoice_date') ? 'form-control is-invalid' : 'form-control']) }}
-                                                @if ($errors->has('to_date'))
-                                                    <div class="invalid-feedback">{{ $errors->first('to_date') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                {{ Form::label('visit_to', 'Visit to', ['class' => 'form-label']) }}
-                                                {{ Form::text('visit_to', isset($dailyAllowance) ? $dailyAllowance->visit_to : '', ['class' => $errors->has('visit_to') ? 'form-control is-invalid' : 'form-control']) }}
-                                                @if ($errors->has('visit_to'))
-                                                    <div
-                                                        class="invalid-feedback">{{ $errors->first('visit_to') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                {{ Form::label('entertainment', 'Days entertainment (empty if none)', ['class' => 'form-label']) }}
-                                                {{ Form::text('entertainment', isset($dailyAllowance) ? $dailyAllowance->entertainment : '', ['class' => $errors->has('entertainment') ? 'form-control is-invalid' : 'form-control']) }}
-                                                @if ($errors->has('entertainment'))
-                                                    <div
-                                                        class="invalid-feedback">{{ $errors->first('entertainment') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                {{ Form::label('tme_inhouse', 'TME Inhouse', ['class' => 'form-label']) }}
-                                                {{ Form::select('tme_inhouse', ['0' => 'No', '1' => 'Yes'], null, ['class' => 'form-select']) }}
-                                                @if ($errors->has('tme_inhouse'))
-                                                    <div
-                                                        class="invalid-feedback">{{ $errors->first('tme_inhouse') }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <a href="{{route('rfa.edit', $invoiceRequest).'?tab=allowances'}}"
-                                       class="btn btn-danger">{{__('law.cancel')}}</a>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    {{Form::close()}}
-                                </div>
+                                </p>
                             </div>
-                            </p>
-                        </div>
                         @endif
                         <div
                             class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'requestitems' ? ' active' : '' }}"
@@ -358,6 +382,7 @@
                                                 <th>Descriptions</th>
                                                 <th>Price per unit</th>
                                                 <th>Total price</th>
+                                                <th>Actions</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -372,6 +397,16 @@
                                                     </td>
                                                     <td>{!! showEUR2($request_item->price, $invoiceRequest->currency) !!}</td>
                                                     <td>{!! showEUR2(($request_item->price * $request_item->quantity), $invoiceRequest->currency) !!}</td>
+                                                    <td>
+                                                        {!! Form::open(['url' => route('requestitem.delete', $request_item), 'method' => 'DELETE', 'class' => 'deletefile']) !!}
+                                                        {{ Form::hidden('type', 'ir') }}
+                                                        {{ Form::hidden('modelid', $invoiceRequest->uuid) }}
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                                        {!! Form::close() !!}
+
+                                                    </td>
                                                 </tr>
                                                 @php
                                                     $total += $request_item->quantity * $request_item->price ;
@@ -382,6 +417,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>{!! showEUR2($total, $invoiceRequest->currency) !!} </td>
+                                                <td></td>
                                             </tr>
                                             </tbody>
                                         </table>

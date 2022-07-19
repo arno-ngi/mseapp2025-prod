@@ -27,6 +27,7 @@ class DailyAllowanceController extends Controller
                 'visit_to' => $request->visit_to,
                 'entertainment' => $request->entertainment,
                 'tme_inhouse' => $request->tme_inhouse,
+                'user_id' => $request->user_id,
             ]);
 
         if($modeltype === 'invoicerequest') {
@@ -49,6 +50,7 @@ class DailyAllowanceController extends Controller
         $dailyAllowance->visit_to = $request->visit_to;
         $dailyAllowance->entertainment = $request->entertainment;
         $dailyAllowance->tme_inhouse = $request->tme_inhouse;
+        $dailyAllowance->user_id = $request->user_id;
         $dailyAllowance->save();
 
         return back();
