@@ -208,7 +208,7 @@
                             </a>
                         </li>
                     @endif
-                    @if(auth()->user()->hasAnyPermission(['module.settings']))
+                    @if(auth()->user()->hasAnyPermission(['module.settings']) || auth()->user()->hasAnyPermission(['module.users']))
                         <li class="menu-title">{{__('law.settings')}}</li>
                         @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.users']))
                             <li>
