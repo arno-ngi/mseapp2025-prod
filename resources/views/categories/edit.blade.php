@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('shortname', 'Shortname' , ['class' => 'form-label']) }}
+                                        {{ Form::label('shortname', __('law.shortname') , ['class' => 'form-label']) }}
                                         {{ Form::text('shortname', isset($category) ? $category->shortname : '', ['class' => $errors->has('shortname') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('shortname'))
                                             <div class="invalid-feedback">{{ $errors->first('shortname') }}</div>
@@ -46,7 +46,7 @@
                                         <input type="checkbox" class="form-check-input" id="has_allowance"
                                                name="has_allowance"{{ isset($category) && $category->has_allowance ? ' checked=""' : '' }}>
                                         <label class="form-check-label"
-                                               for="has_allowance">Has allowance</label>
+                                               for="has_allowance">{{ __('law.has_allowance') }}</label>
                                     </div>
                                 </div>
                             </div>

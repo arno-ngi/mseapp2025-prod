@@ -154,7 +154,6 @@
                             <button type="submit"
                                     class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
                             {{Form::close()}}
-                            </p>
                         </div>
                         <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'profile' ? ' active' : '' }}" id="profile" role="tabpanel">
                             <p class="mb-0">
@@ -191,7 +190,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('national_register_no', 'Rijksregisternr', ['class' => 'form-label']) }}
+                                        {{ Form::label('national_register_no', __('law.rijksregister'), ['class' => 'form-label']) }}
                                         {{ Form::text('national_register_no', isset($user) ? $user->national_register_no : '', ['class' => $errors->has('national_register_no') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('national_register_no'))
                                             <div
@@ -201,7 +200,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('nationality', 'Nationality', ['class' => 'form-label']) }}
+                                        {{ Form::label('nationality', __('ngi.nationality'), ['class' => 'form-label']) }}
                                         {{ Form::text('nationality', isset($user) ? $user->nationality : '', ['class' => $errors->has('nationality') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('nationality'))
                                             <div class="invalid-feedback">{{ $errors->first('nationality') }}</div>
@@ -221,7 +220,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('bankaccountno', 'Bankaccount no', ['class' => 'form-label']) }}
+                                        {{ Form::label('bankaccountno', __('law.bankaccountnr'), ['class' => 'form-label']) }}
                                         {{ Form::text('bankaccountno', isset($user) ? $user->bankaccountno : '', ['class' => $errors->has('bankaccountno') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('bankaccountno'))
                                             <div class="invalid-feedback">{{ $errors->first('bankaccountno') }}</div>
@@ -230,7 +229,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('date_goedgedragenzeden', 'Datum Goed gedrag en zeden', ['class' => 'form-label']) }}
+                                        {{ Form::label('date_goedgedragenzeden', __('law.date_behave'), ['class' => 'form-label']) }}
                                         <input class="form-control" type="date" value="{{isset($user) && !is_null($user->date_goedgedragenzeden) ? $user->date_goedgedragenzeden->format('Y-m-d') : ''}}" name="date_goedgedragenzeden" id="date_goedgedragenzeden">
                                         @if ($errors->has('date_goedgedragenzeden'))
                                             <div class="invalid-feedback">{{ $errors->first('date_goedgedragenzeden') }}</div>
@@ -289,7 +288,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('telefoon', 'Telefoonnummer', ['class' => 'form-label']) }}
+                                        {{ Form::label('telefoon', __('law.phone'), ['class' => 'form-label']) }}
                                         {{ Form::text('telefoon', isset($user) ? $user->telefoon : '', ['class' => $errors->has('telefoon') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('telefoon'))
                                             <div class="invalid-feedback">{{ $errors->first('telefoon') }}</div>
@@ -300,7 +299,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('ice_name', 'ICE Naam', ['class' => 'form-label']) }}
+                                        {{ Form::label('ice_name', 'ICE ' . __('law.name'), ['class' => 'form-label']) }}
                                         {{ Form::text('ice_name', isset($user) ? $user->ice_name : '', ['class' => $errors->has('ice_name') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('ice_name'))
                                             <div class="invalid-feedback">{{ $errors->first('ice_name') }}</div>
@@ -309,7 +308,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('ice_number', 'ICE Telefoon', ['class' => 'form-label']) }}
+                                        {{ Form::label('ice_number', 'ICE ' . __('law.phone'), ['class' => 'form-label']) }}
                                         {{ Form::text('ice_number', isset($user) ? $user->ice_number : '', ['class' => $errors->has('ice_number') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('ice_number'))
                                             <div class="invalid-feedback">{{ $errors->first('ice_number') }}</div>
@@ -321,7 +320,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('clothing_shirt', 'Kledingmaat T-Shirt', ['class' => 'form-label']) }}
+                                        {{ Form::label('clothing_shirt', __('law.clothing_size') . ' T-Shirt', ['class' => 'form-label']) }}
                                         {{ Form::text('clothing_shirt', isset($user) ? $user->clothing_shirt : '', ['class' => $errors->has('clothing_shirt') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('clothing_shirt'))
                                             <div class="invalid-feedback">{{ $errors->first('clothing_shirt') }}</div>
@@ -330,7 +329,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('clothing_shoes', 'Schoenmaat', ['class' => 'form-label']) }}
+                                        {{ Form::label('clothing_shoes', __('law.shoesize'), ['class' => 'form-label']) }}
                                         {{ Form::text('clothing_shoes', isset($user) ? $user->clothing_shoes : '', ['class' => $errors->has('clothing_shoes') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('clothing_shoes'))
                                             <div class="invalid-feedback">{{ $errors->first('clothing_shoes') }}</div>
@@ -339,7 +338,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mb-3">
-                                        {{ Form::label('clothing_pants', 'Kledingmaat broek', ['class' => 'form-label']) }}
+                                        {{ Form::label('clothing_pants', __('law.clothing_size') . ' ' . __('law.pants'), ['class' => 'form-label']) }}
                                         {{ Form::text('clothing_pants', isset($user) ? $user->clothing_pants : '', ['class' => $errors->has('clothing_pants') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('clothing_pants'))
                                             <div class="invalid-feedback">{{ $errors->first('clothing_pants') }}</div>
@@ -351,7 +350,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('burgerlijke_staat', 'Burgerlijke staat', ['class' => 'form-label']) }}
+                                        {{ Form::label('burgerlijke_staat', __('law.burgerlijke_staat'), ['class' => 'form-label']) }}
                                         {{ Form::select('burgerlijke_staat', ['-'=> '-', 'Alleenstaand'=>'Alleenstaand', 'Feitelijk samenwonend'=>'Feitelijk samenwonend', 'Wettelijk samenwonend'=>'Wettelijk samenwonend', 'Gehuwd'=>'Gehuwd', 'Gescheiden'=>'Gescheiden', 'Weduwe/Weduwnaar'=>'Weduwe/Weduwnaar', 'Feitelijk gescheiden'=>'Feitelijk gescheiden'], null, ['class' => $errors->has('burgerlijke_staat') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('burgerlijke_staat'))
                                             <div class="invalid-feedback">{{ $errors->first('burgerlijke_staat') }}</div>
@@ -360,7 +359,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('opleidingsniveau', 'Opleidingsniveau', ['class' => 'form-label']) }}
+                                        {{ Form::label('opleidingsniveau', __('law.traininglevel'), ['class' => 'form-label']) }}
                                         {{ Form::select('opleidingsniveau', ['-'=> '-','Lager onderwijs'=>'Lager onderwijs', 'Middelbaar onderwijs'=>'Middelbaar onderwijs', 'Bachelor'=>'Bachelor', 'Master'=>'Master'], null, ['class' => $errors->has('opleidingsniveau') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('opleidingsniveau'))
                                             <div class="invalid-feedback">{{ $errors->first('opleidingsniveau') }}</div>
@@ -374,13 +373,13 @@
                             <h5>Partner</h5>
                                 </div>
                                 <div class="col-lg-6">
-                            <h5>Personen te laste</h5>
+                            <h5>{{__('law.person_laste')}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('partner_name', 'Naam', ['class' => 'form-label']) }}
+                                        {{ Form::label('partner_name', __('law.name'), ['class' => 'form-label']) }}
                                         {{ Form::text('partner_name', null, ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('partner_name'))
                                             <div class="invalid-feedback">{{ $errors->first('partner_name') }}</div>
@@ -392,7 +391,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                {{ Form::label('personentenlaste_kind_valide', 'Kinderen valide', ['class' => 'form-label']) }}
+                                                {{ Form::label('personentenlaste_kind_valide', __('law.kids_valid'), ['class' => 'form-label']) }}
                                                 {{ Form::text('personentenlaste_kind_valide', null, ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('personentenlaste_kind_valide'))
                                                     <div class="invalid-feedback">{{ $errors->first('personentenlaste_kind_valide') }}</div>
@@ -401,7 +400,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                {{ Form::label('personentenlaste_kind_invalide', 'Kinderen mindervalide', ['class' => 'form-label']) }}
+                                                {{ Form::label('personentenlaste_kind_invalide', __('law.kids_invalid'), ['class' => 'form-label']) }}
                                                 {{ Form::text('personentenlaste_kind_invalide', null, ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('personentenlaste_kind_invalide'))
                                                     <div class="invalid-feedback">{{ $errors->first('personentenlaste_kind_invalide') }}</div>
@@ -413,7 +412,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('partner_firstname', 'Voornaam', ['class' => 'form-label']) }}
+                                        {{ Form::label('partner_firstname', __('law.firstname'), ['class' => 'form-label']) }}
                                         {{ Form::text('partner_firstname', null, ['class' => $errors->has('street') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('partner_firstname'))
                                             <div class="invalid-feedback">{{ $errors->first('partner_firstname') }}</div>
@@ -437,7 +436,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('partner_birthdate', 'Geboortedatum', ['class' => 'form-label']) }}
+                                        {{ Form::label('partner_birthdate', __('law.birthdate'), ['class' => 'form-label']) }}
                                         <input class="form-control" type="date" value="{{isset($user) && !is_null($user->partner_birthdate) ? $user->partner_birthdate->format('Y-m-d') : ''}}" name="partner_birthdate" id="partner_birthdate">
                                         @if ($errors->has('partner_birthdate'))
                                             <div class="invalid-feedback">{{ $errors->first('partner_birthdate') }}</div>
@@ -470,7 +469,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('beroepsinkomsten', 'Beroepsinkomsten', ['class' => 'form-label']) }}
+                                        {{ Form::label('beroepsinkomsten', __('law.beroepsinkomsten'), ['class' => 'form-label']) }}
                                         {{ Form::select('beroepsinkomsten', ['-'=> '-','Elk ander inkomen' => 'Elk ander inkomen', 'Geen inkomen' => 'Geen inkomen', 'Beroepsinkomen < 240 EUR/maand'=> 'Beroepsinkomen < 240 EUR/maand'], null, ['class' => $errors->has('contract_no') ? 'form-select is-invalid' : 'form-select']) }}
                                         @if ($errors->has('beroepsinkomsten'))
                                             <div class="invalid-feedback">{{ $errors->first('beroepsinkomsten') }}</div>
@@ -508,7 +507,7 @@
                                                 <input type="checkbox" class="form-check-input" id="partner_tenlaste"
                                                        name="partner_tenlaste"{{ isset($user) && $user->partner_tenlaste ? ' checked=""' : '' }}>
                                                 <label class="form-check-label"
-                                                       for="partner_tenlaste">Partner is ten laste</label>
+                                                       for="partner_tenlaste">{{__('law.partner_1')}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -520,7 +519,7 @@
                                                 <input type="checkbox" class="form-check-input" id="partner_mindervalide"
                                                        name="partner_mindervalide"{{ isset($user) && $user->partner_mindervalide ? ' checked=""' : '' }}>
                                                 <label class="form-check-label"
-                                                       for="partner_mindervalide">Partner is mindervalide</label>
+                                                       for="partner_mindervalide">{{__('law.partner_2'}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -531,7 +530,6 @@
                             <button type="submit"
                                     class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
                             {{Form::close()}}
-                            </p>
                         </div>
 
                         <div class="tab-pane" id="permissions" role="tabpanel">
@@ -560,7 +558,6 @@
                             <button type="submit"
                                     class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
                             {{Form::close()}}
-                            </p>
                         </div>
 
                         <div class="tab-pane{{ Request::has('tab') && Request::query('tab') == 'files' ? ' active' : '' }}" id="files" role="tabpanel">

@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Visitors</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">{{__('law.visitors')}}</h4>
                 </div>
 
                 <div class="card-body">
@@ -20,12 +20,12 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>{{__('law.name')}}</th>
                             <th>Checkin</th>
                             <th>Checkout</th>
-                            <th>License plate</th>
-                            <th>Reason</th>
-                            <th>Actions</th>
+                            <th>{{__('law.licence_plate')}}</th>
+                            <th>{{__('law.reason')}}</th>
+                            <th>{{__('law.actions')}}</th>
                         </tr>
                         </thead>
                         <tbody>

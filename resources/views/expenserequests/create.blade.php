@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Expense request - {{__('law.create_new')}}</h4>
+                    <h4 class="card-title">{{__('law.expense_request')}} - {{__('law.create_new')}}</h4>
                 </div>
 
                 {!! Form::open(['url' => route('expenserequest.store'), 'method' => 'post']) !!}

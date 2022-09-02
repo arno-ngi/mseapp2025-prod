@@ -8,7 +8,7 @@
     <div class="col-lg-6">
         <div class="mb-3">
             @if(isset($expenseRequest))
-                Request Datum<br/>
+            {{__('law.request_date')}}<br/>
                 {{$expenseRequest->created_at->format('Y-m-d')}}
             @endif
         </div>
@@ -88,7 +88,7 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('total_cost', 'Total Cost' , ['class' => 'form-label']) }}
+            {{ Form::label('total_cost', __('law.total_cost') , ['class' => 'form-label']) }}
             @if(isset($ir))
                 @php
                     $totalallowance = $ir->allowances()->sum('allowance_total');
@@ -123,7 +123,7 @@ $alltotal = $totalallowance + $total;
     </div>
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('bankstatement', 'Bank statement' , ['class' => 'form-label']) }}
+            {{ Form::label('bankstatement', __('law.bank_statement') , ['class' => 'form-label']) }}
             {{ Form::text('bankstatement', isset($expenseRequest) ? $expenseRequest->bankstatement : '', ['class' => $errors->has('bankstatement') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('bankstatement'))
                 <div class="invalid-feedback">{{ $errors->first('bankstatement') }}</div>
@@ -135,7 +135,7 @@ $alltotal = $totalallowance + $total;
 <div class="row">
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('payment_type', 'Payment type', ['class' => 'form-label']) }}
+            {{ Form::label('payment_type', __('law.payment_type'), ['class' => 'form-label']) }}
             {{ Form::select('payment_type', getPaymentTypeArray(), null, ['class' => 'form-select']) }}
             @if ($errors->has('payment_type'))
                 <div

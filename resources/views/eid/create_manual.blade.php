@@ -42,11 +42,11 @@
         </div>
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="licenseplate">Licence plate</label>
+                <label for="licenseplate">{{__('law.licence_plate')}}</label>
                 <input type="text" class="form-control" id="licenseplate" name="licenseplate" placeholder="">
             </div>
             <div class="col-md-6 mb-3">
-                <label for="reason">Reason</label>
+                <label for="reason">{{__('law.reason')}}</label>
                 <input type="text" class="form-control" id="reason" name="reason" placeholder="">
             </div>
         </div>

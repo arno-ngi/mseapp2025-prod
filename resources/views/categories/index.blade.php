@@ -30,9 +30,9 @@
                             <th>{{__('law.name')}}</th>
                             <th>ER</th>
                             <th>RFA</th>
-                            <th>Approvers</th>
+                            <th>{{__('law.approvers')}}</th>
                             <th>{{__('law.created_at')}}</th>
-                            <th>Actions</th>
+                            <th>{{__('law.actions')}}</th>
                         </tr>
                         </thead>
                         <tbody>

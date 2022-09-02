@@ -34,10 +34,10 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>{{__('law.name')}}</th>
                                 <th>Checkin</th>
-                                <th>License plate</th>
-                                <th>Reason</th>
+                                <th>{{__('law.licence_plate')}}</th>
+                                <th>{{__('law.reason')}}</th>
                             </tr>
                             </thead>
                             <tbody>

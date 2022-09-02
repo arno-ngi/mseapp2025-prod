@@ -22,7 +22,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-cog"></i></span>
-                                    <span class="d-none d-sm-block">Profile</span>
+                                    <span class="d-none d-sm-block">{{__('law.profile')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -88,7 +88,6 @@
 <button type="submit"
                                     class="btn btn-soft-success waves-effect waves-light">{{ __('law.save') }}</button>
                             {{Form::close()}}
-                            </p>
                         </div>
                         <div class="tab-pane" id="profile" role="tabpanel">
                             <p class="mb-0">
@@ -125,7 +124,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('national_register_no', 'Rijksregisternr', ['class' => 'form-label']) }}
+                                        {{ Form::label('national_register_no', __('law.rijksregister'), ['class' => 'form-label']) }}
                                         {{ Form::text('national_register_no', isset($user) ? $user->national_register_no : '', ['class' => $errors->has('national_register_no') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('national_register_no'))
                                             <div
@@ -137,7 +136,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('nationality', 'Nationality', ['class' => 'form-label']) }}
+                                        {{ Form::label('nationality', __('ngi.nationality'), ['class' => 'form-label']) }}
                                         {{ Form::text('nationality', isset($user) ? $user->nationality : '', ['class' => $errors->has('nationality') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('nationality'))
                                             <div class="invalid-feedback">{{ $errors->first('nationality') }}</div>
@@ -146,7 +145,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('bankaccountno', 'Bankaccount no', ['class' => 'form-label']) }}
+                                        {{ Form::label('bankaccountno', __('law.bankaccountnr'), ['class' => 'form-label']) }}
                                         {{ Form::text('bankaccountno', isset($user) ? $user->bankaccountno : '', ['class' => $errors->has('bankaccountno') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('bankaccountno'))
                                             <div class="invalid-feedback">{{ $errors->first('bankaccountno') }}</div>
@@ -197,7 +196,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('hospital_previous_eployer', 'Hospital insurance Previous Employer', ['class' => 'form-label']) }}
+                                        {{ Form::label('hospital_previous_eployer', __('law.hospital_previous'), ['class' => 'form-label']) }}
                                         {{ Form::text('hospital_previous_eployer', isset($user) ? $user->hospital_previous_eployer : '', ['class' => $errors->has('hospital_previous_eployer') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('hospital_previous_eployer'))
                                             <div
@@ -207,7 +206,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        {{ Form::label('contract_no', 'Contract no', ['class' => 'form-label']) }}
+                                        {{ Form::label('contract_no', 'Contract #', ['class' => 'form-label']) }}
                                         {{ Form::text('contract_no', isset($user) ? $user->contract_no : '', ['class' => $errors->has('contract_no') ? 'form-control is-invalid' : 'form-control']) }}
                                         @if ($errors->has('contract_no'))
                                             <div class="invalid-feedback">{{ $errors->first('contract_no') }}</div>

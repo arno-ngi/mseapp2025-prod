@@ -29,7 +29,7 @@
                                 <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
                                    data-bs-toggle="tab" href="#approvers" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Approvers</span>
+                                    <span class="d-none d-sm-block">{{__('law.approvers')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -42,7 +42,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#files" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Files</span>
+                                    <span class="d-none d-sm-block">{{__('law.files')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -84,7 +84,7 @@
                                     <tbody>
                                     <tr>
                                         <td>{{$expenseRequest->requester->fullname}}</td>
-                                        <td>Requester</td>
+                                        <td>{{__('law.requester')}}</td>
                                     </tr>
                                     @foreach($expenseRequest->approvers as $approver)
                                         <tr>
@@ -172,11 +172,11 @@
                                         <table class="table mb-0">
                                             <thead>
                                             <tr>
-                                                <th>Quantity</th>
-                                                <th>Descriptions</th>
-                                                <th>Price per unit</th>
-                                                <th>Total price</th>
-                                                <th>Action</th>
+                                                <th>{{__('law.quantity')}}</th>
+                                                <th>{{__('law.description')}}</th>
+                                                <th>{{__('law.price_per_unit')}}</th>
+                                                <th>{{__('ngi.total')}}</th>
+                                                <th>{{__('law.actions')}}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -232,7 +232,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('quantity', 'Quantity', ['class' => 'form-label']) }}
+                                                {{ Form::label('quantity', __('law.quantity'), ['class' => 'form-label']) }}
                                                 {{ Form::text('quantity', isset($requestitem) ? $requestitem->quantity : '', ['class' => $errors->has('quantity') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('quantity'))
                                                     <div
@@ -244,7 +244,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
+                                                {{ Form::label('description', __('law.description'), ['class' => 'form-label']) }}
                                                 {{ Form::text('description', isset($requestitem) ? $requestitem->description : '', ['class' => $errors->has('description') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('description'))
                                                     <div
@@ -258,7 +258,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('price', 'Price per unit', ['class' => 'form-label']) }}
+                                                {{ Form::label('price',__('law.price_per_unit'), ['class' => 'form-label']) }}
                                                 {{ Form::text('price', isset($requestitem) ? $requestitem->price : '', ['class' => $errors->has('price') ? 'form-control is-invalid' : 'form-control', 'data-type' => 'currency']) }}
                                                 @if ($errors->has('price'))
                                                     <div
@@ -269,7 +269,7 @@
 
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">{{__('law.save')}}</button>
                                     {{Form::close()}}
                                 </div>
                             </div>
@@ -309,7 +309,7 @@
                        class="btn btn-soft-secondary waves-effect waves-light ">PDF</a>
                     @if($expenseRequest->status !== 5)
                         <a href="{{route('expenserequests.makeclosed', $expenseRequest)}}"
-                           class="btn btn-soft-success waves-effect waves-light">Status aanpassen naar AFGESLOTEN</a>
+                           class="btn btn-soft-success waves-effect waves-light">{{__('law.status_closed')}}</a>
                     @endif
                 </div>
             </div>

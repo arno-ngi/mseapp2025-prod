@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Expense Requests</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">{{__('law.expense_request')}}</h4>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap gap-2 mb-0 my-n1">
                             <a href="{{route('expenserequest.create')}}" class="btn btn-primary waves-effect btn-label waves-light btn-sm">
@@ -29,10 +29,10 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Requested By</th>
-                            <th>Requested</th>
+                            <th>{{__('law.requester')}}</th>
+                            <th>{{__('law.requested')}}</th>
                             <th>Info</th>
-                            <th>Amount</th>
+                            <th>{{__('law.amount')}}</th>
                             <th>Status</th>
                         </tr>
                         </thead>

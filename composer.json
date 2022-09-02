@@ -25,6 +25,7 @@
         "spatie/laravel-translatable": "^6.0",
         "symfony/http-client": "^6.0",
         "symfony/mailgun-mailer": "^6.0",
+        "tanmuhittin/laravel-google-translate": "^2.1",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

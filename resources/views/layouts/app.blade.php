@@ -177,7 +177,7 @@
                             <a href="{{route('expenserequest.index')}}"
                                class="{{ Request::is('expenserequest*') ? 'active' : '' }}">
                                 <i data-feather="list"></i>
-                                <span>Expense Requests</span>
+                                <span>{{__('law.expense_request')}}</span>
                             </a>
                         </li>
                     @endif
@@ -186,7 +186,7 @@
                             <a href="{{route('tasks.index')}}"
                                class="{{ Request::is('tasks*') ? 'active' : '' }}">
                                 <i data-feather="list"></i>
-                                <span>Tasks</span>
+                                <span>{{__('law.tasks')}}</span>
                             </a>
                         </li>
                     @endif
@@ -204,7 +204,7 @@
                             <a href="{{route('visitors.index')}}"
                                class="{{ Request::is('visitors*') ? 'active' : '' }}">
                                 <i data-feather="list"></i>
-                                <span>Visitors</span>
+                                <span>{{__('law.visitors')}}</span>
                             </a>
                         </li>
                     @endif
@@ -278,7 +278,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">
-                            Version 2.0.3
+                            Version 2.0.5
                         </div>
                     </div>
                 </div>

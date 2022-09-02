@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-3">
-                                {{ Form::label('startnumber', 'Startnummber' , ['class' => 'form-label']) }}
+                                {{ Form::label('startnumber', __('law.startnumber') , ['class' => 'form-label']) }}
                                 {{ Form::text('startnumber', isset($barcode) ? $barcode->startnumber : '', ['class' => $errors->has('startnumber') ? 'form-control is-invalid' : 'form-control']) }}
                                 @if ($errors->has('startnumber'))
                                     <div class="invalid-feedback">{{ $errors->first('startnumber') }}</div>

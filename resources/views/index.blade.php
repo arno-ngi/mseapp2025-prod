@@ -9,7 +9,7 @@
                     <table id="datatable" class="table table-bordered table-striped table-sm dataTable">
                         <thead>
                         <tr>
-                            <th>Title</th>
+                            <th>{{__('law.title')}}</th>
                             <th>Status</th>
                         </tr>
                         </thead>

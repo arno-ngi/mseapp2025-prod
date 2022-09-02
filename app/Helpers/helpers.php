@@ -154,26 +154,49 @@ function showEUR2($amount, $currency = "EUR")
 
 function getStatus($statusid)
 {
-    $statuses = [
-        1 => 'new',
-        2 => 'pending',
-        3 => 'approved',
-        4 => 'rejected',
-        5 => 'closed',
-    ];
+    if(app()->getLocale() === "nl")
+    {
+        $statuses = [
+            1 => 'nieuw',
+            2 => 'in aanvraag',
+            3 => 'goedgekeurd',
+            4 => 'geweigerd',
+            5 => 'gesloten',
+        ];
+    } else {
+        $statuses = [
+            1 => 'new',
+            2 => 'pending',
+            3 => 'approved',
+            4 => 'rejected',
+            5 => 'closed',
+        ];
+    }
     return $statuses[$statusid];
 }
 
 
 function getStatus2()
 {
-    $statuses = [
-        1 => 'new',
-        2 => 'pending',
-        3 => 'approved',
-        4 => 'rejected',
-        5 => 'closed',
-    ];
+    if(app()->getLocale() === "nl")
+    {
+        $statuses = [
+            1 => 'nieuw',
+            2 => 'in aanvraag',
+            3 => 'goedgekeurd',
+            4 => 'geweigerd',
+            5 => 'gesloten',
+        ];
+    } else {
+        $statuses = [
+            1 => 'new',
+            2 => 'pending',
+            3 => 'approved',
+            4 => 'rejected',
+            5 => 'closed',
+        ];
+    }
+
     return $statuses;
 }
 

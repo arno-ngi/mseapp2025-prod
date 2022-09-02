@@ -25,7 +25,7 @@
                                 <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'approvers' ? ' active' : '' }}"
                                    data-bs-toggle="tab" href="#approvers" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Approvers</span>
+                                    <span class="d-none d-sm-block">{{__('law.approvers')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -38,13 +38,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#files" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Files</span>
+                                    <span class="d-none d-sm-block">{{__('law.files')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#invoicefiles" role="tab">
                                     <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                    <span class="d-none d-sm-block">Invoice Files</span>
+                                    <span class="d-none d-sm-block">{{__('law.invoice')}} {{__('law.files')}}</span>
                                 </a>
                             </li>
                             @if($invoiceRequest->category->has_allowance)
@@ -52,7 +52,7 @@
                                     <a class="nav-link{{ Request::has('tab') && Request::query('tab') == 'allowances' ? ' active' : '' }}"
                                        data-bs-toggle="tab" href="#allowance" role="tab">
                                         <span class="d-block d-sm-none"><i class="far fa-envelope"></i></span>
-                                        <span class="d-none d-sm-block">Allowance</span>
+                                        <span class="d-none d-sm-block">{{__('law.allowance')}}</span>
                                     </a>
                                 </li>
                             @endif
@@ -95,7 +95,7 @@
                                     <tbody>
                                     <tr>
                                         <td>{{$invoiceRequest->requester->fullname}}</td>
-                                        <td>Requester</td>
+                                        <td>{{__('law.requester')}}</td>
                                     </tr>
                                     @foreach($invoiceRequest->approvers as $approver)
                                         <tr>
@@ -227,16 +227,16 @@
                                             <table class="table mb-0">
                                                 <thead>
                                                 <tr>
-                                                    <th>From</th>
-                                                    <th>To</th>
-                                                    <th>Visit to</th>
-                                                    <th>Days</th>
-                                                    <th>Entertainment</th>
-                                                    <th>Leave home after 13.00</th>
-                                                    <th>Arrive home before 14.00</th>
-                                                    <th>Allowance total</th>
-                                                    <th>User</th>
-                                                    <th>Actions</th>
+                                                    <th>{{__('law.from')}}</th>
+                                                    <th>{{__('law.to')}}</th>
+                                                    <th>{{__('law.visit_to')}}</th>
+                                                    <th>{{__('law.days')}}</th>
+                                                    <th>{{__('law.entertainment')}}</th>
+                                                    <th>{{__('law.leave_home_after')}}</th>
+                                                    <th>{{__('law.arrive_before')}}</th>
+                                                    <th>{{__('law.allowance_total')}}</th>
+                                                    <th>{{__('law.user')}}</th>
+                                                    <th>{{__('law.actions')}}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -306,7 +306,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
-                                                    {{ Form::label('visit_to', 'Visit to', ['class' => 'form-label']) }}
+                                                    {{ Form::label('visit_to', __('law.visit_to'), ['class' => 'form-label']) }}
                                                     {{ Form::text('visit_to', isset($dailyAllowance) ? $dailyAllowance->visit_to : '', ['class' => $errors->has('visit_to') ? 'form-control is-invalid' : 'form-control']) }}
                                                     @if ($errors->has('visit_to'))
                                                         <div
@@ -319,7 +319,7 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
-                                                    {{ Form::label('entertainment', 'Days entertainment (empty if none)', ['class' => 'form-label']) }}
+                                                    {{ Form::label('entertainment', __('law.days_entertainment'), ['class' => 'form-label']) }}
                                                     {{ Form::text('entertainment', isset($dailyAllowance) ? $dailyAllowance->entertainment : '', ['class' => $errors->has('entertainment') ? 'form-control is-invalid' : 'form-control']) }}
                                                     @if ($errors->has('entertainment'))
                                                         <div
@@ -378,11 +378,11 @@
                                         <table class="table mb-0">
                                             <thead>
                                             <tr>
-                                                <th>Quantity</th>
-                                                <th>Descriptions</th>
-                                                <th>Price per unit</th>
-                                                <th>Total price</th>
-                                                <th>Actions</th>
+                                                <th>{{__('law.quantity')}}</th>
+                                                <th>{{__('law.description')}}</th>
+                                                <th>{{__('law.price_per_unit')}}</th>
+                                                <th>{{__('ngi.total')}}</th>
+                                                <th>{{__('law.actions')}}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -437,7 +437,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('quantity', 'Quantity', ['class' => 'form-label']) }}
+                                                {{ Form::label('quantity', __('law.quantity'), ['class' => 'form-label']) }}
                                                 {{ Form::text('quantity', isset($requestitem) ? $requestitem->quantity : '', ['class' => $errors->has('quantity') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('quantity'))
                                                     <div
@@ -449,7 +449,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('description', 'Description', ['class' => 'form-label']) }}
+                                                {{ Form::label('description', __('law.description'), ['class' => 'form-label']) }}
                                                 {{ Form::text('description', isset($requestitem) ? $requestitem->description : '', ['class' => $errors->has('description') ? 'form-control is-invalid' : 'form-control']) }}
                                                 @if ($errors->has('description'))
                                                     <div
@@ -463,7 +463,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="mb-3">
-                                                {{ Form::label('price', 'Price per unit', ['class' => 'form-label']) }}
+                                                {{ Form::label('price', __('law.price_per_unit'), ['class' => 'form-label']) }}
                                                 {{ Form::text('price', isset($requestitem) ? $requestitem->price : '', ['class' => $errors->has('price') ? 'form-control is-invalid' : 'form-control', 'data-type' => 'currency']) }}
                                                 @if ($errors->has('price'))
                                                     <div
@@ -474,7 +474,7 @@
 
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">{{__('law.save')}}</button>
                                     {{Form::close()}}
                                 </div>
                             </div>
@@ -513,12 +513,12 @@
                     <a href="{{route('rfa.index')}}"
                        class="btn btn-soft-danger waves-effect waves-light">{{__('law.cancel')}}</a>
                     <a href="{{route('expenserequest.create').'?rfa='.$invoiceRequest->uuid}}"
-                       class="btn btn-soft-secondary waves-effect waves-light">Expense request</a>
+                       class="btn btn-soft-secondary waves-effect waves-light">{{__('law.expense_request')}}</a>
                     <a href="{{route('rfa.pdf', $invoiceRequest)}}"
                        class="btn btn-soft-secondary waves-effect waves-light ">PDF</a>
                     @if($invoiceRequest->status !== 5)
                         <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
-                           class="btn btn-soft-success waves-effect waves-light">Afgesloten</a>
+                           class="btn btn-soft-success waves-effect waves-light">{{__('law.closed')}}</a>
                     @endif
                 </div>
             </div>

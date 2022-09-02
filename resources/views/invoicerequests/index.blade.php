@@ -29,11 +29,11 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Requested By</th>
-                            <th>Requested</th>
+                            <th>{{__('law.requester')}}</th>
+                            <th>{{__('law.requested')}}</th>
                             <th>Info</th>
-                            <th>Amount</th>
-                            <th>Final Amount</th>
+                            <th>{{__('law.amount')}}</th>
+                            <th>{{__('law.final_amount')}}</th>
                             <th>Status</th>
                         </tr>
                         </thead>

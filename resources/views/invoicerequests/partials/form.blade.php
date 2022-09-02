@@ -2,7 +2,7 @@
     @if(isset($invoiceRequest))
     <div class="col-lg-6">
         <div class="mb-3">
-            Request Datum<br/>
+            {{__('law.request_date')}}<br/>
             {{$invoiceRequest->created_at->format('Y-m-d')}}
         </div>
     </div>
@@ -62,7 +62,7 @@
         }
         @endphp
         <div class="mb-3">
-            {{ Form::label('total_invoice_amount', 'Budget' . $number , ['class' => 'form-label']) }}
+            {{ Form::label('total_invoice_amount', __('law.budget') . $number , ['class' => 'form-label']) }}
             {{ Form::text('total_invoice_amount', isset($invoiceRequest) ? $invoiceRequest->total_invoice_amount : '', ['class' => $errors->has('total_invoice_amount') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('total_invoice_amount'))
                 <div class="invalid-feedback">{{ $errors->first('total_invoice_amount') }}</div>
@@ -88,7 +88,7 @@
             }
         @endphp
         <div class="mb-3">
-            {{ Form::label('final_amount', 'Factuurbedrag' . $number2 , ['class' => 'form-label']) }}
+            {{ Form::label('final_amount', __('ngi.invoice_amount') . $number2 , ['class' => 'form-label']) }}
             {{ Form::text('final_amount', isset($invoiceRequest) ? $invoiceRequest->final_amount : '', ['class' => $errors->has('final_amount') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('final_amount'))
                 <div class="invalid-feedback">{{ $errors->first('final_amount') }}</div>
@@ -102,7 +102,7 @@
     </div>
     <div class="col-lg-6">
         <div class="mb-3">
-            {{ Form::label('final_amount_reason', 'Reden bij afwijkend factuurbedrag' , ['class' => 'form-label']) }}
+            {{ Form::label('final_amount_reason', __('law.reason_invoice_amount') , ['class' => 'form-label']) }}
             {{ Form::text('final_amount_reason', isset($invoiceRequest) ? $invoiceRequest->final_amount_reason : '', ['class' => $errors->has('final_amount_reason') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('final_amount_reason'))
                 <div class="invalid-feedback">{{ $errors->first('final_amount_reason') }}</div>
@@ -141,7 +141,7 @@
         <div class="col-lg-6">
             <div class="mt-3 mt-lg-0">
                 <div class="mb-3">
-                    {{ Form::label('safety_description', 'Safety Description' , ['class' => 'form-label']) }}
+                    {{ Form::label('safety_description', __('law.safety_description') , ['class' => 'form-label']) }}
                     {{ Form::text('safety_description', isset($invoiceRequest) ? $invoiceRequest->safety_description : '', ['class' => $errors->has('extra_info') ? 'form-control is-invalid' : 'form-control']) }}
                     @if ($errors->has('safety_description'))
                         <div class="invalid-feedback">{{ $errors->first('safety_description') }}</div>
