@@ -1,5 +1,6 @@
 <?php
 return [
+    'invoice_amount' => 'Invoice amount',
   'beroepsinkomsten' => 'Professional income',
   'partner_2' => 'Partner is disabled',
   'partner_1' => 'Partner is dependent',

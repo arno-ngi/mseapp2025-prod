@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'invoice_amount' => 'Factuurbedrag',
     'beroepsinkomsten' => 'Beroepsinkomsten',
     'partner_2' => 'Partner is mindervalide',
     'partner_1' => 'Partner is ten laste',

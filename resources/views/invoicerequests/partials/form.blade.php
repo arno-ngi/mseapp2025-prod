@@ -88,7 +88,7 @@
             }
         @endphp
         <div class="mb-3">
-            {{ Form::label('final_amount', __('ngi.invoice_amount') . $number2 , ['class' => 'form-label']) }}
+            {{ Form::label('final_amount', __('law.invoice_amount') . $number2 , ['class' => 'form-label']) }}
             {{ Form::text('final_amount', isset($invoiceRequest) ? $invoiceRequest->final_amount : '', ['class' => $errors->has('final_amount') ? 'form-control is-invalid' : 'form-control']) }}
             @if ($errors->has('final_amount'))
                 <div class="invalid-feedback">{{ $errors->first('final_amount') }}</div>
