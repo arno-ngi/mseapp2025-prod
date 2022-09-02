@@ -90,12 +90,14 @@
                                     <tr>
                                         <th>{{__('law.name')}}</th>
                                         <th>Status</th>
+                                        <th>{{__('law.date')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>{{$invoiceRequest->requester->fullname}}</td>
                                         <td>{{__('law.requester')}}</td>
+                                        <td></td>
                                     </tr>
                                     @foreach($invoiceRequest->approvers as $approver)
                                         <tr>
@@ -109,6 +111,11 @@
                                                                class="btn {{getStatusColor($key)}}">{{ $value }}</a>
                                                         @endif
                                                     @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($approver->status === 3 || $approver->status === 4 || $approver->status === 5)
+                                                    {{$approver->updated_at->format('d/m/Y H:i')}}
                                                 @endif
                                             </td>
                                         </tr>

@@ -10,7 +10,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header align-items-center d-flex">
-                    <h4 class="card-title mb-0 flex-grow-1">Expense Request - {{ $expenseRequest->uniqueid }} - {!! getStatus($expenseRequest->status) !!}
+                    <h4 class="card-title mb-0 flex-grow-1">Expense Request - {{ $expenseRequest->uniqueid }}
+                        - {!! getStatus($expenseRequest->status) !!}
 
                         @if(!is_null($expenseRequest->invoice_request_id))
                             (<i class="bx bx-bx bx-link-alt"></i>{{$expenseRequest->invoicerequest->uniqueid}})
@@ -79,12 +80,14 @@
                                     <tr>
                                         <th>{{__('law.name')}}</th>
                                         <th>Status</th>
+                                        <th>{{__('law.date')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>{{$expenseRequest->requester->fullname}}</td>
                                         <td>{{__('law.requester')}}</td>
+                                        <td></td>
                                     </tr>
                                     @foreach($expenseRequest->approvers as $approver)
                                         <tr>
@@ -99,6 +102,11 @@
                                                     @endforeach
                                                 @endif
 
+                                            </td>
+                                            <td>
+                                                @if($approver->status === 3 || $approver->status === 4 || $approver->status === 5)
+{{$approver->updated_at->format('d/m/Y H:i')}}
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -123,7 +131,8 @@
                                                 <tr>
                                                     <td>
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
-                                                            href="{{url('storage/'.$extrafile->filepath)}}" target="_blank">{{$extrafile->filename}}</a>
+                                                            href="{{url('storage/'.$extrafile->filepath)}}"
+                                                            target="_blank">{{$extrafile->filename}}</a>
                                                     </td>
                                                     <td>
                                                         {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
@@ -336,7 +345,7 @@
                 });
             }
         });
-        $('#user_id').on('change', function() {
+        $('#user_id').on('change', function () {
 
             $.ajax({
                 url: '{{(route('users.getbank'))}}',
