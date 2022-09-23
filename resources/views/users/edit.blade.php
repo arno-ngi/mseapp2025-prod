@@ -519,7 +519,7 @@
                                                 <input type="checkbox" class="form-check-input" id="partner_mindervalide"
                                                        name="partner_mindervalide"{{ isset($user) && $user->partner_mindervalide ? ' checked=""' : '' }}>
                                                 <label class="form-check-label"
-                                                       for="partner_mindervalide">{{__('law.partner_2'}}</label>
+                                                       for="partner_mindervalide">{{__('law.partner_2')}}</label>
                                             </div>
                                         </div>
                                     </div>
