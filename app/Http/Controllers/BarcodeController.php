@@ -34,7 +34,7 @@ class BarcodeController extends Controller
     {
         $latestnumber = Barcode::orderBy('startnumber', 'DESC')->first();
         $newstartnumber = $latestnumber->startnumber + $latestnumber->quantity;
-        
+
         return view('barcodes.create', compact('newstartnumber'));
     }
 
