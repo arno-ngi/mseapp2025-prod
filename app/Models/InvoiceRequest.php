@@ -78,5 +78,8 @@ class InvoiceRequest extends Model
     {
         return $this->morphMany(RequestItem::class, 'requestitemable');
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -19,7 +19,7 @@ return array(
     'not_assigned' => '-- Niet toegewezen --',
     'mail_info' => 'Mailadres info',
     'company' => 'Bedrijfsnaam',
-
+    'status_pending' => 'In verwerking',
     'has_ssh' => 'SSH Server',
     'has_zabbix' => 'Zabbix',
     'has_unifi' => 'Unify Controller',
@@ -116,7 +116,7 @@ return array(
     'subject' => 'Onderwerp',
     'days_before' => 'Dagen op voorhand',
     'phone' => 'Telefoonnummer',
-    'cancel' => 'Annuleren',
+    'cancel' => 'Terug',
     'save' => 'Opslaan',
     'agree_all' => 'Ik ga akkoord met de algemene voorwaarden.',
     'save_changes' => 'Wijzigingen opslaan',

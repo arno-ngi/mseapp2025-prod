@@ -527,6 +527,12 @@
                         <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
                            class="btn btn-soft-success waves-effect waves-light">{{__('law.closed')}}</a>
                     @endif
+
+                    <a href="{{route('rfa.makepending', $invoiceRequest)}}"
+                       class="btn btn-soft-info waves-effect waves-light ">{{__('law.status_pending')}}</a>
+
+                    <a href="{{route('rfa.makerejected', $invoiceRequest)}}"
+                       class="btn btn-soft-alert waves-effect waves-light ">{{__('law.status_rejected')}}</a>
                 </div>
             </div>
 

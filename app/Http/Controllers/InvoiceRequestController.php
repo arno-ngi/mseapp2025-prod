@@ -13,7 +13,7 @@ class InvoiceRequestController extends Controller
 {
     public function index()
     {
-        $invoiceRequests = auth()->user()->tenant->invoicerequests()->get();
+        $invoiceRequests = auth()->user()->invoicerequests()->get();
 
         return view('invoicerequests.index', compact('invoiceRequests'));
     }
@@ -181,6 +181,30 @@ class InvoiceRequestController extends Controller
         activity()
             ->performedOn($invoiceRequest)
             ->log('Item updated ' . $invoiceRequest->slug);
+
+        return back();
+    }
+
+    public function makepending(InvoiceRequest $invoiceRequest)
+    {
+        $invoiceRequest->status = 2;
+        $invoiceRequest->save();
+
+        activity()
+            ->performedOn($invoiceRequest)
+            ->log('Status changed - PENDING');
+
+        return back();
+    }
+
+    public function makerejected(InvoiceRequest $invoiceRequest)
+    {
+        $invoiceRequest->status = 4;
+        $invoiceRequest->save();
+
+        activity()
+            ->performedOn($invoiceRequest)
+            ->log('Status changed - REJECTED');
 
         return back();
     }

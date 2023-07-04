@@ -80,6 +80,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/rfa/{invoiceRequest}/pdf', [\App\Http\Controllers\InvoiceRequestController::class, 'pdf'])->name('rfa.pdf');
         Route::get('/rfa/{invoiceRequest}/makeclosed', [\App\Http\Controllers\InvoiceRequestController::class, 'makeclosed'])->name('rfa.makeclosed');
         Route::get('/rfa/{invoiceRequest}/changestatus/{status}', [\App\Http\Controllers\InvoiceRequestController::class, 'changestatus'])->name('rfa.changestatus');
+        Route::get('/rfa/{invoiceRequest}/makepending', [\App\Http\Controllers\InvoiceRequestController::class, 'makepending'])->name('rfa.makepending');
+        Route::get('/rfa/{invoiceRequest}/makerejected', [\App\Http\Controllers\InvoiceRequestController::class, 'makerejected'])->name('rfa.makerejected');
+
         Route::post('/rfa', [\App\Http\Controllers\InvoiceRequestController::class, 'store'])->name('rfa.store');
         Route::get('/rfa/create', [\App\Http\Controllers\InvoiceRequestController::class, 'create'])->name('rfa.create');
         Route::post('/rfa/{invoiceRequest}/files', [\App\Http\Controllers\InvoiceRequestController::class, 'store_files'])->name('rfa.store.files');
@@ -92,6 +95,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/expenserequest/{expenseRequest}/changestatus/{status}', [\App\Http\Controllers\ExpenseRequestController::class, 'changestatus'])->name('expenserequests.changestatus');
         Route::get('/expenserequest/{expenseRequest}/pdf', [\App\Http\Controllers\ExpenseRequestController::class, 'pdf'])->name('expenserequest.pdf');
         Route::get('/expenserequest/{expenseRequest}/makeclosed', [\App\Http\Controllers\ExpenseRequestController::class, 'makeclosed'])->name('expenserequests.makeclosed');
+        Route::get('/expenserequest/{expenseRequest}/makepending', [\App\Http\Controllers\ExpenseRequestController::class, 'makepending'])->name('expenserequests.makepending');
+        Route::get('/expenserequest/{expenseRequest}/makerejected', [\App\Http\Controllers\ExpenseRequestController::class, 'makerejected'])->name('expenserequests.makerejected');
+
         Route::post('/expenserequest', [\App\Http\Controllers\ExpenseRequestController::class, 'store'])->name('expenserequest.store');
         Route::get('/expenserequest/create', [\App\Http\Controllers\ExpenseRequestController::class, 'create'])->name('expenserequest.create');
         Route::post('/expenserequest/{expenseRequest}/files', [\App\Http\Controllers\ExpenseRequestController::class, 'store_files'])->name('expenserequest.store.files');

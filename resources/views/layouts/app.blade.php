@@ -83,7 +83,7 @@
                     <div class="dropdown d-none d-sm-inline-block">
                         <button type="button" class="btn header-item"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{auth()->user()->tenant->name}}
+                            {{auth()->user()->user_id}}
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             @foreach(\App\Models\Tenant::all() as $tenant)
@@ -155,7 +155,7 @@
 
             <div id="sidebar-menu" class="mm-active">
                 <ul class="metismenu list-unstyled" id="side-menu">
-                    <li class="menu-title">{{!is_null(auth()->user()->tenant_id) ? auth()->user()->tenant->name : 'Menu'}}</li>
+                    <li class="menu-title">{{!is_null(auth()->user()->tenant_id) ? auth()->user()->tenant_id : 'Menu'}}</li>
 
                     <li>
                         <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">

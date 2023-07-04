@@ -27,7 +27,7 @@ class Tenant extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'tenants_users','tenants_id', 'users_id');
     }
 
     public function categories()

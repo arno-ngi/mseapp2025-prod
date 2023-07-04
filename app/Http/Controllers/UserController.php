@@ -16,10 +16,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        if (is_null(auth()->user()->tenant_id)) {
+        if (is_null(auth()->user()->tenant)) {
             $users = User::all();
         } else {
-            $users = auth()->user()->tenant->users()->whereIsClientvisible(true)->whereIsActive(true)->get();
+            $users = auth()->user()->whereIsClientvisible(true)->whereIsActive(true)->get();
         }
 
         return view('users.index', compact('users'));

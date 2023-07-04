@@ -150,7 +150,7 @@ $alltotal = $totalallowance + $total;
                 <select class="form-select" name="user_id" id="user_id">
                     <option value="0">---</option>
 
-                    @foreach(auth()->user()->tenant->users()->whereIsActive(true)->whereIsClientvisible(true)->get() as $user)
+                    @foreach(auth()->user()->whereIsActive(true)->whereIsClientvisible(true)->get() as $user)
                         <option
                             value="{{$user->id}}"{{ isset($expenseRequest) && $expenseRequest->user_id == $user->id ? ' selected' : '' }}>{{ $user->fullname }}</option>
                     @endforeach

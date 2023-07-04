@@ -34,6 +34,7 @@
                             <th>Info</th>
                             <th>{{__('law.amount')}}</th>
                             <th>Status</th>
+                            <th>Begunstigde</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,6 +46,8 @@
                                 <td>{{ $expenseRequest->internal_information }}</td>
                                 <td>{!! showEUR2($expenseRequest->total_cost, $expenseRequest->currency) !!}</td>
                                 <td>{!! getStatus($expenseRequest->status) !!}</td>
+                                <td>{{ $expenseRequest->user->name }}</td>
+
                             </tr>
                         @endforeach
                         </tbody>

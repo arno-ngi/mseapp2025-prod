@@ -320,7 +320,11 @@
                         <a href="{{route('expenserequests.makeclosed', $expenseRequest)}}"
                            class="btn btn-soft-success waves-effect waves-light">{{__('law.status_closed')}}</a>
                     @endif
-                </div>
+                    <a href="{{route('expenserequests.makepending', $expenseRequest)}}"
+                       class="btn btn-soft-info waves-effect waves-light ">{{__('law.status_pending')}}</a>
+                    <a href="{{route('expenserequests.makerejected', $expenseRequest)}}"
+                       class="btn btn-soft-danger waves-effect waves-light ">{{__('law.status_rejected')}}</a>
+                       </div>
             </div>
 
         </div>

@@ -34,6 +34,7 @@
                             <th>Info</th>
                             <th>{{__('law.amount')}}</th>
                             <th>{{__('law.final_amount')}}</th>
+                            <th>{{__('law.category')}}</th>
                             <th>Status</th>
                         </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <td>{{ $invoiceRequest->internal_information }}</td>
                                 <td>{!! showEUR2($invoiceRequest->total_invoice_amount, $invoiceRequest->currency) !!}</td>
                                 <td>{!! showEUR2($invoiceRequest->final_amount, $invoiceRequest->currency) !!}</td>
+                                <td>{{  $invoiceRequest->category->name }}</td>
                                 <td>{!! getStatus($invoiceRequest->status) !!}</td>
 
                             </tr>

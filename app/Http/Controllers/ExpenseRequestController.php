@@ -14,7 +14,7 @@ class ExpenseRequestController extends Controller
 {
     public function index()
     {
-        $expenseRequests = auth()->user()->tenant->expenserequests()->get();
+        $expenseRequests = auth()->user()->expenserequests()->get();
 
         return view('expenserequests.index', compact('expenseRequests'));
     }
@@ -40,6 +40,30 @@ class ExpenseRequestController extends Controller
         activity()
             ->performedOn($expenseRequest)
             ->log('Status changed - CLOSED');
+
+        return back();
+    }
+
+    public function makepending(ExpenseRequest $expenseRequest)
+    {
+        $expenseRequest->status = 2;
+        $expenseRequest->save();
+
+        activity()
+            ->performedOn($expenseRequest)
+            ->log('Status changed - PENDING');
+
+        return back();
+    }
+
+    public function makerejected(ExpenseRequest $expenseRequest)
+    {
+        $expenseRequest->status = 4;
+        $expenseRequest->save();
+
+        activity()
+            ->performedOn($expenseRequest)
+            ->log('Status changed - REJECTED');
 
         return back();
     }
@@ -87,6 +111,9 @@ class ExpenseRequestController extends Controller
         $validated = $request->validate([
             'supplier' => 'required',
             'total_cost' => 'required',
+            'iban' => 'required',
+            'bankstatement' => 'required',
+
         ]);
 
         $expenseRequest = new ExpenseRequest();

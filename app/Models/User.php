@@ -74,7 +74,12 @@ class User extends Authenticatable
 
     public function tenant()
     {
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsToMany(Tenant::class, 'tenants_users', 'users_id', 'tenants_id' );
+    }
+
+    public function tenants()
+    {
+        return $this->belongsToMany(Tenant::class, 'tenants_users', 'users_id', 'tenants_id' );
     }
 
     public function identity()
@@ -124,6 +129,21 @@ class User extends Authenticatable
         $this->generateMFA();
 
         return true;
+    }
+
+    public function invoicerequests()
+    {
+        return $this->hasMany(InvoiceRequest::class);
+    }
+
+    public function expenserequests()
+    {
+        return $this->hasMany(ExpenseRequest::class);
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
     }
 
     public function generateMFA()
