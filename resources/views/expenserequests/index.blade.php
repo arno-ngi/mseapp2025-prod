@@ -33,6 +33,7 @@
                             <th>{{__('law.requested')}}</th>
                             <th>Info</th>
                             <th>{{__('law.amount')}}</th>
+                            <th>{{__('law.category')}}</th>
                             <th>Status</th>
                             <th>Begunstigde</th>
                         </tr>
@@ -45,6 +46,7 @@
                                 <td>{{ $expenseRequest->created_at->format('Y-m-d') }}</td>
                                 <td>{{ $expenseRequest->internal_information }}</td>
                                 <td>{!! showEUR2($expenseRequest->total_cost, $expenseRequest->currency) !!}</td>
+                                <td>{{  $expenseRequest->category->name }}</td>
                                 <td>{!! getStatus($expenseRequest->status) !!}</td>
                                 <td>{{ $expenseRequest->user->name }}</td>
 
