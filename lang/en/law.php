@@ -11,6 +11,7 @@ return [
   'burgerlijke_staat' => 'Marital status',
   'pants' => 'pair of trousers',
   'shoesize' => 'shoe size',
+    'beneficiary' => 'Beneficiary',
   'clothing_size' => 'Clothing size',
   'date_behave' => 'Date Good behavior and morals',
   'hospital_previous' => 'Hospitalization insurance previous employer',

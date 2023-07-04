@@ -156,7 +156,7 @@ return [
     'close' => 'Afgesloten',
     'close_task' => 'Taak sluiten',
     'status_rejected' => 'Status aanpassen naar GEWEIGERD',
-
+    'beneficiary' => 'Begunstigde',
     'closed' => 'Gesloten',
     'clothing' => 'Kledij',
     'clubmember_since' => 'Clublid sinds',

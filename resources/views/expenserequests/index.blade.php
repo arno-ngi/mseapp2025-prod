@@ -35,7 +35,7 @@
                             <th>{{__('law.amount')}}</th>
                             <th>{{__('law.category')}}</th>
                             <th>Status</th>
-                            <th>Begunstigde</th>
+                            <th>{{__('law.begunstige')}}</th>
                         </tr>
                         </thead>
                         <tbody>
