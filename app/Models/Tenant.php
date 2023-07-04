@@ -25,9 +25,9 @@ class Tenant extends Model
             ->preventOverwrite();
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class, 'tenants_users','tenants_id', 'users_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function categories()

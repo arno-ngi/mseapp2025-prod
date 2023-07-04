@@ -74,13 +74,10 @@ class User extends Authenticatable
 
     public function tenant()
     {
-        return $this->belongsToMany(Tenant::class, 'tenants_users', 'users_id', 'tenants_id' );
+        return $this->belongsTo(Tenant::class, 'tenant_id' );
     }
 
-    public function tenants()
-    {
-        return $this->belongsToMany(Tenant::class, 'tenants_users', 'users_id', 'tenants_id' );
-    }
+
 
     public function identity()
     {
