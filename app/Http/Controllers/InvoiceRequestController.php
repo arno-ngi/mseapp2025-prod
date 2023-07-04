@@ -89,9 +89,6 @@ class InvoiceRequestController extends Controller
 
         $invoiceRequest = new InvoiceRequest();
         $invoiceRequest->tenant_id = auth()->user()->tenant_id;
-        $invoiceRequest->user_id = auth()->user()->tenant_id;
-
-
         $invoiceRequest->category_id = $request->category_id;
         $invoiceRequest->requester_id = auth()->user()->id;
         $invoiceRequest->invoice_date = $request->invoice_date;
