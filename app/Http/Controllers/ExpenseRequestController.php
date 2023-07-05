@@ -14,7 +14,7 @@ class ExpenseRequestController extends Controller
 {
     public function index()
     {
-        $expenseRequests = auth()->user()->expenserequests()->get();
+        $expenseRequests = auth()->user()->tenant->expenserequests()->get();
 
         return view('expenserequests.index', compact('expenseRequests'));
     }
