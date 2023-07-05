@@ -99,7 +99,8 @@ class InvoiceRequestController extends Controller
         $invoiceRequest->safety_assesment = $request->safety_assesment;
         $invoiceRequest->total_invoice_amount = fixDouble($request->total_invoice_amount);
         $invoiceRequest->currency = $request->currency;
-        $invoiceRequest->save();
+        $invoiceRequest->user_id = $invoiceRequest->requester_id;
+            $invoiceRequest->save();
 
         foreach ($invoiceRequest->category->categoryusers as $user) {
             $invoiceRequest->approvers()->create(['user_id' => $user->user_id]);
