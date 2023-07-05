@@ -13,7 +13,7 @@ class InvoiceRequestController extends Controller
 {
     public function index()
     {
-        $invoiceRequests = auth()->user()->invoicerequests()->get();
+        $invoiceRequests = auth()->user()->tenant->invoicerequests()->get();
 
         return view('invoicerequests.index', compact('invoiceRequests'));
     }
