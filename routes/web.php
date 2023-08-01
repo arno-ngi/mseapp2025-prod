@@ -12,6 +12,7 @@ Route::get('/mfa/resent', [\App\Http\Controllers\Auth\MultiFactorController::cla
 Route::post('/mfa', [\App\Http\Controllers\Auth\MultiFactorController::class, 'store'])->name('mfa.store');
 
 Route::get('/eid', [\App\Http\Controllers\EidController::class, 'index'])->name('eid.index');
+Route::get('/eid/manualcheckout/{VisitorCheckIn}', [\App\Http\Controllers\EidController::class, 'manualcheckout'])->name('eid.manualcheckout');
 Route::get('/eid/checkout/{VisitorCheckIn}', [\App\Http\Controllers\EidController::class, 'checkout'])->name('eid.checkout');
 Route::get('/eid/create', [\App\Http\Controllers\EidController::class, 'create'])->name('eid.create');
 Route::get('/eid/show', [\App\Http\Controllers\EidController::class, 'show'])->name('eid.show');

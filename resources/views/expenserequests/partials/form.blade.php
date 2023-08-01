@@ -40,7 +40,7 @@
                         @endforeach
                     @else
                         @foreach(getCategoryArray() as $key => $value)
-                            <option value="{{$key}}">{{$value}}</option>
+                            <option value="{{$key}}"{{$expenseRequest->category_id == $key ? ' selected': ''}}>{{$value}}</option>
                         @endforeach
 
                     @endif
@@ -92,6 +92,7 @@
             @if(isset($ir))
                 @php
                     $totalallowance = $ir->allowances()->sum('allowance_total');
+                    $alltotal = 0;
                 @endphp
                 @php
                     $total = 0;

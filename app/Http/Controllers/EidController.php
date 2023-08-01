@@ -25,6 +25,16 @@ class EidController extends Controller
 
     }
 
+    public function manualcheckout(VisitorCheckIn $VisitorCheckIn)
+    {
+
+        $VisitorCheckIn->checkout = Carbon::now();
+        $VisitorCheckIn->save();
+
+        return redirect(route('eid.index'));
+
+    }
+
     public function create()
     {
         $VisitorCheckIn = null;
