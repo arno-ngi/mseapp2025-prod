@@ -1,3 +1,12 @@
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
 <h1>Expense Request - {{ $expenseRequest->uniqueid }} - {!! getStatus($expenseRequest->status) !!}</h1>
 <hr/>
 <table>
@@ -113,3 +122,4 @@
     </tr>
     </tbody>
 </table>
+</html>

@@ -1,3 +1,12 @@
+<html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
 <h1>RFA - {{ $invoiceRequest->uniqueid }} - {!! getStatus($invoiceRequest->status) !!}</h1>
 <hr/>
 <table>
@@ -135,3 +144,4 @@
     </tr>
     </tbody>
 </table>
+</html>
