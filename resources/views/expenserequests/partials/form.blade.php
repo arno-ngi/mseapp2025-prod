@@ -40,7 +40,11 @@
                         @endforeach
                     @else
                         @foreach(getCategoryArray() as $key => $value)
+                            @if(isset($expenseRequest))
                             <option value="{{$key}}"{{$expenseRequest->category_id == $key ? ' selected': ''}}>{{$value}}</option>
+                            @else
+                                <option value="{{$key}}"{>{{$value}}</option>
+                                @endif
                         @endforeach
 
                     @endif
