@@ -155,7 +155,6 @@
 
             <div id="sidebar-menu" class="mm-active">
                 <ul class="metismenu list-unstyled" id="side-menu">
-                    <li class="menu-title">{{!is_null(auth()->user()->tenant_id) ? auth()->user()->tenant_id : 'Menu'}}</li>
 
                     <li>
                         <a href="/" class="{{ Request::is('/') ? 'active' : '' }}">

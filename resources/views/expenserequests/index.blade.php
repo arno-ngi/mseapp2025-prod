@@ -48,7 +48,7 @@
                                 <td>{!! showEUR2($expenseRequest->total_cost, $expenseRequest->currency) !!}</td>
                                 <td>{{  $expenseRequest->category->name }}</td>
                                 <td>{!! getStatus($expenseRequest->status) !!}</td>
-                                <td>{{ $expenseRequest->user->name }}</td>
+                                <td>{{ !is_null($expenseRequest->user_id) ? $expenseRequest->user->fullname : "" }}</td>
 
                             </tr>
                         @endforeach

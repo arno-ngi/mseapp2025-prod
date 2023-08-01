@@ -524,15 +524,31 @@
                     <a href="{{route('rfa.pdf', $invoiceRequest)}}"
                        class="btn btn-soft-secondary waves-effect waves-light ">PDF</a>
                     @if($invoiceRequest->status !== 5)
-                        <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
-                           class="btn btn-soft-success waves-effect waves-light">{{__('law.closed')}}</a>
+                        <a href="{{route('rfa.makepending', $invoiceRequest)}}"
+                           class="btn btn-soft-info waves-effect waves-light ">{{__('law.status_pending')}}</a>
+
+                        <a href="{{route('rfa.makerejected', $invoiceRequest)}}"
+                           class="btn btn-soft-alert waves-effect waves-light ">{{__('law.status_rejected')}}</a>
+                    @else
+                        @if(auth()->user()->is_superadmin || auth()->user()->hasAnyPermission(['module.rfa']))
+                            <a href="{{route('rfa.makepending', $invoiceRequest)}}"
+                               class="btn btn-soft-info waves-effect waves-light ">Re-open</a>
+                        @endif
+                    @endif
+                    <br/>
+                    <br/>
+                    @if($invoiceRequest->status !== 5)
+                        @if(is_null($invoiceRequest->final_amount))
+                            <a href="#"
+                               class="btn btn-soft-success waves-effect waves-light">{{__('law.status_closed')}} - disabled -
+                                No invoice amount</a>
+                        @else
+                            <a href="{{route('rfa.makeclosed', $invoiceRequest)}}"
+                               class="btn btn-soft-success waves-effect waves-light">{{__('law.status_closed')}}</a>
+                        @endif
                     @endif
 
-                    <a href="{{route('rfa.makepending', $invoiceRequest)}}"
-                       class="btn btn-soft-info waves-effect waves-light ">{{__('law.status_pending')}}</a>
 
-                    <a href="{{route('rfa.makerejected', $invoiceRequest)}}"
-                       class="btn btn-soft-alert waves-effect waves-light ">{{__('law.status_rejected')}}</a>
                 </div>
             </div>
 
