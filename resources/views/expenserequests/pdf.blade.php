@@ -45,7 +45,10 @@
         <td>User</td>
         <td> {{\App\Models\User::find($expenseRequest->user_id)->fullname}}</td>
     </tr>
-
+    <tr>
+        <td>IBAN</td>
+        <td> {{$expenseRequest->iban}}</td>
+    </tr>
 </table>
 
 <h5>Approvers</h5>
