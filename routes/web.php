@@ -19,6 +19,10 @@ Route::get('/eid/show', [\App\Http\Controllers\EidController::class, 'show'])->n
 Route::post('/eid/show', [\App\Http\Controllers\EidController::class, 'show']);
 Route::post('/eid', [\App\Http\Controllers\EidController::class, 'store'])->name('eid.store');
 
+Route::get('/clearcache', function () {
+   Artisan::call('cache:clear');
+
+} );
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
     Route::get('/myprofile', [\App\Http\Controllers\DashboardController::class, 'myprofile'])->name('myprofile');
