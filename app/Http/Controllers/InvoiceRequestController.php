@@ -236,4 +236,23 @@ class InvoiceRequestController extends Controller
 
         return $pdf->download('invoicerequest.pdf');
     }
+
+
+    public function delete(InvoiceRequest $invoiceRequest, Request $request)
+    {
+
+        $invoiceRequest->delete();
+
+        if(isset($request->type)) {
+            if($request->type === 'ir')
+            {
+                return redirect(url('/rfa/'.$request->modelid.'?tab=requestitems'));
+            }
+            if($request->type === 'er')
+            {
+                return redirect(url('/invoicerequest/'.$request->modelid.'?tab=requestitems'));
+            }
+        }
+        return back();
+    }
 }

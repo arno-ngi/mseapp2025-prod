@@ -198,8 +198,21 @@
                                                             href="{{url('storage/'.$extrafile->filepath)}}"
                                                             target="_blank">{{$extrafile->filename}}</a>
                                                     </td>
+                                                    <td>
+                                                        {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
+                                                        {{ Form::hidden('fileid', $extrafile->id) }}
+                                                        {{ Form::hidden('type', 'ir') }}
+                                                        {{ Form::hidden('modelid', $invoiceRequest->uuid) }}
+                                                        <button
+                                                            type="submit"
+                                                            class="btn btn-outline-danger btn-xs">{{ __('ngi.delete') }}</button>
+                                                        {!! Form::close() !!}
+
+                                                    </td>
                                                 </tr>
+
                                             @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -209,6 +222,7 @@
                                     <div class="fallback">
                                         <input name="rfafile" type="file" multiple="multiple">
                                     </div>
+
                                     <div class="dz-message needsclick">
                                         <div class="mb-3">
                                             <i class="display-4 text-muted bx bx-cloud-upload"></i>
