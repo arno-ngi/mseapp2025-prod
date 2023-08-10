@@ -20,6 +20,9 @@ return [
   'visitors' => 'Visitors',
   'tasks' => 'Tasks',
     'status_pending' => 'Change status to PENDING',
+    'invoicerequest' => 'Invoice Request',
+    'expenserequest' => 'Epenserequest',
+
     'status_rejected' => 'Change status to REJECTED',
     'final_amount' => 'Ultimately total',
   'days_entertainment' => 'Days of entertainment (leave blank for none)',

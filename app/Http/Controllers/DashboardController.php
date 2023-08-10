@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Approver;
+use App\Models\InvoiceRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Spatie\Activitylog\Models\Activity;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DashboardController extends Controller
 {
@@ -14,7 +20,12 @@ class DashboardController extends Controller
         //Auth::login(User::find(9));
         $approvers = Approver::whereUserId(auth()->user()->id)->whereIn('status', [1,2])->get();
 
-        return view('index', compact('approvers'));
+        //$invoiceRequests = InvoiceRequest::whereUserId(auth()->user('approvers_id')->tenant->invoicerequests()->get());
+        $invoiceRequests = auth()->user()->tenant->invoicerequests()->whereIn('status', [1,2])->get();
+        $expenseRequests = auth()->user()->tenant->expenserequests()->whereIn('status', [1,2])->get();
+
+
+        return view('index', compact('approvers', 'invoiceRequests','expenseRequests'));
     }
 
     public function myprofile()
@@ -24,3 +35,5 @@ class DashboardController extends Controller
         return view('myprofile.index', compact('user'));
     }
 }
+
+

@@ -19,6 +19,8 @@ return [
     'profile' => 'Profiel',
     'visitors' => 'Bezoekers',
     'status_pending' => 'Status aanpassen naar IN AANVRAAG',
+    'invoicerequest' => 'Factuur aanvraag',
+    'expenserequest' => 'Kosten aanvraag',
 
     'tasks' => 'Taken',
     'final_amount' => 'Uiteindelijk totaal',
