@@ -60,9 +60,9 @@
                                         <select class="form-control" data-trigger
                                                 name="approvers[]" id="approvers"
                                                 placeholder="Select approvers" multiple>
-                                            @foreach ($users as $user)
+                                            @foreach ($allusers as $alluser)
                                                 <option
-                                                    value="{{$user->id}}"{{$category->categoryusers->contains('user_id', $user->id) ? ' selected' : ''}}>{{$user->fullname}}</option>
+                                                    value="{{$alluser->id}}"{{$category->categoryusers->contains('user_id', $alluser->id) ? ' selected' : ''}}>{{$alluser->fullname}}</option>
                                             @endforeach
                                         </select>
                                     </div>

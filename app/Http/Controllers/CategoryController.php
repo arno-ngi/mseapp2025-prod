@@ -20,9 +20,10 @@ class CategoryController extends Controller
     {
         $category->load('categoryusers');
 
-        $users = User::whereIsActive(true)->whereIsClientvisible(true)->whereTenantId(auth()->user()->tenant_id)->get();
+       $users = User::whereIsActive(true)->whereIsClientvisible(true)->whereTenantId(auth()->user()->tenant_id)->get();
+        $allusers = User::whereIsActive(true)->whereIsClientvisible(true)->get();
 
-        return view('categories.edit', compact('category', 'users'));
+        return view('categories.edit', compact('category', 'allusers', 'users'));
     }
 
     public function create()
