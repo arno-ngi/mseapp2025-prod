@@ -141,7 +141,7 @@
                                                 <tr>
                                                     <td>
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
-                                                            href="{{url('storage/'.$extrafile->filepath)}}">{{$extrafile->filename}}</a>
+                                                            href="{{url('storage/'.$extrafile->filepath)}}" target="_new">{{$extrafile->filename}}</a>
                                                     </td>
                                                     <td>
                                                         {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
@@ -196,7 +196,7 @@
                                                     <td>
                                                         <i class="{{ getExtensionIcon($extrafile->filename) }}"></i> <a
                                                             href="{{url('storage/'.$extrafile->filepath)}}"
-                                                            target="_blank">{{$extrafile->filename}}</a>
+                                                            target="_new">{{$extrafile->filename}}</a>
                                                     </td>
                                                     <td>
                                                         {!! Form::open(['url' => route('files.destroy'), 'method' => 'POST', 'class' => 'deletefile']) !!}
