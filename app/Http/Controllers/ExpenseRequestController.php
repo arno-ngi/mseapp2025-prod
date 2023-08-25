@@ -164,7 +164,7 @@ class ExpenseRequestController extends Controller
         $expenseRequest->tenant_id = auth()->user()->tenant_id;
         $expenseRequest->category_id = $request->category_id;
         $expenseRequest->invoice_request_id = $request->invoice_request_id;
-        $expenseRequest->requester_id = auth()->user()->id;
+        //$expenseRequest->requester_id = auth()->user()->id; (REQUESTER BLEEF UPDATEN - UITGESCHAKELD BIJ UPDATE)
         $expenseRequest->internal_information = $request->internal_information;
         $expenseRequest->payment_type = $request->payment_type;
 
