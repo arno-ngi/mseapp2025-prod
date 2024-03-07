@@ -43,7 +43,7 @@
 
     <tr>
         <td>User</td>
-        <td> {{\App\Models\User::find($expenseRequest->user_id)->fullname}}</td>
+        <td> {{!is_null($expenseRequest->user_id) ? \App\Models\User::find($expenseRequest->user_id)->fullname : '-'}}</td>
     </tr>
     <tr>
         <td>IBAN</td>
