@@ -93,27 +93,34 @@ class EidController extends Controller
         $VisitorCheckIn->birthdate = $request->birthdate;
         $VisitorCheckIn->birthplace = $request->birthplace;
         $VisitorCheckIn->photoblob = $request->photoblob;
+
+        // ADD EID EXPIRATION DATE HANDLING
+        if($request->has('eid_expires') && $request->eid_expires !== '') {
+            $VisitorCheckIn->eid_expires = Carbon::parse($request->eid_expires);
+        }
+
         $VisitorCheckIn->country_iso = 'BE';
         $VisitorCheckIn->address_street = $request->address_street;
         $VisitorCheckIn->address_number = $request->address_number;
         $VisitorCheckIn->address_zip = $request->address_zip;
         $VisitorCheckIn->address_city = $request->address_city;
-        if($request->has('contact_phone') && $request->contact_phone !== '')
-        {
+
+        if($request->has('contact_phone') && $request->contact_phone !== '') {
             $VisitorCheckIn->contact_phone = $request->contact_phone;
         }
-        if($request->has('contact_email') && $request->contact_email !== '')
-        {
+
+        if($request->has('contact_email') && $request->contact_email !== '') {
             $VisitorCheckIn->contact_email = $request->contact_email;
         }
-        if($request->has('licenseplate') && $request->licenseplate !== '')
-        {
+
+        if($request->has('licenseplate') && $request->licenseplate !== '') {
             $VisitorCheckIn->licenseplate = $request->licenseplate;
         }
-        if($request->has('reason') && $request->reason !== '')
-        {
+
+        if($request->has('reason') && $request->reason !== '') {
             $VisitorCheckIn->reason = $request->reason;
         }
+
         $VisitorCheckIn->save();
 
         return redirect(route('eid.index'));

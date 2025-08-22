@@ -30,7 +30,15 @@
                 <input type="text" class="form-control" id="lastname" name="lastname"
                        value="" required="">
             </div>
-        </div><div class="row">
+        </div>
+    <!-- Add the eID expiration date field -->
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="eid_expires">{{__('eid.expiration_date')}}</label>
+            <input type="date" class="form-control" id="eid_expires" name="eid_expires">
+        </div>
+    </div>
+    <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="contact_phone">{{__('ngi.phone')}}</label>
                 <input type="text" class="form-control" id="contact_phone" name="contact_phone" placeholder="">

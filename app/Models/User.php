@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 use Laravel\Sanctum\HasApiTokens;
+use phpseclib3\System\SSH\Agent\Identity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Activitylog\LogOptions;

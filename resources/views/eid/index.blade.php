@@ -39,21 +39,34 @@
                                 <th>Checkin</th>
                                 <th>{{__('law.licence_plate')}}</th>
                                 <th>{{__('law.reason')}}</th>
+                                <th>eID Expires</th>
                                 <th>De Checkout</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($VisitorCheckIns->sortByDesc('checking') as $VisitorCheckIn)
-                                <tr>
+                            @foreach($VisitorCheckIns->sortByDesc('checkin') as $VisitorCheckIn)
+                                <tr class="{{ $VisitorCheckIn->isEidExpired() ? 'table-danger' : '' }}">
                                     <td>{{ $VisitorCheckIn->firstname }} {{ $VisitorCheckIn->lastname }}</td>
                                     <td>{{ $VisitorCheckIn->checkin->format('Y-m-d H:i')}}</td>
                                     <td>{{ $VisitorCheckIn->licenseplate }}</td>
                                     <td>{{ $VisitorCheckIn->reason }}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="{{route('eid.manualcheckout', $VisitorCheckIn)}}" onclick="return confirm('Manual Checkout, are you sure?')" role="button">Manuele check-out</a></td>
-
+                                    <td>
+                                        @if($VisitorCheckIn->eid_expires)
+                                            {{ $VisitorCheckIn->eid_expires->format('Y-m-d') }}
+                                            @if($VisitorCheckIn->isEidExpired())
+                                                <span class="badge badge-danger">EXPIRED</span>
+                                            @endif
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href="{{route('eid.manualcheckout', $VisitorCheckIn)}}" onclick="return confirm('Manual Checkout, are you sure?')" role="button">
+                                            Manuele check-out
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
-
                             </tbody>
                         </table>
                     </div>
