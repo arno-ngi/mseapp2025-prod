@@ -46,7 +46,7 @@
         <input type="hidden" name="photoblob" value="{{$attributeseid['eid/photo']}}">
         <input type="hidden" name="gender" value="{{$attributeseid['person/gender']}}">
         <!-- Add eID expiration date (assuming your eID reader provides this) -->
-        <input type="hidden" name="eid_expires" value="{{ $attributeseid['eid/expiry_date'] ?? '' }}">
+        <input type="hidden" name="eid_expires" value="{{ $attributeseid['eid/card-validity/end'] ?? '' }}">
 
     <div class="row">
         <div class="col-md-6 mb-3">
