@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Services\SequenceService;
 
 class InvoiceRequest extends Model
 {
@@ -20,22 +21,33 @@ class InvoiceRequest extends Model
         self::creating(function ($model) {
             $model->uuid = Str::uuid()->toString();
 
-            $length = 3;
-            $char = 0;
-            $type = 'd';
-            $format = "%{$char}{$length}{$type}"; // or "$010d";
+            if (is_null($model->uniqueid)) {
+                $length = 3;
+                $char = 0;
+                $type = 'd';
+                $format = "%{$char}{$length}{$type}";
 
+                $date = $model->invoice_date ? Carbon::parse($model->invoice_date) : Carbon::now();
+                $year = $date->format('y');
+                $fullYear = $date->format('Y');
 
-            $slug = 'RFA/' . $model->tenant->shortname . '/';
-            $slug .= !is_null($model->category_id) ? $model->category->shortname : 'IR';
-            $slug .= '/' . Carbon::now()->format('y');
+                $categoryShortname = !is_null($model->category_id) ? $model->category->shortname : 'IR';
 
-            $count = $model->category->invoicerequests()->where('uniqueid', '<>', null)->count();
-            $slug .= '/';
-            $sequence = $count + 1;
-            $slug .= sprintf($format, $sequence);;
+                $slug = 'RFA/' . $model->tenant->shortname . '/';
+                $slug .= $categoryShortname;
+                $slug .= '/' . $year;
 
-            $model->uniqueid = $slug;
+                $sequenceService = app(SequenceService::class);
+                $sequence = $sequenceService->getNextValue(
+                    $model->tenant_id,
+                    'RFA',
+                    $model->category_id,
+                    (int)$fullYear
+                );
+
+                $slug .= '/' . sprintf($format, $sequence);
+                $model->uniqueid = $slug;
+            }
         });
     }
 
