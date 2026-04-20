@@ -87,26 +87,28 @@ class InvoiceRequestController extends Controller
             'total_invoice_amount' => 'required',
         ]);
 
-        $invoiceRequest = new InvoiceRequest();
-        $invoiceRequest->tenant_id = auth()->user()->tenant_id;
-        $invoiceRequest->category_id = $request->category_id;
-        $invoiceRequest->requester_id = auth()->user()->id;
-        $invoiceRequest->invoice_date = $request->invoice_date;
-        $invoiceRequest->supplier = $request->supplier;
-        $invoiceRequest->internal_information = $request->internal_information;
-        $invoiceRequest->extra_info = $request->extra_info;
-        $invoiceRequest->environment_assesment = $request->environment_assesment;
-        $invoiceRequest->safety_assesment = $request->safety_assesment;
-        $invoiceRequest->total_invoice_amount = fixDouble($request->total_invoice_amount);
-        $invoiceRequest->currency = $request->currency;
-        $invoiceRequest->user_id = $invoiceRequest->requester_id;
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+            $invoiceRequest = new InvoiceRequest();
+            $invoiceRequest->tenant_id = auth()->user()->tenant_id;
+            $invoiceRequest->category_id = $request->category_id;
+            $invoiceRequest->requester_id = auth()->user()->id;
+            $invoiceRequest->invoice_date = $request->invoice_date;
+            $invoiceRequest->supplier = $request->supplier;
+            $invoiceRequest->internal_information = $request->internal_information;
+            $invoiceRequest->extra_info = $request->extra_info;
+            $invoiceRequest->environment_assesment = $request->environment_assesment;
+            $invoiceRequest->safety_assesment = $request->safety_assesment;
+            $invoiceRequest->total_invoice_amount = fixDouble($request->total_invoice_amount);
+            $invoiceRequest->currency = $request->currency;
+            $invoiceRequest->user_id = $invoiceRequest->requester_id;
             $invoiceRequest->save();
 
-        foreach ($invoiceRequest->category->categoryusers as $user) {
-            $invoiceRequest->approvers()->create(['user_id' => $user->user_id]);
-        }
+            foreach ($invoiceRequest->category->categoryusers as $user) {
+                $invoiceRequest->approvers()->create(['user_id' => $user->user_id]);
+            }
 
-        return to_route('rfa.edit', $invoiceRequest);
+            return to_route('rfa.edit', $invoiceRequest);
+        });
     }
 
     public function update(InvoiceRequest $invoiceRequest, Request $request)

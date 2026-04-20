@@ -116,42 +116,44 @@ class ExpenseRequestController extends Controller
 
         ]);
 
-        $expenseRequest = new ExpenseRequest();
-        $expenseRequest->tenant_id = auth()->user()->tenant_id;
-        $expenseRequest->category_id = $request->category_id;
-        $expenseRequest->invoice_request_id = $request->invoice_request_id;
-        $expenseRequest->requester_id = auth()->user()->id;
-        $expenseRequest->expense_date = $request->expense_date;
-        $expenseRequest->supplier = $request->supplier;
-        $expenseRequest->internal_information = $request->internal_information;
-        $expenseRequest->iban = $request->iban;
-        $expenseRequest->bankstatement = $request->bankstatement;
-        $expenseRequest->payment_type = $request->payment_type;
-        $expenseRequest->total_cost = fixDouble($request->total_cost);
-        $expenseRequest->currency = $request->currency;
-        if ($request->user_id != '0') {
-            $expenseRequest->user_id = $request->user_id;
-        } else {
-            $expenseRequest->user_id = null;
-        }
-        $expenseRequest->save();
-
-        foreach ($expenseRequest->category->categoryusers as $user) {
-            $expenseRequest->approvers()->create(['user_id' => $user->user_id]);
-        }
-
-        if (!is_null($request->invoice_request_id)) {
-            $invoiceRequest = InvoiceRequest::find($request->invoice_request_id);
-            foreach ($invoiceRequest->requestitems as $requestitem) {
-                $expenseRequest->requestitems()->create(['quantity' => $requestitem->quantity, 'description' => $requestitem->description, 'price' => $requestitem->price]);
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($request) {
+            $expenseRequest = new ExpenseRequest();
+            $expenseRequest->tenant_id = auth()->user()->tenant_id;
+            $expenseRequest->category_id = $request->category_id;
+            $expenseRequest->invoice_request_id = $request->invoice_request_id;
+            $expenseRequest->requester_id = auth()->user()->id;
+            $expenseRequest->expense_date = $request->expense_date;
+            $expenseRequest->supplier = $request->supplier;
+            $expenseRequest->internal_information = $request->internal_information;
+            $expenseRequest->iban = $request->iban;
+            $expenseRequest->bankstatement = $request->bankstatement;
+            $expenseRequest->payment_type = $request->payment_type;
+            $expenseRequest->total_cost = fixDouble($request->total_cost);
+            $expenseRequest->currency = $request->currency;
+            if ($request->user_id != '0') {
+                $expenseRequest->user_id = $request->user_id;
+            } else {
+                $expenseRequest->user_id = null;
             }
-            foreach($invoiceRequest->allowances as $dailyAllowanceItem) {
+            $expenseRequest->save();
 
-                     $expenseRequest->requestitems()->create(['quantity' => 1, 'description' => 'Allowance', 'price' => $dailyAllowanceItem->allowance_total]);
+            foreach ($expenseRequest->category->categoryusers as $user) {
+                $expenseRequest->approvers()->create(['user_id' => $user->user_id]);
             }
-        }
 
-        return redirect(route('expenserequest.edit', $expenseRequest));
+            if (!is_null($request->invoice_request_id)) {
+                $invoiceRequest = InvoiceRequest::find($request->invoice_request_id);
+                foreach ($invoiceRequest->requestitems as $requestitem) {
+                    $expenseRequest->requestitems()->create(['quantity' => $requestitem->quantity, 'description' => $requestitem->description, 'price' => $requestitem->price]);
+                }
+                foreach ($invoiceRequest->allowances as $dailyAllowanceItem) {
+
+                    $expenseRequest->requestitems()->create(['quantity' => 1, 'description' => 'Allowance', 'price' => $dailyAllowanceItem->allowance_total]);
+                }
+            }
+
+            return redirect(route('expenserequest.edit', $expenseRequest));
+        });
     }
 
     public function update(ExpenseRequest $expenseRequest, Request $request)
