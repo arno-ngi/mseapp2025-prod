@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ExpenseRequest;
 use App\Models\User;
 use App\Notifications\UserProfileChangeNotification;
 use Illuminate\Http\Request;
