@@ -1,0 +1,62 @@
+<?php
+
+namespace Vendor\RequestManagement\Notifications;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+
+class DailyNotification extends Notification
+{
+    use Queueable;
+
+    /**
+     * Create a new notification instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function via($notifiable)
+    {
+        return ['mail'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+            ->subject('MSE APP - Action needed')
+            ->line('You have items waiting to be approved')
+            ->line('Please login to the MSE app and take action')
+            ->action('MSE APP', config('app.url'));
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            //
+        ];
+    }
+}
