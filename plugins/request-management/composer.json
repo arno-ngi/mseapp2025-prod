@@ -1,0 +1,23 @@
+{
+    "name": "vendor/request-management",
+    "description": "Filament 5 plugin for RFA and Expense Requests",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vendor\\RequestManagement\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vendor\\RequestManagement\\RequestManagementServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "filament/filament": "^3.0",
+        "spatie/laravel-package-tools": "^1.15"
+    }
+}
