@@ -3,6 +3,11 @@
 /public/storage
 /storage/*.key
 /vendor
+/migration-target/vendor
+/migration-target/public/storage
+/migration-target/public/js/filament
+/migration-target/public/css/filament
+/migration-target/public/fonts/filament
 .env
 .env.backup
 .phpunit.result.cache
